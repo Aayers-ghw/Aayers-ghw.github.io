@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | Aayers-ghw&#39;s bolg</title>
+  <title>Linux 学习笔记（一） | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aayers-ghw&#39;s bolg">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="ls [选项] [文件或目录] 选项：   -a     显示所有文件，包括隐藏文件 -l     详细信息 -d     查看目录属性 -h     人性化显示文件大小 -i     显示inode     _rw_r__r__   文件类型(_文件 d目录 l软链接文件) rw_ u     所有者 r__ g     所属组 r__ o     其他人     建立目录：mkdir">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 学习笔记（一）">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/Linux-note-1/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
+<meta property="og:description" content="ls [选项] [文件或目录] 选项：   -a     显示所有文件，包括隐藏文件 -l     详细信息 -d     查看目录属性 -h     人性化显示文件大小 -i     显示inode     _rw_r__r__   文件类型(_文件 d目录 l软链接文件) rw_ u     所有者 r__ g     所属组 r__ o     其他人     建立目录：mkdir">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-04T04:43:11.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aayers-ghw&#39;s bolg">
+<meta name="twitter:title" content="Linux 学习笔记（一）">
+<meta name="twitter:description" content="ls [选项] [文件或目录] 选项：   -a     显示所有文件，包括隐藏文件 -l     详细信息 -d     查看目录属性 -h     人性化显示文件大小 -i     显示inode     _rw_r__r__   文件类型(_文件 d目录 l软链接文件) rw_ u     所有者 r__ g     所属组 r__ o     其他人     建立目录：mkdir">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -150,36 +155,210 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux-note-1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/04/Linux-note-1/" class="archive-article-date">
-  	<time datetime="2018-08-04T01:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/04/Linux-note-1/">Linux 学习笔记（一）</a>
+    <h1 class="article-title" itemprop="name">
+      Linux 学习笔记（一）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/08/04/Linux-note-1/" class="archive-article-date">
+  	<time datetime="2018-08-04T01:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><font size="4.5"><strong> ls [选项] [文件或目录]</strong></font></p>
+<p><font color="gray" size="4">选项：</font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">-a     显示所有文件，包括隐藏文件</font></li>
+<li><font color="gray" size="4">-l     详细信息</font></li>
+<li><font color="gray" size="4">-d     查看目录属性</font></li>
+<li><font color="gray" size="4">-h     人性化显示文件大小</font></li>
+<li><font color="gray" size="4">-i     显示inode</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="5"><strong>_rw_r__r__</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">文件类型(_文件 d目录 l软链接文件)</font></li>
+<li><font color="gray" size="4">rw_ u     所有者</font></li>
+<li><font color="gray" size="4">r__ g     所属组</font></li>
+<li><font color="gray" size="4">r__ o     其他人</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>建立目录：mkdir</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">mkdir -p [目录名]</font></li>
+<li><font color="gray" size="4">-p 递归创建</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>切换所在目录 : cd</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">cd [目录]</font></li>
+<li><font color="gray" size="4">cd ~ 进入当前用户的家目录</font></li>
+<li><font color="gray" size="4">cd - 进入上一次目录</font></li>
+<li><font color="gray" size="4">cd .. 进入上一级目录</font></li>
+<li><font color="gray" size="4">cd . 进入当前目录</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>查询当前所在位置</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">pwd</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>删除空目录</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">rmdir [目录]</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>删除文件或目录 rm -rf [目录或文件]</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">r 删除目录</font></li>
+<li><font color="gray" size="4">-f     强制</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>复制命令 cp [选项] [原文件或目录] [目标目录]</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">-r 复制目录</font></li>
+<li><font color="gray" size="4">-p 连带文件属性复制</font></li>
+<li><font color="gray" size="4">-d 若源文件是链接文件，则复制链接属性</font></li>
+<li><font color="gray" size="4">-a 相当于-pdr</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>剪切或改名命令：mv [源文件或目录] [目标目录]</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">在同一个文件时改名</font></li>
+<li><font color="gray" size="4">不在同一个文件时剪切</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>一些常用的目录文件</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4"> /boot 启动目录</font></li>
+<li><font color="gray" size="4">/dev 设备文件保存目录</font></li>
+<li><font color="gray" size="4">/etc 配置文件保存目录</font></li>
+<li><font color="gray" size="4">/home 普通用户的家目录</font></li>
+<li><font color="gray" size="4">/lib 系统库保存目录</font></li>
+<li><font color="gray" size="4">/mnt 系统挂载目录</font></li>
+<li><font color="gray" size="4">/root 超级用户的家目录</font></li>
+<li><font color="gray" size="4">/tmp 临时目录</font></li>
+<li><font color="gray" size="4">/proc 写入内存目录</font></li>
+<li><font color="gray" size="4">/sys 系统文件目录</font></li>
+<li><font color="gray" size="4">/usr 系统软件资源目录</font></li>
+<li><font color="gray" size="4">/usr/bin/ 系统命令(普通用户)</font></li>
+<li><font color="gray" size="4">/usr/sbin/ 系统命令(超级用户)</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>链接命令 ： ln -s [原文件] [目标文件]</strong></font></p>
+<p><font color="gray" size="4">功能描述：生成链接文件</font></p>
+<h2 id="选项：-s-创建软链接"><a href="#选项：-s-创建软链接" class="headerlink" title="选项： -s 创建软链接"></a><font color="gray" size="4">选项： -s 创建软链接</font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">硬链接特征：</font><br><font color="gray" size="4">1.拥有相同的i节点和存储block块，可以看作是同一文件</font><br><font color="gray" size="4">2.可以通过i节点识别</font><br><font color="gray" size="4">3.不能跨分区</font><br><font color="gray" size="4">4.不能针对目录使用</font></li>
+<li><font color="gray" size="4">软链接的特征：</font><br><font color="gray" size="4">1.类似于windows快捷键</font><br><font color="gray" size="4">2.软链接有自己的i节点和block块，但数据块中只保存原文件名和i节点号，并没有实际的文件数据</font><br><font color="gray" size="4">3.lrwxrwxrwx l==&gt;软链接</font><br><font color="gray" size="4">4.修改任意文件，另一个都改变</font><br><font color="gray" size="4">5.删除原文件，软链接不能使用</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>locate 命令格式</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">locate 文件名</font><br>      <font color="gray" size="4">在后台数据库中按文件名搜索，搜索速度更快</font></li>
+<li><font color="gray" size="4">/var/lib/mlocate</font><br> <font color="gray" size="4">#locate命令所搜索的后台数据库</font></li>
+<li><font color="gray" size="4">updatedb</font></li>
+<li><font color="gray" size="4">#更新数据库</font><br>  <font color="gray" size="4">/etc/updatedb.conf     配置文件</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>搜索命令的命令 whereis</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">whereis 命令名</font><br><font color="gray" size="4">#搜锁命令所在路径即帮主文档所在位置</font><br><font color="gray" size="4">选项：</font><br>      <font color="gray" size="4">-b : 只查找可执行文档所在位置</font><br>     <font color="gray" size="4">-m : 只查找帮主文件</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>搜索命令的的命令 which</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">which 文件名<br>  <font color="gray" size="4">#搜索命令所在路径别名</font></font></li>
+</ul>
+</blockquote>
+<hr>
+<p><font size="4.5"><strong>PATH环境变量</strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">PATH环境变量 ： 定义的是系统搜索命令的路径</font><br> <font color="gray" size="4">[root@localhost ~] echo $PATH</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -191,84 +370,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/04/Linux-note-1/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hello-world/" class="archive-article-date">
-  	<time datetime="2018-07-11T09:37:23.840Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/11/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hexo-github/" class="archive-article-date">
-  	<time datetime="2018-07-11T03:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hexo-github/">Github + Hexo 搭建个人网站详细教程</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -291,8 +492,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
