@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/7 | Aayers-ghw&#39;s bolg</title>
+  <title>Linux 学习笔记(二) | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aayers-ghw&#39;s bolg">
-<meta property="og:url" content="http://yoursite.com/archives/2018/07/index.html">
+  <meta name="description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 学习笔记(二)">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/Linux-note-2/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
+<meta property="og:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-04T06:00:28.836Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aayers-ghw&#39;s bolg">
+<meta name="twitter:title" content="Linux 学习笔记(二)">
+<meta name="twitter:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -150,87 +155,307 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Linux-note-2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hello-world/" class="archive-article-date">
-  	<time datetime="2018-07-11T09:37:23.840Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      Linux 学习笔记(二)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hexo-github/" class="archive-article-date">
-  	<time datetime="2018-07-11T03:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
+        
+        <a href="/2018/08/04/Linux-note-2/" class="archive-article-date">
+  	<time datetime="2018-08-04T04:55:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hexo-github/">Github + Hexo 搭建个人网站详细教程</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><font size="4.5"><strong> Linux中通配符 </strong></font></p>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">* 匹配任意内容</font></li>
+<li><font color="gray" size="4">? 匹配任意一个字符</font></li>
+<li><font color="gray" size="4">[] 匹配任意一个中括号内的字符</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a><font size="4.5"><strong>find 命令</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">find [搜索范围] [搜素条件]</font><br><font color="gray" size="4">#搜索文件</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find / -name install.log</font><br>  <font color="gray" size="4">#避免大范围搜索，会非常耗费系统资源</font><br>  <font color="gray" size="4">#find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /root -iname install.log</font><br>  <font color="gray" size="4">#不区别大小写</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /root -user root</font><br> <font color="gray" size="4">#按照所有者搜索</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /root -nouser</font><br>  <font color="gray" size="4">#查找没有所有者的文件</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /var/log/ -mtime +10</font><br>  <font color="gray" size="4">#查找10天前修改的文件</font><br> <font color="gray" size="4">选项：</font><br>  <font color="gray" size="4"><strong>-10  10天内修改的文件</strong></font><br>  <font color="gray" size="4"><strong>10    10天当天修改的文件</strong></font><br> <font color="gray" size="4"><strong>+10 10天前修改的文件</strong></font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>atime 文件访问时间</strong></font><br> <font color="gray" size="4"><strong>ctime 改变文件属性</strong></font><br> <font color="gray" size="4"><strong>mtime 修改文件内容</strong></font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find . -size 25K (.表示当前目录)</font><br> <font color="gray" size="4">#查找文件大小是25KB的文件</font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-25k 小于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>25k 等于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>+25k 大于25KB的文件</strong></font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find . -inum 262422</font><br> <font color="gray" size="4">#查找i节点是262422的文件</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /etc -size +20k -a -size -50k</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件</font><br> <font color="gray" size="4"><strong>-a and 逻辑与</strong></font><br> <font color="gray" size="4"><strong>-o or 逻辑或</strong></font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">find /etc/ -size +20k -a size -50k -exec ls -lh {} \;</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件，并且显示详细信息</font><br> <font color="gray" size="4">#-exec/ -ok 命令 {} \;对搜素命令执行操作</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="搜素字符串命令-grep"><a href="#搜素字符串命令-grep" class="headerlink" title="搜素字符串命令 grep"></a><font size="4.5"><strong>搜素字符串命令 grep</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">grep [选项] 字符串 文件名</font><br> <font color="gray" size="4">#在文件当中匹配符合条件的字符串</font><br><font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-i 忽略大小写 #使用正则表达式匹配</strong></font><br> <font color="gray" size="4"><strong>-v 排除指定字符串 #包含匹配</strong></font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="帮主命令-man"><a href="#帮主命令-man" class="headerlink" title="帮主命令 man"></a><font size="4.5"><strong>帮主命令 man</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">man 命令</font><br> <font color="gray" size="4">#获取指定命令的帮主</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">man ls</font><br> <font color="gray" size="4">#查看ls的帮助</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">man -f 命令</font><br> <font color="gray" size="4">#查看命令拥有哪个级别的帮助，相当于 whatis 命令</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><font color="gray" size="4">man -k 命令</font><br> <font color="gray" size="4">#查看和命陵相关的所有帮助，相当于 apropos 命令</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="选项帮助"><a href="#选项帮助" class="headerlink" title="选项帮助"></a><font size="4.5"><strong>选项帮助</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">命令 –help</font><br> <font color="gray" size="4">#获取命令选项的帮助</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="shell内部命令帮助"><a href="#shell内部命令帮助" class="headerlink" title="shell内部命令帮助"></a><font size="4.5"><strong>shell内部命令帮助</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">help shell内部命令</font><br> <font color="gray" size="4">#获取shell内部命令的帮助</font><br> <font color="gray" size="4">例如：</font><br>         <font color="gray" size="4">whereis cd #确定是否是shell内部命令</font><br>         <font color="gray" size="4">help cd #获取内部命令的帮助</font>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="详细命令帮助-info-命令"><a href="#详细命令帮助-info-命令" class="headerlink" title="详细命令帮助 info 命令"></a><font size="4.5"><strong>详细命令帮助 info 命令</strong></font></h2><blockquote>
+<ul>
+<li><font color="gray" size="4">回车 ： 进入子帮助页面(带有*标记)</font></li>
+<li><font color="gray" size="4">u : 进入上层页面</font></li>
+<li><font color="gray" size="4">n : 进入下一个帮助小节</font></li>
+<li><font color="gray" size="4">p : 进入上一个帮助小节</font></li>
+<li><font color="gray" size="4">q : 退出</font>
+</li>
+</ul>
+</blockquote>
+<hr>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/04/Linux-note-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/08/04/Linux-note-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux 学习笔记（一）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -253,8 +478,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
