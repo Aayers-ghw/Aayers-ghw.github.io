@@ -152,6 +152,187 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JVM-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/JVM-1/">Java虚拟机知识点整理(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/08/14/JVM-1/" class="archive-article-date">
+  	<time datetime="2018-08-14T00:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h1 id="JVM启动流程"><a href="#JVM启动流程" class="headerlink" title="JVM启动流程"></a>JVM启动流程</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/021.png" alt="Alt text"></p>
+<hr>
+<hr>
+<h1 id="JVM基本结构"><a href="#JVM基本结构" class="headerlink" title="JVM基本结构"></a>JVM基本结构</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/022.png" alt="Alt text"></p>
+<hr>
+<h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><p>&ensp; <font size="4">-每个线程拥有一个PC寄存器</font><br>&ensp; <font size="4">-在线程创建时创建</font><br>&ensp; <font size="4">-指向下一条指令的地址</font><br>&ensp; <font size="4">-执行本地方法时，PC的值为underfined</font></p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>&ensp; <font size="4">保存装载的类信息</font></p>
+<blockquote>
+<ul>
+<li><font size="4">&ensp;类型的常量池</font></li>
+<li><font size="4">&ensp;字段、方法信息</font></li>
+<li><font size="4">&ensp;方法字节码</font>
+</li>
+</ul>
+</blockquote>
+<p>&ensp; <font size="4">通常和永久区(Perm)关联在一起</font></p>
+<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>&ensp; <font size="4">和程序开发密切相关</font><br>&ensp; <font size="4">应用系统对象都保存在Java堆中</font><br>&ensp; <font size="4">所有线程共享Java堆</font><br>&ensp; <font size="4">对分代GC来说，堆也是分代的</font><br>&ensp; <font size="4">GC的主要工作区间</font></p>
+<h2 id="Java栈"><a href="#Java栈" class="headerlink" title="Java栈"></a>Java栈</h2><p>&ensp; <font size="4">线程私有</font><br>&ensp; <font size="4">栈是由一系列帧组成(因此Java栈也叫做帧栈)</font><br>&ensp; <font size="4">帧保存一个方法的局部变量，操作数栈，常量池指针</font><br>&ensp; <font size="4">每一次方法调用创建一个帧，并压栈</font></p>
+<hr>
+<font size="4.5"><strong>Java栈 - 局部变量表包含参数和局部变量</strong></font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/023..png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/024..png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 函数调用组成帧栈</strong></font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/025.png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 操作数栈</strong></font>  
+
+<p>&ensp; <font size="4">Java没有寄存器，所有所有参数传递使用操作数栈</font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/026.png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 栈上分配</strong></font>  
+
+<p>&ensp; <font size="4">小对象(一般几十个bytes)，在没有逃逸的情况下，可以直接分配在栈上</font><br>    &ensp; <font size="4">直接分配在栈上，可以自动回收，减轻GC压力</font><br>    &ensp; <font size="4">大对象或者逃逸对象无法栈上分配</font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/027.png" alt="Alt text"></p>
+<hr>
+<h1 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h1><hr>
+<p>&ensp; <font size="4"><strong>每一个线程有一个工作内存和主存独立</strong></font><br>&ensp; <font size="4"><strong>工作内存存放主存中变量的值的拷贝</strong></font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/028.png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/029...png" alt="Alt text"></p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><blockquote>
+<ul>
+<li><font size="4">volatile不能代替锁，一般认为volatile比锁性能好(不绝对)</font></li>
+<li><font size="4">选择使用volatile的条件：语义是否满足应用</font>
+</li>
+</ul>
+</blockquote>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><font size="4">线程修改了变量，其他线程可以立即知道</font>
+
+<font size="4">保证可见性的方法</font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">volatile</font></li>
+<li>&ensp; <font size="4">synchronized(unlock之前，写变量值回主存)</font></li>
+<li>&ensp; <font size="4">final(一旦初始化完成，其他线程就可见)</font></li>
+</ul>
+</blockquote>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><blockquote>
+<ul>
+<li>&ensp; <font size="4">本线程内，操作都是有序的</font></li>
+<li>&ensp; <font size="4">在线程外观察，操作都是无序的。(指令重排或主内存同步延时)</font></li>
+</ul>
+</blockquote>
+<h3 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h3><font size="4">线程内串行语义</font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">写后读 a=1;b=a;</font></li>
+<li>&ensp; <font size="4"><font size="4">写后写 a=1;a=2;</font></font></li>
+<li>&ensp; <font size="4">读后写 a=b;b=1;</font></li>
+<li>&ensp; <font size="4">以上语句不可重排</font></li>
+<li>&ensp; <font size="4">编译器不考虑多线程间的语句</font></li>
+<li>&ensp; <font size="4">可重排:a=l;b=2;</font></li>
+</ul>
+</blockquote>
+<h3 id="指令重排的基本原则："><a href="#指令重排的基本原则：" class="headerlink" title="指令重排的基本原则："></a>指令重排的基本原则：</h3><blockquote>
+<ul>
+<li><font size="4">线程顺序原则：一个线程内保证语义的串行性</font></li>
+<li><font size="4">volatile规则：volatile变量的写，先发生于读</font></li>
+<li><font size="4">锁规则：解锁(unlock)必然发生在随后的加锁(lock)前</font></li>
+<li><font size="4">传递性：A先于B，B先于C，那么A必先于C</font></li>
+<li><font size="4">线程的start方法先于它的每个动作</font></li>
+<li><font size="4">线程的所有操作先于线程的终结(Thread.join())</font></li>
+<li><font size="4">线程的中断(interrupt())先于被中断线程的代码</font></li>
+<li><font size="4">对象的构造函数执行结束先于finalize()方法</font>
+</li>
+</ul>
+</blockquote>
+<h1 id="编译运行和解释运行的概念"><a href="#编译运行和解释运行的概念" class="headerlink" title="编译运行和解释运行的概念"></a>编译运行和解释运行的概念</h1><hr>
+<font size="4.5"><strong>解释运行</strong></font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">-解释执行以解释方式运行字节码</font></li>
+<li>&ensp; <font size="4">-解释执行的意思是：读一句执行一句</font></li>
+</ul>
+</blockquote>
+<hr>
+<font size="4"><strong>编译运行</strong></font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">-将字节吗编译成机器码</font></li>
+<li>&ensp; <font size="4">-直接执行机器码</font></li>
+<li>&ensp; <font size="4">-运行时编译</font></li>
+<li>&ensp; <font size="4">-编译后性能有数量级的提升</font></li>
+</ul>
+</blockquote>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/08/14/JVM-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java-3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1169,7 +1350,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1178,6 +1359,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,22 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java线程的几种状态 | Aayers-ghw&#39;s bolg</title>
+  <title>Java虚拟机知识点整理(一) | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java的线程的生命周期大体可以分为5种状态  1.新建状态(New) : 新创建了一个线程对象。 2.就绪状态(Runnable) :线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。 3. 运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码 4. 阻塞状态（Blocked）：阻塞状态是线程因为某种原">
-<meta name="keywords" content="Java">
+  <meta name="description" content="JVM启动流程   JVM基本结构  PC寄存器&amp;ensp; -每个线程拥有一个PC寄存器&amp;ensp; -在线程创建时创建&amp;ensp; -指向下一条指令的地址&amp;ensp; -执行本地方法时，PC的值为underfined 方法区&amp;ensp; 保存装载的类信息   &amp;ensp;类型的常量池 &amp;ensp;字段、方法信息 &amp;ensp;方法字节码    &amp;ensp; 通常和永久区(Perm)关联在一起">
+<meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java线程的几种状态">
-<meta property="og:url" content="http://yoursite.com/2018/08/10/java-3/index.html">
+<meta property="og:title" content="Java虚拟机知识点整理(一)">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/JVM-1/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="Java的线程的生命周期大体可以分为5种状态  1.新建状态(New) : 新创建了一个线程对象。 2.就绪状态(Runnable) :线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。 3. 运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码 4. 阻塞状态（Blocked）：阻塞状态是线程因为某种原">
+<meta property="og:description" content="JVM启动流程   JVM基本结构  PC寄存器&amp;ensp; -每个线程拥有一个PC寄存器&amp;ensp; -在线程创建时创建&amp;ensp; -指向下一条指令的地址&amp;ensp; -执行本地方法时，PC的值为underfined 方法区&amp;ensp; 保存装载的类信息   &amp;ensp;类型的常量池 &amp;ensp;字段、方法信息 &amp;ensp;方法字节码    &amp;ensp; 通常和永久区(Perm)关联在一起">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/020.jpg">
-<meta property="og:updated_time" content="2018-08-10T11:25:30.965Z">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/021.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/022.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/023..png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/024..png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/025.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/026.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/027.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/028.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/029...png">
+<meta property="og:updated_time" content="2018-08-14T02:43:11.583Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java线程的几种状态">
-<meta name="twitter:description" content="Java的线程的生命周期大体可以分为5种状态  1.新建状态(New) : 新创建了一个线程对象。 2.就绪状态(Runnable) :线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。 3. 运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码 4. 阻塞状态（Blocked）：阻塞状态是线程因为某种原">
-<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/020.jpg">
+<meta name="twitter:title" content="Java虚拟机知识点整理(一)">
+<meta name="twitter:description" content="JVM启动流程   JVM基本结构  PC寄存器&amp;ensp; -每个线程拥有一个PC寄存器&amp;ensp; -在线程创建时创建&amp;ensp; -指向下一条指令的地址&amp;ensp; -执行本地方法时，PC的值为underfined 方法区&amp;ensp; 保存装载的类信息   &amp;ensp;类型的常量池 &amp;ensp;字段、方法信息 &amp;ensp;方法字节码    &amp;ensp; 通常和永久区(Perm)关联在一起">
+<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/021.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -157,20 +165,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-3" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JVM-1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java线程的几种状态
+      Java虚拟机知识点整理(一)
     </h1>
   
 
         
-        <a href="/2018/08/10/java-3/" class="archive-article-date">
-  	<time datetime="2018-08-10T08:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-10</time>
+        <a href="/2018/08/14/JVM-1/" class="archive-article-date">
+  	<time datetime="2018-08-14T00:49:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-14</time>
 </a>
         
       </header>
@@ -178,36 +186,114 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h2 id="Java的线程的生命周期大体可以分为5种状态"><a href="#Java的线程的生命周期大体可以分为5种状态" class="headerlink" title="Java的线程的生命周期大体可以分为5种状态"></a>Java的线程的生命周期大体可以分为5种状态</h2><blockquote>
+<h1 id="JVM启动流程"><a href="#JVM启动流程" class="headerlink" title="JVM启动流程"></a>JVM启动流程</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/021.png" alt="Alt text"></p>
+<hr>
+<hr>
+<h1 id="JVM基本结构"><a href="#JVM基本结构" class="headerlink" title="JVM基本结构"></a>JVM基本结构</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/022.png" alt="Alt text"></p>
+<hr>
+<h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><p>&ensp; <font size="4">-每个线程拥有一个PC寄存器</font><br>&ensp; <font size="4">-在线程创建时创建</font><br>&ensp; <font size="4">-指向下一条指令的地址</font><br>&ensp; <font size="4">-执行本地方法时，PC的值为underfined</font></p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>&ensp; <font size="4">保存装载的类信息</font></p>
+<blockquote>
 <ul>
-<li><font color="gray" size="4">1.新建状态(New) : 新创建了一个线程对象。</font></li>
-<li><font color="gray" size="4">2.就绪状态(Runnable) :线程对象创建后，其他线程调用了该对象的start()方法。该状态的线程位于可运行线程池中，变得可运行，等待获取CPU的使用权。</font></li>
-<li><font color="gray" size="4">3. 运行状态（Running）：就绪状态的线程获取了CPU，执行程序代码</font></li>
-<li><font color="gray" size="4">4. 阻塞状态（Blocked）：阻塞状态是线程因为某种原因放弃CPU使用权，暂时停止运行。直到线程进入就绪状态，才有机会转到运行状态。阻塞的情况分三种： </font><br>&ensp; <font color="gray" size="4">(一)、等待阻塞：运行的线程执行wait()方法，JVM会把该线程放入等待池中。</font><br>&ensp; <font color="gray" size="4">(二)、同步阻塞：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池中。</font><br>&ensp; <font color="gray" size="4">(三)、其他阻塞：运行的线程执行sleep()或join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入就绪状态。</font></li>
-<li><font color="gray" size="4">5. 死亡状态（Dead）：线程执行完了或者因异常退出了run()方法，该线程结束生命周期。</font>
+<li><font size="4">&ensp;类型的常量池</font></li>
+<li><font size="4">&ensp;字段、方法信息</font></li>
+<li><font size="4">&ensp;方法字节码</font>
 </li>
 </ul>
 </blockquote>
-<p> <img src="http://pbqf89lam.bkt.clouddn.com/020.jpg" alt="Alt text"></p>
-<h2 id="Jstack中几种线程状态"><a href="#Jstack中几种线程状态" class="headerlink" title="Jstack中几种线程状态"></a>Jstack中几种线程状态</h2><blockquote>
+<p>&ensp; <font size="4">通常和永久区(Perm)关联在一起</font></p>
+<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><p>&ensp; <font size="4">和程序开发密切相关</font><br>&ensp; <font size="4">应用系统对象都保存在Java堆中</font><br>&ensp; <font size="4">所有线程共享Java堆</font><br>&ensp; <font size="4">对分代GC来说，堆也是分代的</font><br>&ensp; <font size="4">GC的主要工作区间</font></p>
+<h2 id="Java栈"><a href="#Java栈" class="headerlink" title="Java栈"></a>Java栈</h2><p>&ensp; <font size="4">线程私有</font><br>&ensp; <font size="4">栈是由一系列帧组成(因此Java栈也叫做帧栈)</font><br>&ensp; <font size="4">帧保存一个方法的局部变量，操作数栈，常量池指针</font><br>&ensp; <font size="4">每一次方法调用创建一个帧，并压栈</font></p>
+<hr>
+<font size="4.5"><strong>Java栈 - 局部变量表包含参数和局部变量</strong></font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/023..png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/024..png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 函数调用组成帧栈</strong></font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/025.png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 操作数栈</strong></font>  
+
+<p>&ensp; <font size="4">Java没有寄存器，所有所有参数传递使用操作数栈</font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/026.png" alt="Alt text"></p>
+<font size="4.5"><strong>Java栈 - 栈上分配</strong></font>  
+
+<p>&ensp; <font size="4">小对象(一般几十个bytes)，在没有逃逸的情况下，可以直接分配在栈上</font><br>    &ensp; <font size="4">直接分配在栈上，可以自动回收，减轻GC压力</font><br>    &ensp; <font size="4">大对象或者逃逸对象无法栈上分配</font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/027.png" alt="Alt text"></p>
+<hr>
+<h1 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h1><hr>
+<p>&ensp; <font size="4"><strong>每一个线程有一个工作内存和主存独立</strong></font><br>&ensp; <font size="4"><strong>工作内存存放主存中变量的值的拷贝</strong></font>  </p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/028.png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/029...png" alt="Alt text"></p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><blockquote>
 <ul>
-<li><font color="gray" size="4">NEW &ensp; 状态是指线程刚创建, 尚未启动</font></li>
-<li><font color="gray" size="4">RUNNABLE &ensp; 线程运行中或I/O等待</font></li>
-<li><font color="gray" size="4">BLOCKED &ensp; 线程在等待monitor锁(synchronized关键字)</font></li>
-<li><font color="gray" size="4">WAITING &ensp; 线程在无限等待唤醒</font></li>
-<li><font color="gray" size="4">TIMED_WAITING &ensp; 线程在等待唤醒，但设置了时限</font></li>
-<li><font color="gray" size="4">TERMINATED &ensp; 这个状态下表示 该线程的run方法已经执行完毕了, 基本上就等于死亡了(当时如果线程被持久持有, 可能不会被回收)</font>
+<li><font size="4">volatile不能代替锁，一般认为volatile比锁性能好(不绝对)</font></li>
+<li><font size="4">选择使用volatile的条件：语义是否满足应用</font>
 </li>
 </ul>
 </blockquote>
-<h3 id="一、NEW"><a href="#一、NEW" class="headerlink" title="一、NEW"></a>一、NEW</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">	Thread thread = <span class="keyword">new</span> Thread();</span><br><span class="line">	System. out.println(thread.getState());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="二、RUNNABLE"><a href="#二、RUNNABLE" class="headerlink" title="二、RUNNABLE"></a>二、RUNNABLE</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RUNNABLE</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">			System.out.println(<span class="string">"Running..."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、BLOCKED"><a href="#三、BLOCKED" class="headerlink" title="三、BLOCKED"></a>三、BLOCKED</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockedTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        BLOCKED thd = <span class="keyword">new</span> BLOCKED();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        t1.setName(<span class="string">"MyThread #1"</span>);</span><br><span class="line">        t2.setName(<span class="string">"MyThread #2"</span>);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BLOCKED</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + i);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<font color="gray" size="4">运行的结果如下：</font><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5"><font color="gray" size="4">MyThread #1:0<br>MyThread #1:1<br>MyThread #1:2<br>MyThread #2:0<br>MyThread #2:1<br>MyThread #2:2<br></font></td></tr></table></font><font color="gray" size="4">当两个并发线程(t1和t2)访问同一个对象(thd)中的synchronized代码块时，在同一时刻只能有一个线程得到执行，另一个线程受阻塞，必须等待当前线程执行完这个代码块以后才能执行该代码块。t1和t2是互斥的，因为在执行synchronized代码块时会锁定当前的对象，只有执行完该代码块才能释放该对象锁，下一个线程才能执行并锁定该对象</font>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><font size="4">线程修改了变量，其他线程可以立即知道</font>
 
-<h3 id="四、WAITING"><a href="#四、WAITING" class="headerlink" title="四、WAITING"></a>四、WAITING</h3><font color="gray" size="4">这个需要用到生产者消费者模型, 当生产者生产过慢的时候, 消费者就会等待生产者的下一次notify</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerConsumerTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        CubbyHole c = <span class="keyword">new</span> CubbyHole();</span><br><span class="line">        Producer p1 = <span class="keyword">new</span> Producer(c, <span class="number">1</span>);</span><br><span class="line">        Consumer c1 = <span class="keyword">new</span> Consumer(c, <span class="number">1</span>);</span><br><span class="line">        p1.start();</span><br><span class="line">        c1.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CubbyHole</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> contents;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> available = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (available == <span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        available = <span class="keyword">false</span>;</span><br><span class="line">        notifyAll();</span><br><span class="line">        <span class="keyword">return</span> contents;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (available == <span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        contents = value;</span><br><span class="line">        available = <span class="keyword">true</span>;</span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CubbyHole cubbyHole;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(CubbyHole c, <span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cubbyHole = c;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            value = cubbyHole.get();</span><br><span class="line">            System.out.println(<span class="string">"消费者 #"</span> + <span class="keyword">this</span>.number + <span class="string">" got: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CubbyHole cubbyHole;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(CubbyHole c, <span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cubbyHole = c;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">            cubbyHole.put(i);</span><br><span class="line">            System.out.println(<span class="string">"生产者 #"</span> + <span class="keyword">this</span>.number + <span class="string">" put: "</span> + i );</span><br><span class="line"><span class="comment">//            try &#123;</span></span><br><span class="line"><span class="comment">//                Thread.sleep((long) (Math.random() *  1000));</span></span><br><span class="line"><span class="comment">//            &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="comment">//                e.printStackTrace();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">运行结果如下：</font><table><tr><td bgcolor="#F5F5F5"><font color="gray" size="4">生产者 #1 put: 0<br>消费者 #1 got: 0<br>消费者 #1 got: 1<br>生产者 #1 put: 1<br>消费者 #1 got: 2<br>生产者 #1 put: 2<br>消费者 #1 got: 3<br>生产者 #1 put: 3<br>生产者 #1 put: 4<br>消费者 #1 got: 4<br></font></td></tr></table>
+<font size="4">保证可见性的方法</font>
 
-<h3 id="五、TIMED-WAITING"><a href="#五、TIMED-WAITING" class="headerlink" title="五、TIMED_WAITING"></a>五、TIMED_WAITING</h3><font color="gray" size="4">这个仅需要在四的基础上, 把注释里的代码添加进去就行了</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (available == <span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait(<span class="number">10</span> * <span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        contents = value;</span><br><span class="line">        available = <span class="keyword">true</span>;</span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">或者在wait方法加上一个时间参数。</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">        cubbyHole.put(i);</span><br><span class="line">        System.out.println(<span class="string">"生产者 #"</span> + <span class="keyword">this</span>.number + <span class="string">" put: "</span> + i );</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep((<span class="keyword">long</span>) (Math.random() *  <span class="number">1000</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font size="4.7"><strong>六、TERMINATED</strong></font><br><font color="gray" size="4">这个状态只要线程结束了run方法, 就会进入</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TERMINATED</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread();</span><br><span class="line">        t1.start();</span><br><span class="line">        System. out.println(t1.getState());</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread. sleep(<span class="number">100</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System. out.println(t1.getState());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">运行结果：</font><table><tr><td bgcolor="#F5F5F5"><font color="gray" size="4">RUNNABLE<br>TERMINATED<br></font></td></tr></table>
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">volatile</font></li>
+<li>&ensp; <font size="4">synchronized(unlock之前，写变量值回主存)</font></li>
+<li>&ensp; <font size="4">final(一旦初始化完成，其他线程就可见)</font></li>
+</ul>
+</blockquote>
+<h3 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h3><blockquote>
+<ul>
+<li>&ensp; <font size="4">本线程内，操作都是有序的</font></li>
+<li>&ensp; <font size="4">在线程外观察，操作都是无序的。(指令重排或主内存同步延时)</font></li>
+</ul>
+</blockquote>
+<h3 id="指令重排"><a href="#指令重排" class="headerlink" title="指令重排"></a>指令重排</h3><font size="4">线程内串行语义</font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">写后读 a=1;b=a;</font></li>
+<li>&ensp; <font size="4"><font size="4">写后写 a=1;a=2;</font></font></li>
+<li>&ensp; <font size="4">读后写 a=b;b=1;</font></li>
+<li>&ensp; <font size="4">以上语句不可重排</font></li>
+<li>&ensp; <font size="4">编译器不考虑多线程间的语句</font></li>
+<li>&ensp; <font size="4">可重排:a=l;b=2;</font></li>
+</ul>
+</blockquote>
+<h3 id="指令重排的基本原则："><a href="#指令重排的基本原则：" class="headerlink" title="指令重排的基本原则："></a>指令重排的基本原则：</h3><blockquote>
+<ul>
+<li><font size="4">线程顺序原则：一个线程内保证语义的串行性</font></li>
+<li><font size="4">volatile规则：volatile变量的写，先发生于读</font></li>
+<li><font size="4">锁规则：解锁(unlock)必然发生在随后的加锁(lock)前</font></li>
+<li><font size="4">传递性：A先于B，B先于C，那么A必先于C</font></li>
+<li><font size="4">线程的start方法先于它的每个动作</font></li>
+<li><font size="4">线程的所有操作先于线程的终结(Thread.join())</font></li>
+<li><font size="4">线程的中断(interrupt())先于被中断线程的代码</font></li>
+<li><font size="4">对象的构造函数执行结束先于finalize()方法</font>
+</li>
+</ul>
+</blockquote>
+<h1 id="编译运行和解释运行的概念"><a href="#编译运行和解释运行的概念" class="headerlink" title="编译运行和解释运行的概念"></a>编译运行和解释运行的概念</h1><hr>
+<font size="4.5"><strong>解释运行</strong></font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">-解释执行以解释方式运行字节码</font></li>
+<li>&ensp; <font size="4">-解释执行的意思是：读一句执行一句</font></li>
+</ul>
+</blockquote>
+<hr>
+<font size="4"><strong>编译运行</strong></font>
+
+<blockquote>
+<ul>
+<li>&ensp; <font size="4">-将字节吗编译成机器码</font></li>
+<li>&ensp; <font size="4">-直接执行机器码</font></li>
+<li>&ensp; <font size="4">-运行时编译</font></li>
+<li>&ensp; <font size="4">-编译后性能有数量级的提升</font></li>
+</ul>
+</blockquote>
+<hr>
+
       
 
       
@@ -241,7 +327,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
         		</li>
       		
 		</ul>
@@ -297,7 +383,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/10/java-3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/14/JVM-1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -311,18 +397,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/08/14/JVM-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java虚拟机知识点整理(一)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/08/06/java-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java发送邮件</div>
+    <a href="/2018/08/10/java-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java线程的几种状态</div>
       <i class="icon-circle-right"></i>
     </a>
   
