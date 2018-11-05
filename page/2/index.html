@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java发送邮件 | Aayers-ghw&#39;s bolg</title>
+  <title>Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用Java应用程序发送邮件首先你需要在你的Java编辑器上导入两个的包，activation.jar和mail.jar。JavaMail官网下载JAF官网下载下载完这些包后，就需要导入你的编译器，我使用的是Intellij IDEA 。Intellij IDEA 添加jar包的三种方式   发送一篇简单的E-mail参考代码12345678910111213141516171819202122">
-<meta name="keywords" content="Java">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java发送邮件">
-<meta property="og:url" content="http://yoursite.com/2018/08/06/java-2/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Aayers-ghw&#39;s bolg">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="使用Java应用程序发送邮件首先你需要在你的Java编辑器上导入两个的包，activation.jar和mail.jar。JavaMail官网下载JAF官网下载下载完这些包后，就需要导入你的编译器，我使用的是Intellij IDEA 。Intellij IDEA 添加jar包的三种方式   发送一篇简单的E-mail参考代码12345678910111213141516171819202122">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-06T08:10:04.353Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java发送邮件">
-<meta name="twitter:description" content="使用Java应用程序发送邮件首先你需要在你的Java编辑器上导入两个的包，activation.jar和mail.jar。JavaMail官网下载JAF官网下载下载完这些包后，就需要导入你的编译器，我使用的是Intellij IDEA 。Intellij IDEA 添加jar包的三种方式   发送一篇简单的E-mail参考代码12345678910111213141516171819202122">
+<meta name="twitter:title" content="Aayers-ghw&#39;s bolg">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -155,174 +150,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-2" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Java发送邮件
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/11/hello-world/">Hello World</a>
     </h1>
   
 
         
-        <a href="/2018/08/06/java-2/" class="archive-article-date">
-  	<time datetime="2018-08-06T07:16:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
+        <a href="/2018/07/11/hello-world/" class="archive-article-date">
+  	<time datetime="2018-07-11T09:37:23.840Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<font color="gray" size="4">使用Java应用程序发送邮件首先你需要在你的Java编辑器上导入两个的包，activation.jar和mail.jar。<br><a href="http://www.oracle.com/technetwork/java/javamail/index.html" target="_blank" rel="noopener">JavaMail官网下载</a><br><a href="http://www.oracle.com/technetwork/articles/java/index-135046.html" target="_blank" rel="noopener">JAF官网下载</a><br>下载完这些包后，就需要导入你的编译器，我使用的是Intellij IDEA 。<br><a href="https://blog.csdn.net/zwj1030711290/article/details/56678353/" target="_blank" rel="noopener">Intellij IDEA 添加jar包的三种方式</a></font>
-
-<hr>
-<h2 id="发送一篇简单的E-mail"><a href="#发送一篇简单的E-mail" class="headerlink" title="发送一篇简单的E-mail"></a>发送一篇简单的E-mail</h2><font color="gray" size="4">参考代码</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名 SendEmail.java</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.*;</span><br><span class="line"><span class="keyword">import</span> javax.activation.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendEmail</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span></span><br><span class="line"><span class="function">   </span>&#123;   </span><br><span class="line">      <span class="comment">// 收件人电子邮箱</span></span><br><span class="line">      String to = <span class="string">"abcd@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 发件人电子邮箱</span></span><br><span class="line">      String from = <span class="string">"web@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 指定发送邮件的主机为 localhost</span></span><br><span class="line">      String host = <span class="string">"localhost"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取系统属性</span></span><br><span class="line">      Properties properties = System.getProperties();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 设置邮件服务器</span></span><br><span class="line">      properties.setProperty(<span class="string">"mail.smtp.host"</span>, host);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取默认session对象</span></span><br><span class="line">      Session session = Session.getDefaultInstance(properties);</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">         <span class="comment">// 创建默认的 MimeMessage 对象</span></span><br><span class="line">         MimeMessage message = <span class="keyword">new</span> MimeMessage(session);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set From: 头部头字段</span></span><br><span class="line">         message.setFrom(<span class="keyword">new</span> InternetAddress(from));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set To: 头部头字段</span></span><br><span class="line">         message.addRecipient(Message.RecipientType.TO,</span><br><span class="line">                                  <span class="keyword">new</span> InternetAddress(to));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set Subject: 头部头字段</span></span><br><span class="line">         message.setSubject(<span class="string">"This is the Subject Line!"</span>);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 设置消息体</span></span><br><span class="line">         message.setText(<span class="string">"This is actual message"</span>);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 发送消息</span></span><br><span class="line">         Transport.send(message);</span><br><span class="line">         System.out.println(<span class="string">"Sent message successfully...."</span>);</span><br><span class="line">      &#125;<span class="keyword">catch</span> (MessagingException mex) &#123;</span><br><span class="line">         mex.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">如果你想发送一封e-mail给多个收件人，那么使用下面的方法来指定多个收件人ID： </font>
-
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addRecipients</span><span class="params">(Message.RecipientType type,</span></span></span><br><span class="line"><span class="function"><span class="params">                   Address[] addresses)</span></span></span><br><span class="line"><span class="function"><span class="keyword">throws</span> MessagingException</span></span><br></pre></td></tr></table></figure>
-<hr>
-<font color="gray" size="4">下面是对于参数的描述：</font>
-
-<blockquote>
-<ul>
-<li><font color="gray" size="4">type:要被设置为 TO, CC 或者 BCC，这里 CC 代表抄送、BCC 代表秘密抄送。举例：Message.RecipientType.TO</font></li>
-<li><font color="gray" size="4">addresses: 这是 email ID 的数组。在指定电子邮件 ID 时，你将需要使用 InternetAddress() 方法。</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="发送一封-HTML-E-mail"><a href="#发送一封-HTML-E-mail" class="headerlink" title="发送一封 HTML E-mail"></a>发送一封 HTML E-mail</h2><p><font color="gray" size="4">参考代码</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名 SendHTMLEmail.java</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.*;</span><br><span class="line"><span class="keyword">import</span> javax.activation.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendHTMLEmail</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">     </span><br><span class="line">      <span class="comment">// 收件人电子邮箱</span></span><br><span class="line">      String to = <span class="string">"abcd@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 发件人电子邮箱</span></span><br><span class="line">      String from = <span class="string">"web@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 指定发送邮件的主机为 localhost</span></span><br><span class="line">      String host = <span class="string">"localhost"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取系统属性</span></span><br><span class="line">      Properties properties = System.getProperties();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 设置邮件服务器</span></span><br><span class="line">      properties.setProperty(<span class="string">"mail.smtp.host"</span>, host);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取默认的 Session 对象。</span></span><br><span class="line">      Session session = Session.getDefaultInstance(properties);</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">         <span class="comment">// 创建默认的 MimeMessage 对象。</span></span><br><span class="line">         MimeMessage message = <span class="keyword">new</span> MimeMessage(session);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set From: 头部头字段</span></span><br><span class="line">         message.setFrom(<span class="keyword">new</span> InternetAddress(from));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set To: 头部头字段</span></span><br><span class="line">         message.addRecipient(Message.RecipientType.TO,</span><br><span class="line">                                  <span class="keyword">new</span> InternetAddress(to));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set Subject: 头字段</span></span><br><span class="line">         message.setSubject(<span class="string">"This is the Subject Line!"</span>);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 发送 HTML 消息, 可以插入html标签</span></span><br><span class="line">         message.setContent(<span class="string">"&lt;h1&gt;This is actual message&lt;/h1&gt;"</span>,</span><br><span class="line">                            <span class="string">"text/html"</span> );</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 发送消息</span></span><br><span class="line">         Transport.send(message);</span><br><span class="line">         System.out.println(<span class="string">"Sent message successfully...."</span>);</span><br><span class="line">      &#125;<span class="keyword">catch</span> (MessagingException mex) &#123;</span><br><span class="line">         mex.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="发送带有附件的-E-mail"><a href="#发送带有附件的-E-mail" class="headerlink" title="发送带有附件的 E-mail"></a>发送带有附件的 E-mail</h2><p><font color="gray" size="4">参考代码</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 文件名 SendFileEmail.java</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.*;</span><br><span class="line"><span class="keyword">import</span> javax.activation.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendFileEmail</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">     </span><br><span class="line">      <span class="comment">// 收件人电子邮箱</span></span><br><span class="line">      String to = <span class="string">"abcd@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 发件人电子邮箱</span></span><br><span class="line">      String from = <span class="string">"web@gmail.com"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 指定发送邮件的主机为 localhost</span></span><br><span class="line">      String host = <span class="string">"localhost"</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取系统属性</span></span><br><span class="line">      Properties properties = System.getProperties();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 设置邮件服务器</span></span><br><span class="line">      properties.setProperty(<span class="string">"mail.smtp.host"</span>, host);</span><br><span class="line"> </span><br><span class="line">      <span class="comment">// 获取默认的 Session 对象。</span></span><br><span class="line">      Session session = Session.getDefaultInstance(properties);</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">         <span class="comment">// 创建默认的 MimeMessage 对象。</span></span><br><span class="line">         MimeMessage message = <span class="keyword">new</span> MimeMessage(session);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set From: 头部头字段</span></span><br><span class="line">         message.setFrom(<span class="keyword">new</span> InternetAddress(from));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set To: 头部头字段</span></span><br><span class="line">         message.addRecipient(Message.RecipientType.TO,</span><br><span class="line">                                  <span class="keyword">new</span> InternetAddress(to));</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// Set Subject: 头字段</span></span><br><span class="line">         message.setSubject(<span class="string">"This is the Subject Line!"</span>);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 创建消息部分</span></span><br><span class="line">         BodyPart messageBodyPart = <span class="keyword">new</span> MimeBodyPart();</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 消息</span></span><br><span class="line">         messageBodyPart.setText(<span class="string">"This is message body"</span>);</span><br><span class="line">        </span><br><span class="line">         <span class="comment">// 创建多重消息</span></span><br><span class="line">         Multipart multipart = <span class="keyword">new</span> MimeMultipart();</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 设置文本消息部分</span></span><br><span class="line">         multipart.addBodyPart(messageBodyPart);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 附件部分</span></span><br><span class="line">         messageBodyPart = <span class="keyword">new</span> MimeBodyPart();</span><br><span class="line">         String filename = <span class="string">"file.txt"</span>;</span><br><span class="line">         DataSource source = <span class="keyword">new</span> FileDataSource(filename);</span><br><span class="line">         messageBodyPart.setDataHandler(<span class="keyword">new</span> DataHandler(source));</span><br><span class="line">         messageBodyPart.setFileName(filename);</span><br><span class="line">         multipart.addBodyPart(messageBodyPart);</span><br><span class="line"> </span><br><span class="line">         <span class="comment">// 发送完整消息</span></span><br><span class="line">         message.setContent(multipart );</span><br><span class="line"> </span><br><span class="line">         <span class="comment">//   发送消息</span></span><br><span class="line">         Transport.send(message);</span><br><span class="line">         System.out.println(<span class="string">"Sent message successfully...."</span>);</span><br><span class="line">      &#125;<span class="keyword">catch</span> (MessagingException mex) &#123;</span><br><span class="line">         mex.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<p><font color="gray" size="4">关于QQ邮箱，还要设置SSL加密，加上以下代码即可</font><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MailSSLSocketFactory sf = new MailSSLSocketFactory();</span><br><span class="line">sf.setTrustAllHosts(true);</span><br><span class="line">props.put(&quot;mail.smtp.ssl.enable&quot;, &quot;true&quot;);</span><br><span class="line">props.put(&quot;mail.smtp.ssl.socketFactory&quot;, sf);</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="参考代码"><a href="#参考代码" class="headerlink" title="参考代码"></a><font color="gray" size="4">参考代码</font></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> javax.mail.Authenticator;</span><br><span class="line"><span class="keyword">import</span> javax.mail.Message;</span><br><span class="line"><span class="keyword">import</span> javax.mail.MessagingException;</span><br><span class="line"><span class="keyword">import</span> javax.mail.PasswordAuthentication;</span><br><span class="line"><span class="keyword">import</span> javax.mail.Session;</span><br><span class="line"><span class="keyword">import</span> javax.mail.Transport;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.InternetAddress;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.MimeMessage;</span><br><span class="line"><span class="keyword">import</span> com.sun.mail.util.MailSSLSocketFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SendEmail</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span> <span class="keyword">throws</span> GeneralSecurityException </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 收件人电子邮箱</span></span><br><span class="line">        String to = <span class="string">"XXXXX@qq.com"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发件人电子邮箱</span></span><br><span class="line">        String from = <span class="string">"XXXXXX@qq.com"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 指定发送邮件的主机为 smtp.qq.com</span></span><br><span class="line">        String host = <span class="string">"smtp.qq.com"</span>;  <span class="comment">//QQ 邮件服务器</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取系统属性</span></span><br><span class="line">        Properties properties = System.getProperties();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置邮件服务器</span></span><br><span class="line">        properties.setProperty(<span class="string">"mail.smtp.host"</span>, host);</span><br><span class="line"></span><br><span class="line">        properties.put(<span class="string">"mail.smtp.auth"</span>, <span class="string">"true"</span>);</span><br><span class="line">        MailSSLSocketFactory sf = <span class="keyword">new</span> MailSSLSocketFactory();</span><br><span class="line">        sf.setTrustAllHosts(<span class="keyword">true</span>);</span><br><span class="line">        properties.put(<span class="string">"mail.smtp.ssl.enable"</span>, <span class="string">"true"</span>);</span><br><span class="line">        properties.put(<span class="string">"mail.smtp.ssl.socketFactory"</span>, sf);</span><br><span class="line">        <span class="comment">// 获取默认session对象</span></span><br><span class="line">        Session session = Session.getDefaultInstance(properties,<span class="keyword">new</span> Authenticator()&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> PasswordAuthentication <span class="title">getPasswordAuthentication</span><span class="params">()</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> PasswordAuthentication(<span class="string">"429240967@qq.com"</span>, <span class="string">"授权的 QQ 邮箱密码"</span>); <span class="comment">//发件人邮件用户名、密码</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">// 创建默认的 MimeMessage 对象</span></span><br><span class="line">            MimeMessage message = <span class="keyword">new</span> MimeMessage(session);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Set From: 头部头字段</span></span><br><span class="line">            message.setFrom(<span class="keyword">new</span> InternetAddress(from));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Set To: 头部头字段</span></span><br><span class="line">            message.addRecipient(Message.RecipientType.TO, <span class="keyword">new</span> InternetAddress(to));</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Set Subject: 头部头字段</span></span><br><span class="line">            message.setSubject(<span class="string">"This is the Subject Line!"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 设置消息体</span></span><br><span class="line">            message.setText(<span class="string">"This is actual message"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 发送消息</span></span><br><span class="line">            Transport.send(message);</span><br><span class="line">            System.out.println(<span class="string">"Sent message successfully....from runoob.com"</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (MessagingException mex) &#123;</span><br><span class="line">            mex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="其中这里还需涉及用户的认证，以QQ邮件服务器为例-参考教程"><a href="#其中这里还需涉及用户的认证，以QQ邮件服务器为例-参考教程" class="headerlink" title="其中这里还需涉及用户的认证，以QQ邮件服务器为例    参考教程"></a>其中这里还需涉及用户的认证，以QQ邮件服务器为例    <a href="http://service.mail.qq.com/cgi-bin/help?subtype=1&amp;&amp;id=28&amp;&amp;no=1001256" target="_blank" rel="noopener">参考教程</a></h3>
-      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
+
       
     </div>
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/11/hello-world/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/06/java-2/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/08/10/java-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java线程的几种状态
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/08/06/java-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java中的自动装箱与拆箱</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -342,14 +221,147 @@
 
 
 
-  
-  
-  
 
   
-
+    <article id="post-hexo-github" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/11/hexo-github/">Github + Hexo 搭建个人网站详细教程</a>
+    </h1>
   
 
+        
+        <a href="/2018/07/11/hexo-github/" class="archive-article-date">
+  	<time datetime="2018-07-11T03:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><font color="gray" size="4">最近在学习git的用法，顺便搭起了自己的GitHub–&gt;（<a href="https://github.com/Aayers-ghw" target="_blank" rel="noopener">Aayers-ghw</a>），在知乎上面看到别人说markdown是一种可以使用普通文本编辑器编写的标记语言，它的语法简洁明了、学习容易。而且功能比纯文本更强，因此有很多人用它来写博客，而且逼格超高。<br><a href="https://www.zhihu.com/question/29755481" target="_blank" rel="noopener">你见过的最棒的个人博客界面是怎样的？</a></font>
+
+
+<hr>
+<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><blockquote>
+<ul>
+<li><a href="#1"><font color="#0099ff" size="4">1.获得个人网站域名</font></a></li>
+<li><a href="#2"><font color="#0099ff" size="4">2.GitHub创建个人创库</font></a></li>
+<li><a href="#3"><font color="#0099ff" size="4">3.安装Git</font></a></li>
+<li><a href="#4"><font color="#0099ff" size="4">4.安装Node.js</font></a></li>
+<li><a href="#5"><font color="#0099ff" size="4">5.安装Hexo</font></a></li>
+<li><a href="#6"><font color="#0099ff" size="4">6.推送网站</font></a></li>
+<li><a href="#7"><font color="#0099ff" size="4">7.更换主题</font></a></li>
+<li><a href="#8"><font color="#0099ff" size="4">8.个性化设置</font></a></li>
+<li><a href="#9"><font color="#0099ff" size="4">9.发布文章</font></a></li>
+</ul>
+</blockquote>
+<hr>
+<p></p><h2 id="1"><font face="黑体" size="5.5">1.获得个人网站域名</font></h2><p></p>
+<font color="gray" size="4">其实你不绑定域名是完全可以的，就默认使用GitHub上的    <code>xxx.github.io</code>    来访问，但是如果你想显得更有个性一些，想拥有一个属于自己的域名也是可以的，可以去阿里云买一个，因为我是没有去注册一个域名，是使用默认的，所以这里我就不介绍怎么绑定域名的操作和域名的配置操作了，如果你自己想绑定的话可以去参考下这个链接<a href="https://blog.csdn.net/deemons/article/details/77620011" target="_blank" rel="noopener">博客绑定域名</a>。</font>
+
+<hr>
+<p></p><h2 id="2"><font face="黑体" size="5.5">2.GitHub创建个人创库</font></h2><p></p>
+<font color="gray" size="4">首先登录到GitHub，如果没有GitHub账号可以用自己的邮箱申请一个：<a href="https://github.com/" target="_blank" rel="noopener">GitHub Page</a>，然后点击GitHub中的    <strong>New repository</strong>    创建新仓库。仓库名应该为：<code>用户名.github.io</code>，这个用户名就是你GitHub上的用户名，这是固定 的写法，这是我的仓库名<br><img src="http://pbqf89lam.bkt.clouddn.com/01.jpg" alt="Alt text"><br></font>
+
+<p></p><h2 id="3"><font face="黑体" size="5.5">3.安装Git</font></h2><p></p>
+<font color="gray" size="4">Git是什么？Git官网下载：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git Download</a>简单来说Git是开源的分布式版本控制系统，用于敏捷高效的处理项目。我们的网站在本地搭好了，需要使用Git同步到Github上。如果之前没接触过Git或者想更了解Git，网上很多博友都推荐廖雪峰老师的Git教程：<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">Git教程</a>，还可以去参看<a href="https://gitee.com/progit/" target="_blank" rel="noopener">Pro Git中文版</a>。<br><br>下载后安装 <a href="https://jingyan.baidu.com/article/9f7e7ec0b17cac6f2815548d.html" target="_blank" rel="noopener">Git安装教程</a>，在cmd命令行里输入 <code>git</code>(或者    <code>git version</code>    )可以测试是否安装成功。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/04.png" alt="Alt text"><br><br><img src="http://pbqf89lam.bkt.clouddn.com/03.png" alt="Alt text"><br><br>安装成功后，下面就是将你的Git与Github账号绑定，你可以鼠标点击打开Git Bash也行，在cmd命令行中也行<br><br>设置username和user.email配置信息(如果之前配置过了就可以忽略这步)：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">git config –global user.name “你的Github用户名”<br>git config –global user.email “你的GitHub注册邮箱”</td></tr></table></font><br>生成ssh密钥文件：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">ssh-keygen -t rsa -C “你的GitHub注册邮箱”</td></tr></table></font><br>这里需要按    <strong>三个回车</strong><br>第一个是需要你设置.ssh文件的存放位置，如果直接回车，那么.ssh文件安装在默认的位置(默认位置它会提示出来)。<br>第二个是设置你的密码，如果直接按回车，默认是不需要设置密码。第三个是确认你的密码是否一致(这里你输入密码，命令行中是不会显示的，它是隐藏起来的)。<br><br>下一步找到生成的.ssh的文件夹中的 <strong>id_rsa.pub</strong> 密钥<br><img src="http://pbqf89lam.bkt.clouddn.com/05.png" alt="Alt text"><br>这里如果你本机上没有打开这类文件的编辑器，可以在cmd命令行中，切换到.shh文件夹中，输入：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">more id_rsa.pub</td></tr></table></font><br>即可得到id_rsa.pub中的内容，将其内容全部复制<br><br>打开<a href="https://github.com/settings/keys" target="_blank" rel="noopener">Github Settings keys</a>页面，点击新建    <strong>new SSH key</strong><br><br>Tile为标题，可以自己随意取名，将刚刚复制的id_rsa.pub内容粘贴到Key下面的方框中，最后点击<code>Add SSH key</code>。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/06.png" alt="Alt text"><br><br>在Git Bash(或cmd)中检测GitHub公钥设置是否成功，输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">ssh <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></td></tr></table></font>
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/07.png" alt="Alt text"></p>
+<p>如上则说明设置成功</p></font><p></p>
+<p></p><h2 id="4"><font face="黑体" size="5.5">4.安装Node.js</font></h2><p></p>
+<font color="gray" size="4">Hexo是基于Node.js的，Node.js的官网下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Down Node.js</a>，这是Node.js的安装教程：<a href="https://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js Installation tutorials</a>。安装时，要注意环境变量以及nmp的安装，安装好后，查看Node.js是否安装成功可以在命令行中输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">node -v</td></tr></table></font>
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/08.png" alt="Alt text"></p>
+<p>查看npm是否安装成功，在命令行中输入：<font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">npm -v</td></tr></table></p></font><p></p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/09.png" alt="Alt text"></p>
+<font color="gray" size="4">这样Hexo的坏境就搭好了。</font><br><h2 id="5"><font face="黑体" size="5.5">5.安装Hexo</font></h2><br><font color="gray" size="4">在自己认为合适的地方创一个文件夹，我是在自己D盘建了一个SCDN的文件夹。然后通过命令行    进入到该目录，这里请注意，<strong>一定要以管理员的身份运行</strong>，不然后面输入一些命令时，会提示你没有这个命令，如果你不是在命令行中，也可以使用git bash来完成，在你建的文件夹中右键点击<code>Git Bash Here</code>，听说这样会比用命令行运行出的问题少些。<br><br>使用npm命令安装Hexo：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm install -g hexo-cli</td></tr></table></font> 
+
+<p>输入：<font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">hexo -v</td></tr></table></p></font><p></p>
+<font color="gray" size="4">可以检查我们是否安装成功<br><br><img src="http://pbqf89lam.bkt.clouddn.com/010.png" alt="Alt text"><br><br>安装完成后，接下来就是初始化我们的博客，输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm init blog</td></tr></table></font><br>运行后你会发现在你之前建的文件夹下会有一个blog文件，这个文件夹就是我们存放代码的地方。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/011.png" alt="Alt text"><br><br>接下来执行<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5"><code>hexo n &quot;我的博客&quot;</code> #新建一篇博客文章<br><code>hexo g</code> #生成网页<br><code>hexo s</code> #启动服务预览</td></tr></table></font>
+
+<p>在执行hexo s后开启了本地预览服务，这时打开浏览器访问<a href="https://localhost:4000" target="_blank" rel="noopener">https://localhost:4000</a> 即可查看自己博客网页的内容</p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/012.jpg" alt="Alt text"></p>
+<p>有些时候浏览器会加载不出来，这时你可以使用这个命令：<font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">hexo server -p 8888    #更改端口号</td></tr></table></p></font> <p></p>
+<font color="gray" size="4">这里写8888是举个列子。</font><br><h2 id="6"><font face="黑体" size="5.5">6.推送网站</font></h2><br><font color="gray" size="4">前面只是可以在本地上浏览你的网站，如果我们想让更多的人访问我们的网站，就要把它推送出去就是发布出去。在此之前我们需要做一些配置，首先打开blog文件夹，在里面会有一个<code>_config.yml</code>文件，这里注意，不是theme里的_config.yml文件<br><br><img src="http://pbqf89lam.bkt.clouddn.com/013.png" alt="Alt text"><br><br>我们把它打开，(如果你本机上没有打开这类的编辑器，这里推荐一个非常有特色的编辑器Notepad++，它是一个开源的软件，可以去它的官网直接下载 <a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener">Down Notepad++</a>)<br><br>翻到文件最后，修改为：<br><br><img src="http://pbqf89lam.bkt.clouddn.com/014.png" alt="Alt"><br><br>最后安装Git部署插件，输入命令<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm install hexo-deployer-git –save</td></tr></table></font><br>这是我们再输入：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo clean #清除缓存<br>hexo g<br>hexo d #部署网站</td></tr></table></font> 
+
+<p>运行hexo d 后，这里它会让你输入之前SSH　Key的密码，所以要记住之前设置的密码。<br>这样打开浏览器，输入你的放置个人网站的仓库路径，<strong>即：<a href="http://xxx.github.io。比如我的xxx就是我的Github用户名" target="_blank" rel="noopener">http://xxx.github.io。比如我的xxx就是我的Github用户名</a></strong><br><strong>Aayers-ghw.github.io</strong></p>
+<p>这样别人就可以访问你的博客网站了。</p></font><p></p>
+<p></p><h2 id="7"><font face="黑体" size="5.5">7.更换主题</font></h2><p></p>
+<font color="gray" size="4">到这个时候，你发现自己的网站不够酷炫，那么你可以更改下网站的主题，这里面有很多主题<a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题官网</a>。其实更改主题的操作都是差不多的，在这里我就按照自己的主题讲解一遍。我用的主题是这个 <a href="">hexo-theme-yilia</a>。<br>首先要下载这个主题：<br><table><tr><td bgcolor="#F5F5F5">git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia</td></tr></table></font><br><font color="gray" size="4">下载后的主题会放在blog里theme下</font>
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/015.png" alt="Alt text"></p>
+<font color="gray" size="4">修改 <code>_config.yml</code> 中<code>theme:</code> 的内容</font>
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/016.png" alt="Alt text"></p>
+<font color="gray" size="4">然后重新执行</font><br><table><tr><td bgcolor="#F5F5F5">hexo g #重新生成</td></tr></table><br><font color="gray" size="4">如果出现了问题，可以执行</font><br><table><tr><td bgcolor="#F5F5F5">hexo clean</td></tr></table><br><font color="gray" size="4">来清理public里的内容，然后重新生成和发布</font><br><br><h2 id="8"><font face="黑体" size="5.5">8.个性化设置</font></h2><font color="gray" size="4">在我们弄好我们的网站主题后，接下来有一些个性化的设置。<br>有些设置是在blog文件夹下的 <code>_config.yml</code> 下修改的<br><br><img src="http://pbqf89lam.bkt.clouddn.com/018.png" alt="Alt text"><br><br>依次是网站标题、副标题、网站描述、关键词、作者、网站语言、时区等。<br><br>有些是在theme文件夹下的 <em>yilia</em> 中 <code>_congif.yml</code> 下修改的，比如<br><br><img src="http://pbqf89lam.bkt.clouddn.com/019.png" alt="Alt text"><br><br>这里可以添加一些完善自己网站的设置。</font><br><h2 id="9"><font face="黑体" size="5.5">9.发布文章</font></h2><font color="gray" size="4">环境搭好了接下来就是怎么发表我们的文章了，首先我们在命令行输入<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo new “要发布的博客的名字”</td></tr></table></font><br>这时会在blog根目录下的source文件夹中的_post文件夹中多了一个    <strong>“要发布的博客的名字”.md</strong><br><br><img src="http://pbqf89lam.bkt.clouddn.com/017.png" alt="Alt text"><br>我要发布的博客的名字是 <code>hexo-github</code><br><br>使用markdown编辑器打开，大家可以参考这个<a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">markdown教程</a>，这里还推荐一个markdown的编译器 cmd markdown，它可以让你更快更直接的学习 markdown 的语法，打开 cmd markdown，里面它会分为两个部分，左边是markdown语句，右边是生成的样式。 <a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="noopener">Cmd markdown编辑阅读器</a><br><br>我们可以通过命令<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo s –debug</td></tr></table></font>在本地浏览器的localhost:4000 预览博文效果。<br>写好博文并且样式无误后，通过 <code>hexo g</code> 、 <code>hexo d</code> 生成、部署网页。随后可以在浏览器中输入域名浏览。</font>
+
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/11/hexo-github/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -372,8 +384,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
