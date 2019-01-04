@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png">
 <meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png">
 <meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png">
-<meta property="og:updated_time" content="2018-11-08T03:16:59.684Z">
+<meta property="og:updated_time" content="2019-01-04T08:14:33.840Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark性能优化">
 <meta name="twitter:description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
@@ -35,7 +35,7 @@
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -47,6 +47,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -95,11 +105,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -136,11 +146,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -189,6 +199,7 @@
         <hr>
 <h3 id="Spark性能优化概览"><a href="#Spark性能优化概览" class="headerlink" title="Spark性能优化概览"></a>Spark性能优化概览</h3><font color="gray" size="4">由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。<br><br>Spark性能优化，其实主要就是在于对内存的使用进行调优。因为通常情况下来说，如果你的Spark应用程序计算的数据量比较小，并且你的内存足够使用，那么只要运维可以保障网络通常，一般是不会有大的性能问题的。但是Spark应用程序的性能问题往往出现在针对大数据量（比如10亿级别）进行计算时出现，因此通常来说，Spark性能优化，主要是对内存进行性能优化。当然，除了内存调优之外，还有很多手段可以优化Spark应用程序的性能。</font>
 
+<a id="more"></a>
 <hr>
 <h3 id="Spark的性能优化，主要手段包括："><a href="#Spark的性能优化，主要手段包括：" class="headerlink" title="Spark的性能优化，主要手段包括："></a>Spark的性能优化，主要手段包括：</h3><blockquote>
 <ul>
@@ -421,6 +432,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/11/07/spark性能优化一/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -436,8 +463,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -521,15 +559,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">

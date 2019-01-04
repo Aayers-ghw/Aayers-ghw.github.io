@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Linux 学习笔记(二) | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
+  <meta name="description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 学习笔记(二)">
 <meta property="og:url" content="http://yoursite.com/2018/08/04/Linux-note-2/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
+<meta property="og:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-04T06:02:05.891Z">
+<meta property="og:updated_time" content="2019-01-04T08:15:25.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 学习笔记(二)">
-<meta name="twitter:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件       find / -name install.log  #避免大范围搜索，会非常耗费系统资源  #find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配       find /ro">
+<meta name="twitter:description" content="Linux中通配符    * 匹配任意内容 ? 匹配任意一个字符 [] 匹配任意一个中括号内的字符     find 命令  find [搜索范围] [搜素条件]#搜索文件">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -36,6 +36,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -84,11 +94,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -125,11 +135,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -193,6 +203,7 @@
 </ul>
 </blockquote>
 <hr>
+<a id="more"></a>
 <blockquote>
 <ul>
 <li><font color="gray" size="4">find / -name install.log</font><br>  <font color="gray" size="4">#避免大范围搜索，会非常耗费系统资源</font><br>  <font color="gray" size="4">#find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配</font>
@@ -465,6 +476,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/08/04/Linux-note-2/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -480,8 +507,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -565,15 +603,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">

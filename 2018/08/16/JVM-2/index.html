@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Java虚拟机知识点整理(二) | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]    -XX:+PrintGCDetails   打印GC详细信息    -XX:+PrintGCTimeStamps   打印GC发生时间戳    -Xloggc:log/gc.log    指定GC log">
+  <meta name="description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]-XX:+PrintGCDetails  打印GC详细信息    -XX:+PrintGCTimeStamps">
 <meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java虚拟机知识点整理(二)">
 <meta property="og:url" content="http://yoursite.com/2018/08/16/JVM-2/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]    -XX:+PrintGCDetails   打印GC详细信息    -XX:+PrintGCTimeStamps   打印GC发生时间戳    -Xloggc:log/gc.log    指定GC log">
+<meta property="og:description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]-XX:+PrintGCDetails  打印GC详细信息    -XX:+PrintGCTimeStamps">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-16T01:55:20.432Z">
+<meta property="og:updated_time" content="2019-01-04T08:15:19.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机知识点整理(二)">
-<meta name="twitter:description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]    -XX:+PrintGCDetails   打印GC详细信息    -XX:+PrintGCTimeStamps   打印GC发生时间戳    -Xloggc:log/gc.log    指定GC log">
+<meta name="twitter:description" content="Trace跟踪参数-verbose:gc    -XX:+PrintGC   可以打印GC的简要信息 [GC 4790k-&amp;gt;374k(15872k),0.0001606 sess]-XX:+PrintGCDetails  打印GC详细信息    -XX:+PrintGCTimeStamps">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -36,6 +36,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -84,11 +94,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -125,11 +135,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -182,24 +192,14 @@
 
 <ul>
 <li><font size="4">可以打印GC的简要信息</font></li>
-<li><font size="4">[GC 4790k-&gt;374k(15872k),0.0001606 sess]</font>
-
+<li><font size="4">[GC 4790k-&gt;374k(15872k),0.0001606 sess]</font><br><font size="5" face="黑体"><table><tr><td bgcolor="#F5F5F5">-XX:+PrintGCDetails</td></tr></table></font>
 </li>
-</ul>
-<font size="5" face="黑体"><table><tr><td bgcolor="#F5F5F5">-XX:+PrintGCDetails</td></tr></table></font>
-
-<ul>
 <li><font size="4">打印GC详细信息</font>
 
 </li>
 </ul>
-<font size="5" face="黑体"><table><tr><td bgcolor="#F5F5F5">-XX:+PrintGCTimeStamps</td></tr></table></font>
+<font size="5" face="黑体"><table><tr><td bgcolor="#F5F5F5">-XX:+PrintGCTimeStamps</td></tr></table></font><br><a id="more"></a><br>- <font size="4">打印GC发生时间戳</font>
 
-<ul>
-<li><font size="4">打印GC发生时间戳</font>
-
-</li>
-</ul>
 <font size="5" face="黑体"><table><tr><td bgcolor="#F5F5F5">-Xloggc:log/gc.log</td></tr></table></font>
 
 <ul>
@@ -449,6 +449,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/08/16/JVM-2/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -464,8 +480,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -549,15 +576,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">

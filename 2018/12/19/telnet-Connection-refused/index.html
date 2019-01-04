@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
 <meta property="og:description" content="在Linux中使用telnet命令可能会报 解决telnet: connect to address 127.0.0.1: Connection refused的错误信息检查是否安装成功  [root@localhost software]# rpm -qa telnet-servertelnet-server-0.17-47.el6_3.1.i686 已经安装好telnet-server服务啦">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-04T07:15:15.719Z">
+<meta property="og:updated_time" content="2019-01-04T08:14:14.613Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决telnet:Connection refused的错误信息">
 <meta name="twitter:description" content="在Linux中使用telnet命令可能会报 解决telnet: connect to address 127.0.0.1: Connection refused的错误信息检查是否安装成功  [root@localhost software]# rpm -qa telnet-servertelnet-server-0.17-47.el6_3.1.i686 已经安装好telnet-server服务啦">
@@ -24,7 +24,7 @@
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -36,6 +36,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -84,11 +94,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -125,11 +135,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -182,7 +192,7 @@
 <p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# rpm -qa telnet-server<br>telnet-server-0.17-47.el6_3.1.i686</td></tr></table></p>
 <p><font color="gray" size="4">已经安装好telnet-server服务啦，但由于telnet服务是由xinetd守护的，所以我们需要重新启动xinetd。</font></p>
 <p><font size="4" face="黑体"></font></p>
-<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# service xinetd restart<br>停止 xinetd：[确定]<br>正在启动 xinetd：[确定]</td></tr></table></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# service xinetd restart<br>停止 xinetd：[确定]<br>正在启动 xinetd：[确定]</td></tr></table><br><a id="more"></a></p>
 <p><font color="gray" size="4">启动成功，我们来测试一下连接是否正常</font></p>
 <p><font size="4" face="黑体"></font></p>
 <p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# netstat -tnl | grep 23<br>tcp        0      0 0.0.0.0:36232               0.0.0.0:<em>                   LISTEN<br>tcp        0      0 :::23                       :::</em>                        LISTEN<br>[root@localhost software]# telnet localhost 23<br>Trying ::1…<br>Connected to localhost.<br>Escape character is ‘^]’.<br>CentOS release 6.4 (Final)<br>Kernel 2.6.32-358.11.1.el6.i686 on an i686<br>login:</td></tr></table></p>
@@ -351,6 +361,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/12/19/telnet-Connection-refused/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -366,8 +392,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -451,15 +488,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">

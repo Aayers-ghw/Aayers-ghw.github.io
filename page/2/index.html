@@ -19,7 +19,7 @@
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -31,6 +31,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -79,11 +89,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -120,11 +130,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -172,7 +182,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> Aayers-ghw</span></span><br><span class="line"><span class="comment">* Java中的自动装箱与拆箱</span></span><br><span class="line"><span class="comment">* 简单一点说，装箱就是自动将基本数据类型转换为包装器类型；拆箱就是自动将包装器类型转换为基本数据类型。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Number</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Integer i1 = <span class="number">128</span>;  <span class="comment">// 装箱，相当于 Integer.valueOf(128);</span></span><br><span class="line">        <span class="keyword">int</span> t = i1; <span class="comment">//相当于 i1.intValue() 拆箱</span></span><br><span class="line">        System.out.println(t);</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        对于–128到127（默认是127）之间的值,被装箱后，会被放在内存里进行重用</span></span><br><span class="line"><span class="comment">        但是如果超出了这个值,系统会重新new 一个对象</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        Integer i1 = <span class="number">200</span>;</span><br><span class="line">        Integer i2 = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        注意 == 与 equals的区别</span></span><br><span class="line"><span class="comment">        == 它比较的是对象的地址</span></span><br><span class="line"><span class="comment">        equals 比较的是对象的内容</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">if</span>(i1==i2) &#123;</span><br><span class="line">            System.out.println(<span class="string">"true"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"false"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> Aayers-ghw</span></span><br><span class="line"><span class="comment">* Java中的自动装箱与拆箱</span></span><br><span class="line"><span class="comment">* 简单一点说，装箱就是自动将基本数据类型转换为包装器类型；拆箱就是自动将包装器类型转换为基本数据类型。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Number</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Integer i1 = <span class="number">128</span>;  <span class="comment">// 装箱，相当于 Integer.valueOf(128);</span></span><br><span class="line">        <span class="keyword">int</span> t = i1; <span class="comment">//相当于 i1.intValue() 拆箱</span></span><br><span class="line">        System.out.println(t);</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        对于–128到127（默认是127）之间的值,被装箱后，会被放在内存里进行重用</span></span><br><span class="line"><span class="comment">        但是如果超出了这个值,系统会重新new 一个对象</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        Integer i1 = <span class="number">200</span>;</span><br><span class="line">        Integer i2 = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        注意 == 与 equals的区别</span></span><br><span class="line"><span class="comment">        == 它比较的是对象的地址</span></span><br><span class="line"><span class="comment">        equals 比较的是对象的内容</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">if</span>(i1==i2) &#123;</span><br><span class="line">            System.out.println(<span class="string">"true"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"false"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -263,130 +274,9 @@
 </ul>
 </blockquote>
 <hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find / -name install.log</font><br>  <font color="gray" size="4">#避免大范围搜索，会非常耗费系统资源</font><br>  <font color="gray" size="4">#find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -iname install.log</font><br>  <font color="gray" size="4">#不区别大小写</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -user root</font><br> <font color="gray" size="4">#按照所有者搜索</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -nouser</font><br>  <font color="gray" size="4">#查找没有所有者的文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /var/log/ -mtime +10</font><br>  <font color="gray" size="4">#查找10天前修改的文件</font><br> <font color="gray" size="4">选项：</font><br>  <font color="gray" size="4"><strong>-10  10天内修改的文件</strong></font><br>  <font color="gray" size="4"><strong>10    10天当天修改的文件</strong></font><br> <font color="gray" size="4"><strong>+10 10天前修改的文件</strong></font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>atime 文件访问时间</strong></font><br> <font color="gray" size="4"><strong>ctime 改变文件属性</strong></font><br> <font color="gray" size="4"><strong>mtime 修改文件内容</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find . -size 25K (.表示当前目录)</font><br> <font color="gray" size="4">#查找文件大小是25KB的文件</font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-25k 小于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>25k 等于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>+25k 大于25KB的文件</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find . -inum 262422</font><br> <font color="gray" size="4">#查找i节点是262422的文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /etc -size +20k -a -size -50k</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件</font><br> <font color="gray" size="4"><strong>-a and 逻辑与</strong></font><br> <font color="gray" size="4"><strong>-o or 逻辑或</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /etc/ -size +20k -a size -50k -exec ls -lh {} \;</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件，并且显示详细信息</font><br> <font color="gray" size="4">#-exec/ -ok 命令 {} \;对搜素命令执行操作</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="搜素字符串命令-grep"><a href="#搜素字符串命令-grep" class="headerlink" title="搜素字符串命令 grep"></a><font size="4.5"><strong>搜素字符串命令 grep</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">grep [选项] 字符串 文件名</font><br> <font color="gray" size="4">#在文件当中匹配符合条件的字符串</font><br><font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-i 忽略大小写 #使用正则表达式匹配</strong></font><br> <font color="gray" size="4"><strong>-v 排除指定字符串 #包含匹配</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="帮主命令-man"><a href="#帮主命令-man" class="headerlink" title="帮主命令 man"></a><font size="4.5"><strong>帮主命令 man</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">man 命令</font><br> <font color="gray" size="4">#获取指定命令的帮主</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man ls</font><br> <font color="gray" size="4">#查看ls的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man -f 命令</font><br> <font color="gray" size="4">#查看命令拥有哪个级别的帮助，相当于 whatis 命令</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man -k 命令</font><br> <font color="gray" size="4">#查看和命陵相关的所有帮助，相当于 apropos 命令</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="选项帮助"><a href="#选项帮助" class="headerlink" title="选项帮助"></a><font size="4.5"><strong>选项帮助</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">命令 –help</font><br> <font color="gray" size="4">#获取命令选项的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="shell内部命令帮助"><a href="#shell内部命令帮助" class="headerlink" title="shell内部命令帮助"></a><font size="4.5"><strong>shell内部命令帮助</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">help shell内部命令</font><br> <font color="gray" size="4">#获取shell内部命令的帮助</font><br> <font color="gray" size="4">例如：</font><br>         <font color="gray" size="4">whereis cd #确定是否是shell内部命令</font><br>         <font color="gray" size="4">help cd #获取内部命令的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="详细命令帮助-info-命令"><a href="#详细命令帮助-info-命令" class="headerlink" title="详细命令帮助 info 命令"></a><font size="4.5"><strong>详细命令帮助 info 命令</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">回车 ： 进入子帮助页面(带有*标记)</font></li>
-<li><font color="gray" size="4">u : 进入上层页面</font></li>
-<li><font color="gray" size="4">n : 进入下一个帮助小节</font></li>
-<li><font color="gray" size="4">p : 进入上一个帮助小节</font></li>
-<li><font color="gray" size="4">q : 退出</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-
+        
+          <a class="article-more-a" href="/2018/08/04/Linux-note-2/#more">more >></a>
+        
       
 
       
@@ -473,148 +363,9 @@
 </ul>
 </blockquote>
 <hr>
-<p><font size="5"><strong>_rw_r__r__</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">文件类型(_文件 d目录 l软链接文件)</font></li>
-<li><font color="gray" size="4">rw_ u     所有者</font></li>
-<li><font color="gray" size="4">r__ g     所属组</font></li>
-<li><font color="gray" size="4">r__ o     其他人</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>建立目录：mkdir</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">mkdir -p [目录名]</font></li>
-<li><font color="gray" size="4">-p 递归创建</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>切换所在目录 : cd</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">cd [目录]</font></li>
-<li><font color="gray" size="4">cd ~ 进入当前用户的家目录</font></li>
-<li><font color="gray" size="4">cd - 进入上一次目录</font></li>
-<li><font color="gray" size="4">cd .. 进入上一级目录</font></li>
-<li><font color="gray" size="4">cd . 进入当前目录</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>查询当前所在位置</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">pwd</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>删除空目录</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">rmdir [目录]</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>删除文件或目录 rm -rf [目录或文件]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">r 删除目录</font></li>
-<li><font color="gray" size="4">-f     强制</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>复制命令 cp [选项] [原文件或目录] [目标目录]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">-r 复制目录</font></li>
-<li><font color="gray" size="4">-p 连带文件属性复制</font></li>
-<li><font color="gray" size="4">-d 若源文件是链接文件，则复制链接属性</font></li>
-<li><font color="gray" size="4">-a 相当于-pdr</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>剪切或改名命令：mv [源文件或目录] [目标目录]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">在同一个文件时改名</font></li>
-<li><font color="gray" size="4">不在同一个文件时剪切</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>一些常用的目录文件</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4"> /boot 启动目录</font></li>
-<li><font color="gray" size="4">/dev 设备文件保存目录</font></li>
-<li><font color="gray" size="4">/etc 配置文件保存目录</font></li>
-<li><font color="gray" size="4">/home 普通用户的家目录</font></li>
-<li><font color="gray" size="4">/lib 系统库保存目录</font></li>
-<li><font color="gray" size="4">/mnt 系统挂载目录</font></li>
-<li><font color="gray" size="4">/root 超级用户的家目录</font></li>
-<li><font color="gray" size="4">/tmp 临时目录</font></li>
-<li><font color="gray" size="4">/proc 写入内存目录</font></li>
-<li><font color="gray" size="4">/sys 系统文件目录</font></li>
-<li><font color="gray" size="4">/usr 系统软件资源目录</font></li>
-<li><font color="gray" size="4">/usr/bin/ 系统命令(普通用户)</font></li>
-<li><font color="gray" size="4">/usr/sbin/ 系统命令(超级用户)</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>链接命令 ： ln -s [原文件] [目标文件]</strong></font></p>
-<p><font color="gray" size="4">功能描述：生成链接文件</font></p>
-<h2 id="选项：-s-创建软链接"><a href="#选项：-s-创建软链接" class="headerlink" title="选项： -s 创建软链接"></a><font color="gray" size="4">选项： -s 创建软链接</font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">硬链接特征：</font><br><font color="gray" size="4">1.拥有相同的i节点和存储block块，可以看作是同一文件</font><br><font color="gray" size="4">2.可以通过i节点识别</font><br><font color="gray" size="4">3.不能跨分区</font><br><font color="gray" size="4">4.不能针对目录使用</font></li>
-<li><font color="gray" size="4">软链接的特征：</font><br><font color="gray" size="4">1.类似于windows快捷键</font><br><font color="gray" size="4">2.软链接有自己的i节点和block块，但数据块中只保存原文件名和i节点号，并没有实际的文件数据</font><br><font color="gray" size="4">3.lrwxrwxrwx l==&gt;软链接</font><br><font color="gray" size="4">4.修改任意文件，另一个都改变</font><br><font color="gray" size="4">5.删除原文件，软链接不能使用</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>locate 命令格式</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">locate 文件名</font><br>      <font color="gray" size="4">在后台数据库中按文件名搜索，搜索速度更快</font></li>
-<li><font color="gray" size="4">/var/lib/mlocate</font><br> <font color="gray" size="4">#locate命令所搜索的后台数据库</font></li>
-<li><font color="gray" size="4">updatedb</font></li>
-<li><font color="gray" size="4">#更新数据库</font><br>  <font color="gray" size="4">/etc/updatedb.conf     配置文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>搜索命令的命令 whereis</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">whereis 命令名</font><br><font color="gray" size="4">#搜锁命令所在路径即帮主文档所在位置</font><br><font color="gray" size="4">选项：</font><br>      <font color="gray" size="4">-b : 只查找可执行文档所在位置</font><br>     <font color="gray" size="4">-m : 只查找帮主文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>搜索命令的的命令 which</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">which 文件名<br>  <font color="gray" size="4">#搜索命令所在路径别名</font></font></li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>PATH环境变量</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">PATH环境变量 ： 定义的是系统搜索命令的路径</font><br> <font color="gray" size="4">[root@localhost ~] echo $PATH</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-
+        
+          <a class="article-more-a" href="/2018/08/04/Linux-note-1/#more">more >></a>
+        
       
 
       
@@ -689,14 +440,9 @@
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        
+          <a class="article-more-a" href="/2018/07/11/hello-world/#more">more >></a>
+        
       
 
       
@@ -760,67 +506,9 @@
       
         <hr>
 <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><font color="gray" size="4">最近在学习git的用法，顺便搭起了自己的GitHub–&gt;（<a href="https://github.com/Aayers-ghw" target="_blank" rel="noopener">Aayers-ghw</a>），在知乎上面看到别人说markdown是一种可以使用普通文本编辑器编写的标记语言，它的语法简洁明了、学习容易。而且功能比纯文本更强，因此有很多人用它来写博客，而且逼格超高。<br><a href="https://www.zhihu.com/question/29755481" target="_blank" rel="noopener">你见过的最棒的个人博客界面是怎样的？</a></font>
-
-
-<hr>
-<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><blockquote>
-<ul>
-<li><a href="#1"><font color="#0099ff" size="4">1.获得个人网站域名</font></a></li>
-<li><a href="#2"><font color="#0099ff" size="4">2.GitHub创建个人创库</font></a></li>
-<li><a href="#3"><font color="#0099ff" size="4">3.安装Git</font></a></li>
-<li><a href="#4"><font color="#0099ff" size="4">4.安装Node.js</font></a></li>
-<li><a href="#5"><font color="#0099ff" size="4">5.安装Hexo</font></a></li>
-<li><a href="#6"><font color="#0099ff" size="4">6.推送网站</font></a></li>
-<li><a href="#7"><font color="#0099ff" size="4">7.更换主题</font></a></li>
-<li><a href="#8"><font color="#0099ff" size="4">8.个性化设置</font></a></li>
-<li><a href="#9"><font color="#0099ff" size="4">9.发布文章</font></a></li>
-</ul>
-</blockquote>
-<hr>
-<p></p><h2 id="1"><font face="黑体" size="5.5">1.获得个人网站域名</font></h2><p></p>
-<font color="gray" size="4">其实你不绑定域名是完全可以的，就默认使用GitHub上的    <code>xxx.github.io</code>    来访问，但是如果你想显得更有个性一些，想拥有一个属于自己的域名也是可以的，可以去阿里云买一个，因为我是没有去注册一个域名，是使用默认的，所以这里我就不介绍怎么绑定域名的操作和域名的配置操作了，如果你自己想绑定的话可以去参考下这个链接<a href="https://blog.csdn.net/deemons/article/details/77620011" target="_blank" rel="noopener">博客绑定域名</a>。</font>
-
-<hr>
-<p></p><h2 id="2"><font face="黑体" size="5.5">2.GitHub创建个人创库</font></h2><p></p>
-<font color="gray" size="4">首先登录到GitHub，如果没有GitHub账号可以用自己的邮箱申请一个：<a href="https://github.com/" target="_blank" rel="noopener">GitHub Page</a>，然后点击GitHub中的    <strong>New repository</strong>    创建新仓库。仓库名应该为：<code>用户名.github.io</code>，这个用户名就是你GitHub上的用户名，这是固定 的写法，这是我的仓库名<br><img src="http://pbqf89lam.bkt.clouddn.com/01.jpg" alt="Alt text"><br></font>
-
-<p></p><h2 id="3"><font face="黑体" size="5.5">3.安装Git</font></h2><p></p>
-<font color="gray" size="4">Git是什么？Git官网下载：<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git Download</a>简单来说Git是开源的分布式版本控制系统，用于敏捷高效的处理项目。我们的网站在本地搭好了，需要使用Git同步到Github上。如果之前没接触过Git或者想更了解Git，网上很多博友都推荐廖雪峰老师的Git教程：<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">Git教程</a>，还可以去参看<a href="https://gitee.com/progit/" target="_blank" rel="noopener">Pro Git中文版</a>。<br><br>下载后安装 <a href="https://jingyan.baidu.com/article/9f7e7ec0b17cac6f2815548d.html" target="_blank" rel="noopener">Git安装教程</a>，在cmd命令行里输入 <code>git</code>(或者    <code>git version</code>    )可以测试是否安装成功。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/04.png" alt="Alt text"><br><br><img src="http://pbqf89lam.bkt.clouddn.com/03.png" alt="Alt text"><br><br>安装成功后，下面就是将你的Git与Github账号绑定，你可以鼠标点击打开Git Bash也行，在cmd命令行中也行<br><br>设置username和user.email配置信息(如果之前配置过了就可以忽略这步)：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">git config –global user.name “你的Github用户名”<br>git config –global user.email “你的GitHub注册邮箱”</td></tr></table></font><br>生成ssh密钥文件：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">ssh-keygen -t rsa -C “你的GitHub注册邮箱”</td></tr></table></font><br>这里需要按    <strong>三个回车</strong><br>第一个是需要你设置.ssh文件的存放位置，如果直接回车，那么.ssh文件安装在默认的位置(默认位置它会提示出来)。<br>第二个是设置你的密码，如果直接按回车，默认是不需要设置密码。第三个是确认你的密码是否一致(这里你输入密码，命令行中是不会显示的，它是隐藏起来的)。<br><br>下一步找到生成的.ssh的文件夹中的 <strong>id_rsa.pub</strong> 密钥<br><img src="http://pbqf89lam.bkt.clouddn.com/05.png" alt="Alt text"><br>这里如果你本机上没有打开这类文件的编辑器，可以在cmd命令行中，切换到.shh文件夹中，输入：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">more id_rsa.pub</td></tr></table></font><br>即可得到id_rsa.pub中的内容，将其内容全部复制<br><br>打开<a href="https://github.com/settings/keys" target="_blank" rel="noopener">Github Settings keys</a>页面，点击新建    <strong>new SSH key</strong><br><br>Tile为标题，可以自己随意取名，将刚刚复制的id_rsa.pub内容粘贴到Key下面的方框中，最后点击<code>Add SSH key</code>。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/06.png" alt="Alt text"><br><br>在Git Bash(或cmd)中检测GitHub公钥设置是否成功，输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">ssh <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></td></tr></table></font>
-
-<p><img src="http://pbqf89lam.bkt.clouddn.com/07.png" alt="Alt text"></p>
-<p>如上则说明设置成功</p></font><p></p>
-<p></p><h2 id="4"><font face="黑体" size="5.5">4.安装Node.js</font></h2><p></p>
-<font color="gray" size="4">Hexo是基于Node.js的，Node.js的官网下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Down Node.js</a>，这是Node.js的安装教程：<a href="https://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">Node.js Installation tutorials</a>。安装时，要注意环境变量以及nmp的安装，安装好后，查看Node.js是否安装成功可以在命令行中输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">node -v</td></tr></table></font>
-
-<p><img src="http://pbqf89lam.bkt.clouddn.com/08.png" alt="Alt text"></p>
-<p>查看npm是否安装成功，在命令行中输入：<font size="4" face="黑体"></font></p>
-<p><table><tr><td bgcolor="#F5F5F5">npm -v</td></tr></table></p></font><p></p>
-<p><img src="http://pbqf89lam.bkt.clouddn.com/09.png" alt="Alt text"></p>
-<font color="gray" size="4">这样Hexo的坏境就搭好了。</font><br><h2 id="5"><font face="黑体" size="5.5">5.安装Hexo</font></h2><br><font color="gray" size="4">在自己认为合适的地方创一个文件夹，我是在自己D盘建了一个SCDN的文件夹。然后通过命令行    进入到该目录，这里请注意，<strong>一定要以管理员的身份运行</strong>，不然后面输入一些命令时，会提示你没有这个命令，如果你不是在命令行中，也可以使用git bash来完成，在你建的文件夹中右键点击<code>Git Bash Here</code>，听说这样会比用命令行运行出的问题少些。<br><br>使用npm命令安装Hexo：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm install -g hexo-cli</td></tr></table></font> 
-
-<p>输入：<font size="4" face="黑体"></font></p>
-<p><table><tr><td bgcolor="#F5F5F5">hexo -v</td></tr></table></p></font><p></p>
-<font color="gray" size="4">可以检查我们是否安装成功<br><br><img src="http://pbqf89lam.bkt.clouddn.com/010.png" alt="Alt text"><br><br>安装完成后，接下来就是初始化我们的博客，输入：<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm init blog</td></tr></table></font><br>运行后你会发现在你之前建的文件夹下会有一个blog文件，这个文件夹就是我们存放代码的地方。<br><br><img src="http://pbqf89lam.bkt.clouddn.com/011.png" alt="Alt text"><br><br>接下来执行<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5"><code>hexo n &quot;我的博客&quot;</code> #新建一篇博客文章<br><code>hexo g</code> #生成网页<br><code>hexo s</code> #启动服务预览</td></tr></table></font>
-
-<p>在执行hexo s后开启了本地预览服务，这时打开浏览器访问<a href="https://localhost:4000" target="_blank" rel="noopener">https://localhost:4000</a> 即可查看自己博客网页的内容</p>
-<p><img src="http://pbqf89lam.bkt.clouddn.com/012.jpg" alt="Alt text"></p>
-<p>有些时候浏览器会加载不出来，这时你可以使用这个命令：<font size="4" face="黑体"></font></p>
-<p><table><tr><td bgcolor="#F5F5F5">hexo server -p 8888    #更改端口号</td></tr></table></p></font> <p></p>
-<font color="gray" size="4">这里写8888是举个列子。</font><br><h2 id="6"><font face="黑体" size="5.5">6.推送网站</font></h2><br><font color="gray" size="4">前面只是可以在本地上浏览你的网站，如果我们想让更多的人访问我们的网站，就要把它推送出去就是发布出去。在此之前我们需要做一些配置，首先打开blog文件夹，在里面会有一个<code>_config.yml</code>文件，这里注意，不是theme里的_config.yml文件<br><br><img src="http://pbqf89lam.bkt.clouddn.com/013.png" alt="Alt text"><br><br>我们把它打开，(如果你本机上没有打开这类的编辑器，这里推荐一个非常有特色的编辑器Notepad++，它是一个开源的软件，可以去它的官网直接下载 <a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener">Down Notepad++</a>)<br><br>翻到文件最后，修改为：<br><br><img src="http://pbqf89lam.bkt.clouddn.com/014.png" alt="Alt"><br><br>最后安装Git部署插件，输入命令<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">npm install hexo-deployer-git –save</td></tr></table></font><br>这是我们再输入：<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo clean #清除缓存<br>hexo g<br>hexo d #部署网站</td></tr></table></font> 
-
-<p>运行hexo d 后，这里它会让你输入之前SSH　Key的密码，所以要记住之前设置的密码。<br>这样打开浏览器，输入你的放置个人网站的仓库路径，<strong>即：<a href="http://xxx.github.io。比如我的xxx就是我的Github用户名" target="_blank" rel="noopener">http://xxx.github.io。比如我的xxx就是我的Github用户名</a></strong><br><strong>Aayers-ghw.github.io</strong></p>
-<p>这样别人就可以访问你的博客网站了。</p></font><p></p>
-<p></p><h2 id="7"><font face="黑体" size="5.5">7.更换主题</font></h2><p></p>
-<font color="gray" size="4">到这个时候，你发现自己的网站不够酷炫，那么你可以更改下网站的主题，这里面有很多主题<a href="https://hexo.io/themes/" target="_blank" rel="noopener">主题官网</a>。其实更改主题的操作都是差不多的，在这里我就按照自己的主题讲解一遍。我用的主题是这个 <a href="">hexo-theme-yilia</a>。<br>首先要下载这个主题：<br><table><tr><td bgcolor="#F5F5F5">git clone <a href="https://github.com/litten/hexo-theme-yilia.git" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia.git</a> themes/yilia</td></tr></table></font><br><font color="gray" size="4">下载后的主题会放在blog里theme下</font>
-
-<p><img src="http://pbqf89lam.bkt.clouddn.com/015.png" alt="Alt text"></p>
-<font color="gray" size="4">修改 <code>_config.yml</code> 中<code>theme:</code> 的内容</font>
-
-<p><img src="http://pbqf89lam.bkt.clouddn.com/016.png" alt="Alt text"></p>
-<font color="gray" size="4">然后重新执行</font><br><table><tr><td bgcolor="#F5F5F5">hexo g #重新生成</td></tr></table><br><font color="gray" size="4">如果出现了问题，可以执行</font><br><table><tr><td bgcolor="#F5F5F5">hexo clean</td></tr></table><br><font color="gray" size="4">来清理public里的内容，然后重新生成和发布</font><br><br><h2 id="8"><font face="黑体" size="5.5">8.个性化设置</font></h2><font color="gray" size="4">在我们弄好我们的网站主题后，接下来有一些个性化的设置。<br>有些设置是在blog文件夹下的 <code>_config.yml</code> 下修改的<br><br><img src="http://pbqf89lam.bkt.clouddn.com/018.png" alt="Alt text"><br><br>依次是网站标题、副标题、网站描述、关键词、作者、网站语言、时区等。<br><br>有些是在theme文件夹下的 <em>yilia</em> 中 <code>_congif.yml</code> 下修改的，比如<br><br><img src="http://pbqf89lam.bkt.clouddn.com/019.png" alt="Alt text"><br><br>这里可以添加一些完善自己网站的设置。</font><br><h2 id="9"><font face="黑体" size="5.5">9.发布文章</font></h2><font color="gray" size="4">环境搭好了接下来就是怎么发表我们的文章了，首先我们在命令行输入<br><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo new “要发布的博客的名字”</td></tr></table></font><br>这时会在blog根目录下的source文件夹中的_post文件夹中多了一个    <strong>“要发布的博客的名字”.md</strong><br><br><img src="http://pbqf89lam.bkt.clouddn.com/017.png" alt="Alt text"><br>我要发布的博客的名字是 <code>hexo-github</code><br><br>使用markdown编辑器打开，大家可以参考这个<a href="http://wowubuntu.com/markdown/" target="_blank" rel="noopener">markdown教程</a>，这里还推荐一个markdown的编译器 cmd markdown，它可以让你更快更直接的学习 markdown 的语法，打开 cmd markdown，里面它会分为两个部分，左边是markdown语句，右边是生成的样式。 <a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="noopener">Cmd markdown编辑阅读器</a><br><br>我们可以通过命令<font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">hexo s –debug</td></tr></table></font>在本地浏览器的localhost:4000 预览博文效果。<br>写好博文并且样式无误后，通过 <code>hexo g</code> 、 <code>hexo d</code> 生成、部署网页。随后可以在浏览器中输入域名浏览。</font>
-
-
-
+        
+          <a class="article-more-a" href="/2018/07/11/hexo-github/#more">more >></a>
+        
       
 
       
@@ -893,8 +581,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -978,15 +677,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">

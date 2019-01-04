@@ -8,26 +8,26 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>shuffle原理解剖 | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。      Spark Shuffle操作的两个特点第一个特点    在Spark早期版本中，那个bucket缓存是非常非常重要的，因为需要将一个ShuffleMapTask所有的数据都写入内存">
+  <meta name="description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。">
 <meta name="keywords" content="spark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="shuffle原理解剖">
 <meta property="og:url" content="http://yoursite.com/2018/11/03/spark-shuffle/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。      Spark Shuffle操作的两个特点第一个特点    在Spark早期版本中，那个bucket缓存是非常非常重要的，因为需要将一个ShuffleMapTask所有的数据都写入内存">
+<meta property="og:description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%99%AE%E9%80%9A%E7%9A%84Shuffle%E6%93%8D%E4%BD%9C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png">
 <meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E4%BC%98%E5%8C%96%E5%90%8E%E7%9A%84Shuffle%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png">
-<meta property="og:updated_time" content="2018-11-03T12:34:49.823Z">
+<meta property="og:updated_time" content="2019-01-04T08:14:24.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="shuffle原理解剖">
-<meta name="twitter:description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。      Spark Shuffle操作的两个特点第一个特点    在Spark早期版本中，那个bucket缓存是非常非常重要的，因为需要将一个ShuffleMapTask所有的数据都写入内存">
+<meta name="twitter:description" content="默认的Shuffle操作的原理剖析在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。">
 <meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%99%AE%E9%80%9A%E7%9A%84Shuffle%E6%93%8D%E4%BD%9C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="http://ou36vgj5u.bkt.clouddn.com/image/blog/fav.ico">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -39,6 +39,16 @@
   
 
   
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?24451a8b853bb443019686be21dfdff4";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
 
 </head>
 
@@ -87,11 +97,11 @@
 				
 					<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
 					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -128,11 +138,11 @@
 					
 						<a class="github" target="_blank" href="https://github.com/Aayers-ghw" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
 						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
 			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="mail" target="_blank" href="/guohuiwen97@outlook.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -182,7 +192,7 @@
 <h2 id="默认的Shuffle操作的原理剖析"><a href="#默认的Shuffle操作的原理剖析" class="headerlink" title="默认的Shuffle操作的原理剖析"></a>默认的Shuffle操作的原理剖析</h2><font color="gray" size="4">在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。</font>  
 
 
-<p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%99%AE%E9%80%9A%E7%9A%84Shuffle%E6%93%8D%E4%BD%9C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png" alt="Alt text"></p>
+<p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%99%AE%E9%80%9A%E7%9A%84Shuffle%E6%93%8D%E4%BD%9C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png" alt="Alt text"><br><a id="more"></a></p>
 <h3 id="Spark-Shuffle操作的两个特点"><a href="#Spark-Shuffle操作的两个特点" class="headerlink" title="Spark Shuffle操作的两个特点"></a>Spark Shuffle操作的两个特点</h3><p><font color="gray" size="4">第一个特点<br>    在Spark早期版本中，那个bucket缓存是非常非常重要的，因为需要将一个ShuffleMapTask所有的数据都写入内存缓存之后，才会刷新到磁盘。但是这就有一个问题，如果map side数据过多，那么很容易造成内存溢出。所以spark在新版本中，优化了，默认那个内存缓存是100kb，然后呢，写入一点数据达到了刷新到磁盘的阈值之后，就会将数据一点一点地刷新到磁盘。<br>    这种操作的优点，是不容易发生内存溢出。缺点在于，如果内存缓存过小的话，那么可能发生过多的磁盘写io操作。所以，这里的内存缓存大小，是可以根据实际的业务情况进行优化的。</font></p>
 <p><font color="gray" size="4">第二个特点<br>    与MapReduce完全不一样的是，MapReduce它必须将所有的数据都写入本地磁盘文件以后，才能启动reduce操作，来拉取数据。为什么？因为mapreduce要实现默认的根据key的排序！所以要排序，肯定得写完所有数据，才能排序，然后reduce来拉取。<br>    但是Spark不需要，spark默认情况下，是不会对数据进行排序的。因此ShuffleMapTask每写入一点数据，ResultTask就可以拉取一点数据，然后在本地执行我们定义的聚合函数和算子，进行计算。<br>    spark这种机制的好处在于，速度比mapreduce快多了。但是也有一个问题，mapreduce提供的reduce，是可以处理每个key对应的value上的，很方便。但是spark中，由于这种实时拉取的机制，因此提供不了，直接处理key对应的values的算子，只能通过groupByKey，先shuffle，有一个MapPartitionsRDD，然后用map算子，来处理每个key对应的values。就没有mapreduce的计算模型那么方便。</font></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="优化后的Shuffle操作的原理剖析"><a href="#优化后的Shuffle操作的原理剖析" class="headerlink" title="优化后的Shuffle操作的原理剖析"></a>优化后的Shuffle操作的原理剖析</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E4%BC%98%E5%8C%96%E5%90%8E%E7%9A%84Shuffle%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png" alt="Alt text"></p>
@@ -335,6 +345,22 @@
   
 
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/11/03/spark-shuffle/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -350,8 +376,19 @@
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
       	</div>
     </div>
+
+    <div calss="count-span">
+     <span id="busuanzi_container_site_pv">
+       总访问量: <span id="busuanzi_value_site_pv"></span>|
+     </span>
+     <span id="busuanzi_container_site_uv">
+       总访客: <span id="busuanzi_value_site_uv"></span>
+     </span>
+   </div>
+
   </div>
 </footer>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -435,15 +472,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
