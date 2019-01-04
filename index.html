@@ -152,6 +152,347 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-telnet-Connection-refused" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/19/telnet-Connection-refused/">解决telnet:Connection refused的错误信息</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/19/telnet-Connection-refused/" class="archive-article-date">
+  	<time datetime="2018-12-19T07:31:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p><font color="gray" size="4">在Linux中使用telnet命令可能会报</font></p>
+<h2 id="解决telnet-connect-to-address-127-0-0-1-Connection-refused的错误信息"><a href="#解决telnet-connect-to-address-127-0-0-1-Connection-refused的错误信息" class="headerlink" title="解决telnet: connect to address 127.0.0.1: Connection refused的错误信息"></a><code>解决telnet: connect to address 127.0.0.1: Connection refused的错误信息</code></h2><p><font color="gray" size="4">检查是否安装成功</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# rpm -qa telnet-server<br>telnet-server-0.17-47.el6_3.1.i686</td></tr></table></p>
+<p><font color="gray" size="4">已经安装好telnet-server服务啦，但由于telnet服务是由xinetd守护的，所以我们需要重新启动xinetd。</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# service xinetd restart<br>停止 xinetd：[确定]<br>正在启动 xinetd：[确定]</td></tr></table></p>
+<p><font color="gray" size="4">启动成功，我们来测试一下连接是否正常</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# netstat -tnl | grep 23<br>tcp        0      0 0.0.0.0:36232               0.0.0.0:<em>                   LISTEN<br>tcp        0      0 :::23                       :::</em>                        LISTEN<br>[root@localhost software]# telnet localhost 23<br>Trying ::1…<br>Connected to localhost.<br>Escape character is ‘^]’.<br>CentOS release 6.4 (Final)<br>Kernel 2.6.32-358.11.1.el6.i686 on an i686<br>login:</td></tr></table></p>
+<p><font color="gray" size="4">如果无法连接到telnet，那么需要修改/etc/xinetd.d/telnet文件</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# vi /etc/xinetd.d/telnet<br>&#35; default: on<br>&#35; description: The telnet server serves telnet sessions; it uses \<br>&#35;       unencrypted username/password pairs for authentication.<br>service telnet<br>{<br>        flags           = REUSE<br>        socket_type     = stream<br>        wait            = no<br>        user            = root<br>        server          = /usr/sbin/in.telnetd<br>        log_on_failure  += USERID<br>        &#35;disable                = yes<br>}</td></tr></table></p>
+<p><font color="gray" size="4">将disable=yes行前加#注释掉，或者把yes改为no<br>然后重新启动xinetd服务</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# service xinetd restart<br>停止 xinetd：[确定]<br>正在启动 xinetd：[确定]</td></tr></table></p>
+<p><font color="gray" size="4">或者需要开启防火墙的23端口，我们可以配置一下防火墙，添加telnet的23端口服务</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">[root@localhost software]# setup<br>文本模式设置工具 1.19.9                       (c) 1999-2006 Red Hat, Inc<br>┌─────┤ 选择一种工具 ├─────┐<br>│                         │<br>│        防火墙配置        │<br>│        键盘配置          │<br>│        网络配置          │<br>│        系统服务          │<br>│        验证配置          │<br>│                          │<br>│  ┌──────────┐  ┌──────┐  │<br>│  │ 运行工具 │  │ 退出 │  │<br>│  └──────────┘  └──────┘  │<br>│                          │<br>│                          │<br>└──────────────────────────┘</td></tr></table></p>
+<p><font color="gray" size="4">我们也可以采用命令行形式添加规则到防火墙中</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">&#35; vi /etc/sysconfig/iptables</td></tr></table></p>
+<p><font color="gray" size="4">添加一条配置规则，如要想开放23的端口，如下所示：</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">-A INPUT -m state –state NEW -m tcp -p tcp –dport 23 -j ACCEPT</td></tr></table></p>
+<p><font color="gray" size="4">重启iptables</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">&#35; /etc/init.d/iptables restart</td></tr></table></p>
+<p><font color="gray" size="4">看下状态</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">&#35; /etc/init.d/iptables status</td></tr></table></p>
+<p><font color="gray" size="4">（1） 重启后永久性生效：</font></p>
+<p><font size="4" face="黑体"></font></p>
+<p><table><tr><td bgcolor="#F5F5F5">开启：chkconfig iptables on<br>关闭：chkconfig iptables off</td></tr></table></p>
+<p><font color="gray" size="4">（2） 即时生效，重启后失效（即重启后防火墙自动开启）：</font><br>开启：service iptables start<br>关闭：service iptables stop</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linxu</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/19/telnet-Connection-refused/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-spark性能优化一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/07/spark性能优化一/">spark性能优化</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/07/spark性能优化一/" class="archive-article-date">
+  	<time datetime="2018-11-07T13:52:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="Spark性能优化概览"><a href="#Spark性能优化概览" class="headerlink" title="Spark性能优化概览"></a>Spark性能优化概览</h3><font color="gray" size="4">由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。<br><br>Spark性能优化，其实主要就是在于对内存的使用进行调优。因为通常情况下来说，如果你的Spark应用程序计算的数据量比较小，并且你的内存足够使用，那么只要运维可以保障网络通常，一般是不会有大的性能问题的。但是Spark应用程序的性能问题往往出现在针对大数据量（比如10亿级别）进行计算时出现，因此通常来说，Spark性能优化，主要是对内存进行性能优化。当然，除了内存调优之外，还有很多手段可以优化Spark应用程序的性能。</font>
+
+<hr>
+<h3 id="Spark的性能优化，主要手段包括："><a href="#Spark的性能优化，主要手段包括：" class="headerlink" title="Spark的性能优化，主要手段包括："></a>Spark的性能优化，主要手段包括：</h3><blockquote>
+<ul>
+<li>1、使用高性能序列化类库</li>
+<li>2、优化数据结构</li>
+<li>3、对多次使用的RDD进行持久化 / Checkpoint</li>
+<li>4、使用序列化的持久化级别</li>
+<li>5、Java虚拟机垃圾回收调优</li>
+<li>6、提高并行度</li>
+<li>7、广播共享数据</li>
+<li>8、数据本地化</li>
+<li>9、reduceByKey和groupByKey的合理使用</li>
+<li>10、Shuffle调优</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="诊断内存的消耗"><a href="#诊断内存的消耗" class="headerlink" title="诊断内存的消耗"></a>诊断内存的消耗</h3><p><strong>内存都花费在哪里了？</strong></p>
+<font color="gray" size="4">1. 每个Java对象，都有一个对象头，会占用16个字节，主要是包括了一些对象的元信息，比如指向它的类的指针。如果一个对象本身很小，比如就包括了一个int类型的field，那么它的对象头实际上比对象自己还要大。<br><br>2. Java的String对象，会比它内部的原始数据，要多出40个字节。因为它内部使用char数组来保存内部的字符序列的，并且还得保存诸如数组长度之类的信息。而且因为String使用的是UTF-16编码，所以每个字符会占用2个字节。比如，包含10个字符的String，会占用60个字节。<br><br>3. Java中的集合类型，比如HashMap和LinkedList，内部使用的是链表数据结构，所以对链表中的每一个数据，都使用了Entry对象来包装。Entry对象不光有对象头，还有指向下一个Entry的指针，通常占用8个字节。<br><br>4. 元素类型为原始数据类型（比如int）的集合，内部通常会使用原始数据类型的包装类型，比如Integer，来存储元素。</font>  
+
+<p><strong>如何判断你的程序消耗了多少内存？</strong></p>
+<font color="gray" size="4">1. 首先，自己设置RDD的并行度，有两种方式：要不然，在parallelize()、textFile()等方法中，传入第二个参数，设置RDD的task / partition的数量；要不然，用SparkConf.set()方法，设置一个参数，spark.default.parallelism，可以统一设置这个application所有RDD的partition数量。<br><br>2. 其次，在程序中将RDD cache到内存中，调用RDD.cache()方法即可。<br><br>3. 最后，观察Driver的log，你会发现类似于：“INFO BlockManagerMasterActor: Added rdd_0_1 in memory on mbk.local:50311 (size: 717.5 KB, free: 332.3 MB)”的日志信息。这就显示了每个partition占用了多少内存。<br><br>4. 将这个内存信息乘以partition数量，即可得出RDD的内存占用量。</font>
+
+<hr>
+<h2 id="一：高性能序列化类库"><a href="#一：高性能序列化类库" class="headerlink" title="一：高性能序列化类库"></a>一：高性能序列化类库</h2><h3 id="数据序列化概述"><a href="#数据序列化概述" class="headerlink" title="数据序列化概述"></a>数据序列化概述</h3><font color="gray" size="4">在任何分布式系统中，序列化都是扮演着一个重要的角色的。如果使用的序列化技术，在执行序列化操作的时候很慢，或者是序列化后的数据还是很大，那么会让分布式应用程序的性能下降很多。所以，进行Spark性能优化的第一步，就是进行序列化的性能优化。<br><br>Spark自身默认就会在一些地方对数据进行序列化，比如Shuffle。还有就是，如果我们的算子函数使用到了外部的数据（比如Java内置类型，或者自定义类型），那么也需要让其可序列化。<br><br>而Spark自身对于序列化的便捷性和性能进行了一个取舍和权衡。默认，Spark倾向于序列化的便捷性，使用了Java自身提供的序列化机制——基于ObjectInputStream和ObjectOutputStream的序列化机制。因为这种方式是Java原生提供的，很方便使用。<br><br>但是问题是，Java序列化机制的性能并不高。序列化的速度相对较慢，而且序列化以后的数据，还是相对来说比较大，还是比较占用内存空间。因此，如果你的Spark应用程序对内存很敏感，那么，实际上默认的Java序列化机制并不是最好的选择。</font>
+
+<h3 id="Spark提供的两种序列化机制"><a href="#Spark提供的两种序列化机制" class="headerlink" title="Spark提供的两种序列化机制"></a>Spark提供的两种序列化机制</h3><font color="gray" size="4">Spark实际上提供了两种序列化机制，它只是默认使用了第一种：<br><br>1. Java序列化机制：默认情况下，Spark使用Java自身的ObjectInputStream和ObjectOutputStream机制进行对象的序列化。只要你的类实现了Serializable接口，那么都是可以序列化的。而且Java序列化机制是提供了自定义序列化支持的，只要你实现Externalizable接口即可实现自己的更高性能的序列化算法。Java序列化机制的速度比较慢，而且序列化后的数据占用的内存空间比较大。<br><br>2. Kryo序列化机制：Spark也支持使用Kryo类库来进行序列化。Kryo序列化机制比Java序列化机制更快，而且序列化后的数据占用的空间更小，通常比Java序列化的数据占用的空间要小10倍。Kryo序列化机制之所以不是默认序列化机制的原因是，有些类型虽然实现了Seriralizable接口，但是它也不一定能够进行序列化；此外，如果你要得到最佳的性能，Kryo还要求你在Spark应用程序中，对所有你需要序列化的类型都进行注册。</font>
+
+<h3 id="如何使用Kryo序列化机制（一）"><a href="#如何使用Kryo序列化机制（一）" class="headerlink" title="如何使用Kryo序列化机制（一）"></a>如何使用Kryo序列化机制（一）</h3><font color="gray" size="4">如果要使用Kryo序列化机制，首先要用SparkConf设置一个参数，使用new SparkConf().set(“spark.serializer”, “org.apache.spark.serializer.KryoSerializer”)即可，即将Spark的序列化器设置为KryoSerializer。这样，Spark在内部的一些操作，比如Shuffle，进行序列化时，就会使用Kryo类库进行高性能、快速、更低内存占用量的序列化了。<br><br>使用Kryo时，它要求是需要序列化的类，是要预先进行注册的，以获得最佳性能——如果不注册的话，那么Kryo必须时刻保存类型的全限定名，反而占用不少内存。Spark默认是对Scala中常用的类型自动注册了Kryo的，都在AllScalaRegistry类中。<br><br>但是，比如自己的算子中，使用了外部的自定义类型的对象，那么还是需要将其进行注册。</font>
+
+<h3 id="如何使用Kryo序列化机制（二）"><a href="#如何使用Kryo序列化机制（二）" class="headerlink" title="如何使用Kryo序列化机制（二）"></a>如何使用Kryo序列化机制（二）</h3><font color="gray" size="4">如果要注册自定义的类型，那么就使用如下的代码，即可：</font>
+
+<ul>
+<li><p>Scala版本：</p>
+<font color="gray" size="4">val conf = new SparkConf().setMaster(…).setAppName(…)<br>conf.registerKryoClasses(Array(classOf[Counter] ))<br>val sc = new SparkContext(conf)</font>
+</li>
+<li><p>Java版本：</p>
+<font color="gray" size="4">SparkConf conf = new SparkConf().setMaster(…).setAppName(…)<br>conf.registerKryoClasses(Counter.class)<br>JavaSparkContext sc = new JavaSparkContext(conf)</font>
+
+</li>
+</ul>
+<h3 id="优化Kryo类库的使用"><a href="#优化Kryo类库的使用" class="headerlink" title="优化Kryo类库的使用"></a>优化Kryo类库的使用</h3><font color="gray" size="4">1. 优化缓存大小<br>如果注册的要序列化的自定义的类型，本身特别大，比如包含了超过100个field。那么就会导致要序列化的对象过大。此时就需要对Kryo本身进行优化。因为Kryo内部的缓存可能不够存放那么大的class对象。此时就需要调用SparkConf.set()方法，设置spark.kryoserializer.buffer.mb参数的值，将其调大。<br><br>默认情况下它的值是2，就是说最大能缓存2M的对象，然后进行序列化。可以在必要时将其调大。比如设置为10。<br><br>2. 预先注册自定义类型<br>虽然不注册自定义类型，Kryo类库也能正常工作，但是那样的话，对于它要序列化的每个对象，都会保存一份它的全限定类名。此时反而会耗费大量内存。因此通常都建议预先注册号要序列化的自定义的类。</font>
+
+<h3 id="使用Kryo序列化类库的场景"><a href="#使用Kryo序列化类库的场景" class="headerlink" title="使用Kryo序列化类库的场景"></a>使用Kryo序列化类库的场景</h3><font color="gray" size="4">如果算子函数使用到了外部的大数据的情况。比如说吧，我们在外部定义了一个封装了应用所有配置的对象，比如自定义了一个MyConfiguration对象，里面包含了100m的数据。然后，在算子函数里面，使用到了这个外部的大对象。<br><br>此时呢，如果默认情况下，让Spark用java序列化机制来序列化这种外部的大对象，那么就会导致，序列化速度缓慢，并且序列化以后的数据还是比较大，比较占用内存空间。<br><br>因此，在这种情况下，比较适合，切换到Kryo序列化类库，来对外部的大对象进行序列化操作。一是，序列化速度会变快；二是，会减少序列化后的数据占用的内存空间。</font>
+
+<hr>
+<h2 id="二：-优化数据结构"><a href="#二：-优化数据结构" class="headerlink" title="二： 优化数据结构"></a>二： 优化数据结构</h2><h3 id="如何优化数据结构"><a href="#如何优化数据结构" class="headerlink" title="如何优化数据结构"></a>如何优化数据结构</h3><font color="gray" size="4">1. 优先使用数组以及字符串，而不是集合类。<br>    也就是说，优先用array，而不是ArrayList、LinkedList、HashMap等集合。<br><br>比如，有个List<integer> list = new ArrayList<integer>()，将其替换为int[] arr = new int[]。这样的话，array既比List少了额外信息的存储开销，还能使用原始数据类型（int）来存储数据，比List中用Integer这种包装类型存储数据，要节省内存的多。<br><br>对于HashMap、List这种数据，统一用String拼接成特殊格式的字符串，比如Map&lt;Integer, Person&gt; persons = new HashMap&lt;Integer, Person&gt;()。可以优化为，特殊的字符串格式：id:name,address|id:name,address…。<br><br>2. 避免使用多层嵌套的对象结构。<br><br>比如说，public class Teacher { private List<student> students = new ArrayList<student>() }。就是非常不好的例子。因为Teacher类的内部又嵌套了大量的小Student对象。<br><br>对于上述例子，也完全可以使用特殊的字符串来进行数据的存储。比如，用json字符串来存储数据，就是一个很好的选择。{“teacherId”: 1, “teacherName”: “leo”, students:[{“studentId”: 1, “studentName”: “tom”},{“studentId”:2, “studentName”:”marry”}]}<br><br>3. 对于有些能够避免的场景，尽量使用int替代String。<br><br>因为String虽然比ArrayList、HashMap等数据结构高效多了，占用内存量少多了，但也会有额外信息的消耗。比如之前用String表示id，那么现在完全可以用数字类型的int，来进行替代。<br><br>这里提醒，在spark应用中，id就不要用常用的uuid了，因为无法转成int，就用自增的int类型的id即可。（sdfsdfdf-234242342-sdfsfsfdfd）</student></student></integer></integer></font>
+
+<hr>
+<h2 id="三：对多次使用的RDD进行持久化或Checkpoint"><a href="#三：对多次使用的RDD进行持久化或Checkpoint" class="headerlink" title="三：对多次使用的RDD进行持久化或Checkpoint"></a>三：对多次使用的RDD进行持久化或Checkpoint</h2><font color="gray" size="4">如果程序中，对某一个RDD，基于它进行了多次transformation或者action操作。那么就非常有必要对其进行持久化操作，以避免对一个RDD反复进行计算。<br><br>此外，如果要保证在RDD的持久化数据可能丢失的情况下，还要保证高性能，那么可以对RDD进行Checkpoint操作。<br>原理图如下：</font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png" alt="Alt text"></p>
+<hr>
+<h2 id="四：使用序列化的持久化级别"><a href="#四：使用序列化的持久化级别" class="headerlink" title="四：使用序列化的持久化级别"></a>四：使用序列化的持久化级别</h2><font color="gray" size="4">除了对多次使用的RDD进行持久化操作之外，还可以进一步优化其性能。因为很有可能，RDD的数据是持久化到内存，或者磁盘中的。那么，此时，如果内存大小不是特别充足，完全可以使用序列化的持久化级别，比如MEMORY_ONLY_SER、MEMORY_AND_DISK_SER等。使用RDD.persist(StorageLevel.MEMORY_ONLY_SER)这样的语法即可。<br><br>这样的话，将数据序列化之后，再持久化，可以大大减小对内存的消耗。此外，数据量小了之后，如果要写入磁盘，那么磁盘io性能消耗也比较小。<br><br>对RDD持久化序列化后，RDD的每个partition的数据，都是序列化为一个巨大的字节数组。这样，对于内存的消耗就小的多了。但是唯一的缺点就是，获取RDD数据时，需要对其进行反序列化，会增大其性能开销。<br><br>因此，对于序列化的持久化级别，还可以进一步优化，也就是说，使用Kryo序列化类库，这样，可以获得更快的序列化速度，并且占用更小的内存空间。但是要记住，如果RDD的元素（RDD<t>的泛型类型），是自定义类型的话，在Kryo中提前注册自定义类型。</t></font>
+
+<hr>
+<h2 id="五：Java虚拟机垃圾回收调优"><a href="#五：Java虚拟机垃圾回收调优" class="headerlink" title="五：Java虚拟机垃圾回收调优"></a>五：Java虚拟机垃圾回收调优</h2><h3 id="Java虚拟机垃圾回收调优的背景"><a href="#Java虚拟机垃圾回收调优的背景" class="headerlink" title="Java虚拟机垃圾回收调优的背景"></a>Java虚拟机垃圾回收调优的背景</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/GC%E5%AF%B9Spark%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text"></p>
+<font color="gray" size="4">如果在持久化RDD的时候，持久化了大量的数据，那么Java虚拟机的垃圾回收就可能成为一个性能瓶颈。因为Java虚拟机会定期进行垃圾回收，此时就会追踪所有的java对象，并且在垃圾回收时，找到那些已经不在使用的对象，然后清理旧的对象，来给新的对象腾出内存空间。<br><br>垃圾回收的性能开销，是跟内存中的对象的数量，成正比的。所以，对于垃圾回收的性能问题，首先要做的就是，使用更高效的数据结构，比如array和string；其次就是在持久化rdd时，使用序列化的持久化级别，而且用Kryo序列化类库，这样，每个partition就只是一个对象——一个字节数组。</font>
+
+<h3 id="监测垃圾回收"><a href="#监测垃圾回收" class="headerlink" title="监测垃圾回收"></a>监测垃圾回收</h3><font color="gray" size="4">我们可以对垃圾回收进行监测，包括多久进行一次垃圾回收，以及每次垃圾回收耗费的时间。只要在spark-submit脚本中，增加一个配置即可，–conf “spark.executor.extraJavaOptions=-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps”。<br><br>但是要记住，这里虽然会打印出Java虚拟机的垃圾回收的相关信息，但是是输出到了worker上的日志中，而不是driver的日志中。<br><br>但是这种方式也只是一种，其实也完全可以通过SparkUI（4040端口）来观察每个stage的垃圾回收的情况。</font>
+
+<h3 id="优化executor内存比例"><a href="#优化executor内存比例" class="headerlink" title="优化executor内存比例"></a>优化executor内存比例</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/%E8%B0%83%E8%8A%82executor%E5%86%85%E5%AD%98%E6%AF%94%E4%BE%8B.png" alt="Alt text"></p>
+<font color="gray" size="4">对于垃圾回收来说，最重要的就是调节RDD缓存占用的内存空间，与算子执行时创建的对象占用的内存空间的比例。默认情况下，Spark使用每个executor 60%的内存空间来缓存RDD，那么在task执行期间创建的对象，只有40%的内存空间来存放。<br><br>在这种情况下，很有可能因为你的内存空间的不足，task创建的对象过大，那么一旦发现40%的内存空间不够用了，就会触发Java虚拟机的垃圾回收操作。因此在极端情况下，垃圾回收操作可能会被频繁触发。<br><br>在上述情况下，如果发现垃圾回收频繁发生。那么就需要对那个比例进行调优，使用new SparkConf().set(“spark.storage.memoryFraction”, “0.5”)即可，可以将RDD缓存占用空间的比例降低，从而给更多的空间让task创建的对象进行使用。<br><br>因此，对于RDD持久化，完全可以使用Kryo序列化，加上降低其executor内存占比的方式，来减少其内存消耗。给task提供更多的内存，从而避免task的执行频繁触发垃圾回收。</font>
+
+<h3 id="高级垃圾回收调优"><a href="#高级垃圾回收调优" class="headerlink" title="高级垃圾回收调优"></a>高级垃圾回收调优</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/JVM%20minor%20gc%E4%B8%8Efull%20gc%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">Java堆空间被划分成了两块空间，一个是年轻代，一个是老年代。年轻代放的是短时间存活的对象，老年代放的是长时间存活的对象。年轻代又被划分了三块空间，Eden、Survivor1、Survivor2。<br><br>首先，Eden区域和Survivor1区域用于存放对象，Survivor2区域备用。创建的对象，首先放入Eden区域和Survivor1区域，如果Eden区域满了，那么就会触发一次Minor GC，进行年轻代的垃圾回收。Eden和Survivor1区域中存活的对象，会被移动到Survivor2区域中。然后Survivor1和Survivor2的角色调换，Survivor1变成了备用。<br><br>如果一个对象，在年轻代中，撑过了多次垃圾回收，都没有被回收掉，那么会被认为是长时间存活的，此时就会被移入老年代。此外，如果在将Eden和Survivor1中的存活对象，尝试放入Survivor2中时，发现Survivor2放满了，那么会直接放入老年代。此时就出现了，短时间存活的对象，进入老年代的问题。<br><br>如果老年代的空间满了，那么就会触发Full GC，进行老年代的垃圾回收操作。<br><br>Spark中，垃圾回收调优的目标就是，只有真正长时间存活的对象，才能进入老年代，短时间存活的对象，只能呆在年轻代。不能因为某个Survivor区域空间不够，在Minor GC时，就进入了老年代。从而造成短时间存活的对象，长期呆在老年代中占据了空间，而且Full GC时要回收大量的短时间存活的对象，导致Full GC速度缓慢。<br><br>如果发现，在task执行期间，大量full gc发生了，那么说明，年轻代的Eden区域，给的空间不够大。此时可以执行一些操作来优化垃圾回收行为：<br>&ensp; 1. 包括降低spark.storage.memoryFraction的比例，给年轻代更多的空间，来存放短时间存活的对象；<br>&ensp; 2. 给Eden区域分配更大的空间，使用-Xmn即可，通常建议给Eden区域，预计大小的4/3；<br>&ensp; 3. 如果使用的是HDFS文件，那么很好估计Eden区域大小，如果每个executor有4个task，然后每个hdfs压缩块解压缩后大小是3倍，此外每个hdfs块的大小是64M，那么Eden区域的预计大小就是：4 <em> 3 </em> 64MB，然后呢，再通过-Xmn参数，将Eden区域大小设置为4 * 3 * 64 * 4/3。</font>
+
+<hr>
+<h2 id="六：提高并行度"><a href="#六：提高并行度" class="headerlink" title="六：提高并行度"></a>六：提高并行度</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%8F%90%E9%AB%98%E5%B9%B6%E8%A1%8C%E5%BA%A6%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">实际上Spark集群的资源并不一定会被充分利用到，所以要尽量设置合理的并行度，来充分地利用集群的资源。才能充分提高Spark应用程序的性能。<br><br>Spark会自动设置以文件作为输入源的RDD的并行度，依据其大小，比如HDFS，就会给每一个block创建一个partition，也依据这个设置并行度。对于reduceByKey等会发生shuffle的操作，就使用并行度最大的父RDD的并行度即可。<br><br>可以手动使用textFile()、parallelize()等方法的第二个参数来设置并行度；也可以使用spark.default.parallelism参数，来设置统一的并行度。Spark官方的推荐是，给集群中的每个cpu core设置2~3个task。<br><br>比如说，spark-submit设置了executor数量是10个，每个executor要求分配2个core，那么application总共会有20个core。此时可以设置new SparkConf().set(“spark.default.parallelism”, “60”)来设置合理的并行度，从而充分利用资源。</font>
+
+<hr>
+<h2 id="七：广播共享数据"><a href="#七：广播共享数据" class="headerlink" title="七：广播共享数据"></a>七：广播共享数据</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%B9%BF%E6%92%AD%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">如果你的算子函数中，使用到了特别大的数据，那么，这个时候，推荐将该数据进行广播。这样的话，就不至于将一个大数据拷贝到每一个task上去。而是给每个节点拷贝一份，然后节点上的task共享该数据。<br><br>这样的话，就可以减少大数据在节点上的内存消耗。并且可以减少数据到节点的网络传输消耗。</font>
+
+<hr>
+<h2 id="八：数据本地化"><a href="#八：数据本地化" class="headerlink" title="八：数据本地化"></a>八：数据本地化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">数据本地化对于Spark Job性能有着巨大的影响。如果数据以及要计算它的代码是在一起的，那么性能当然会非常高。但是，如果数据和计算它的代码是分开的，那么其中之一必须到另外一方的机器上。通常来说，移动代码到其他节点，会比移动数据到代码所在的节点上去，速度要快得多，因为代码比较小。Spark也正是基于这个数据本地化的原则来构建task调度算法的。<br><br>数据本地化，指的是，数据离计算它的代码有多近。基于数据距离代码的距离，有几种数据本地化级别：<br>&ensp;1. PROCESS_LOCAL：数据和计算它的代码在同一个JVM进程中。<br>&ensp;2. NODE_LOCAL：数据和计算它的代码在一个节点上，但是不在一个进程中，比如在不同的executo&ensp;r进程中，或者是数据在HDFS文件的block中。<br>&ensp;3. NO_PREF：数据从哪里过来，性能都是一样的。<br>&ensp;4. RACK_LOCAL：数据和计算它的代码在一个机架上。<br>&ensp;5. ANY：数据可能在任意地方，比如其他网络环境内，或者其他机架上。<br><br>Spark倾向于使用最好的本地化级别来调度task，但是这是不可能的。如果没有任何未处理的数据在空闲的executor上，那么Spark就会放低本地化级别。这时有两个选择：第一，等待，直到executor上的cpu释放出来，那么就分配task过去；第二，立即在任意一个executor上启动一个task。<br><br>Spark默认会等待一会儿，来期望task要处理的数据所在的节点上的executor空闲出一个cpu，从而将task分配过去。只要超过了时间，那么Spark就会将task分配到其他任意一个空闲的executor上。<br><br>可以设置参数，spark.locality系列参数，来调节Spark等待task可以进行数据本地化的时间。spark.locality.wait（3000毫秒）、spark.locality.wait.node、spark.locality.wait.process、spark.locality.wait.rack。</font>
+
+<hr>
+<h2 id="九：reduceByKey和groupByKey"><a href="#九：reduceByKey和groupByKey" class="headerlink" title="九：reduceByKey和groupByKey"></a>九：reduceByKey和groupByKey</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png" alt="Alt text"><br><img src="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">如果能用reduceByKey，那就用reduceByKey，因为它会在map端，先进行本地combine，可以大大减少要传输到reduce端的数据量，减小网络传输的开销。<br><br>只有在reduceByKey处理不了时，才用groupByKey().map()来替代。</font>
+
+<h2 id="十：shuffle性能优化"><a href="#十：shuffle性能优化" class="headerlink" title="十：shuffle性能优化"></a>十：shuffle性能优化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">new SparkConf().set(“spark.shuffle.consolidateFiles”, “true”)<br><br>spark.shuffle.consolidateFiles：是否开启shuffle block file的合并，默认为false<br>spark.reducer.maxSizeInFlight：reduce task的拉取缓存，默认48m<br>spark.shuffle.file.buffer：map task的写磁盘缓存，默认32k<br>spark.shuffle.io.maxRetries：拉取失败的最大重试次数，默认3次<br>spark.shuffle.io.retryWait：拉取失败的重试间隔，默认5s<br>spark.shuffle.memoryFraction：用于reduce端聚合的内存比例，默认0.2，超过比例就会溢出到磁盘上<br></font>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/07/spark性能优化一/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Java中的四种JSON解析方式详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/06/Java中的四种JSON解析方式详解/">Java中的四种JSON解析方式详解</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/06/Java中的四种JSON解析方式详解/" class="archive-article-date">
+  	<time datetime="2018-11-06T11:04:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <font color="gray" size="4">本文转自：<a href="https://blog.csdn.net/u014332200/article/details/76572550" target="_blank" rel="noopener">https://blog.csdn.net/u014332200/article/details/76572550</a> </font><br><font color="gray" size="4"><br>    我们在日常开发中少不了和JSON数据打交道，那么我们来看看JAVA中常用的JSON解析方式。<br>1、JSON官方<br>2、GSON<br>3、FastJSON<br>4、jackson<br><br>JSON操作涉及到的类：</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Student [id="</span> + id + <span class="string">", name="</span> + name + <span class="string">", age="</span> + age + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Grade</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Student&gt; stus;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Grade</span><span class="params">(<span class="keyword">int</span> id, String name, ArrayList&lt;Student&gt; stus)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.stus = stus;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Grade</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Grade [id="</span> + id + <span class="string">", name="</span> + name + <span class="string">", stus="</span> + stus + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Student&gt; <span class="title">getStus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> stus;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStus</span><span class="params">(ArrayList&lt;Student&gt; stus)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.stus = stus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">JSON官方的解析最具有通用性，但是有点小麻烦。</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JSONTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析JSON</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> JSONException</span>&#123;</span><br><span class="line">        <span class="comment">//对象嵌套数组嵌套对象</span></span><br><span class="line">        String json1=<span class="string">"&#123;'id':1,'name':'JAVAEE-1703','stus':[&#123;'id':101,'name':'刘一','age':16&#125;]&#125;"</span>;</span><br><span class="line">        <span class="comment">//数组</span></span><br><span class="line">        String json2=<span class="string">"['北京','天津','杭州']"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//1、</span></span><br><span class="line">        <span class="comment">//解析第一层---对象</span></span><br><span class="line">        JSONObject jObject1=<span class="keyword">new</span> JSONObject(json1);</span><br><span class="line">        Grade grade=<span class="keyword">new</span> Grade();</span><br><span class="line">        grade.setId(jObject1.getInt(<span class="string">"id"</span>));</span><br><span class="line">        grade.setName(jObject1.getString(<span class="string">"name"</span>));</span><br><span class="line">        ArrayList&lt;Student&gt; stus=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        grade.setStus(stus);</span><br><span class="line">        <span class="comment">//解析第二层----数组</span></span><br><span class="line">        JSONArray jsonArray2=jObject1.getJSONArray(<span class="string">"stus"</span>);</span><br><span class="line">        <span class="comment">//遍历数组获取元素----对象</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;jsonArray2.length();i++)&#123;</span><br><span class="line">            <span class="comment">//解析第三层----对象</span></span><br><span class="line">            JSONObject jObject3=jsonArray2.getJSONObject(i);</span><br><span class="line">            Student student=<span class="keyword">new</span> Student(jObject3.getInt(<span class="string">"id"</span>), jObject3.getString(<span class="string">"name"</span>), jObject3.getInt(<span class="string">"age"</span>));</span><br><span class="line">            grade.getStus().add(student);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(grade);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取当前对象的所有属性的迭代器对象</span></span><br><span class="line"><span class="comment">//      Iterator&lt;String&gt; iterator=jObject1.keys();</span></span><br><span class="line"><span class="comment">//      while (iterator.hasNext()) &#123;</span></span><br><span class="line"><span class="comment">//          String key = iterator.next();</span></span><br><span class="line"><span class="comment">//          System.out.println("属性："+key);</span></span><br><span class="line"><span class="comment">//      &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、</span></span><br><span class="line">        <span class="comment">//获取数组对象</span></span><br><span class="line">        JSONArray jArray=<span class="keyword">new</span> JSONArray(json2);</span><br><span class="line">        ArrayList&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="comment">//遍历获取元素</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;jArray.length();i++)&#123;</span><br><span class="line">            <span class="comment">//jArray.optString(i);//等价于getXXX</span></span><br><span class="line">            list.add(jArray.getString(i));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"解析结果："</span>+list);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成JSON</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> JSONException</span>&#123;</span><br><span class="line">        JSONObject jo1=<span class="keyword">new</span> JSONObject();</span><br><span class="line">        jo1.put(<span class="string">"id"</span>, <span class="number">1001</span>);</span><br><span class="line">        jo1.put(<span class="string">"name"</span>, <span class="string">"范老"</span>);</span><br><span class="line">        jo1.put(<span class="string">"age"</span>, <span class="number">20</span>);</span><br><span class="line">        JSONObject jo2=<span class="keyword">new</span> JSONObject();</span><br><span class="line">        jo2.put(<span class="string">"id"</span>, <span class="number">1002</span>);</span><br><span class="line">        jo2.put(<span class="string">"name"</span>, <span class="string">"平平"</span>);</span><br><span class="line">        jo2.put(<span class="string">"age"</span>, <span class="number">19</span>);</span><br><span class="line">        JSONArray ja2=<span class="keyword">new</span> JSONArray();</span><br><span class="line">        ja2.put(jo1);</span><br><span class="line">        ja2.put(jo2);</span><br><span class="line">        JSONObject jo3=<span class="keyword">new</span> JSONObject();</span><br><span class="line">        jo3.put(<span class="string">"id"</span>, <span class="number">11</span>);</span><br><span class="line">        jo3.put(<span class="string">"name"</span>, <span class="string">"JAVAEE-1704"</span>);</span><br><span class="line">        jo3.put(<span class="string">"stus"</span>,ja2);        </span><br><span class="line">        String json=jo3.toString();</span><br><span class="line">        System.out.println(json);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">GSON解析是谷歌的，也比较好用</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GSONTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 对象嵌套数组嵌套对象</span></span><br><span class="line">        String json1 = <span class="string">"&#123;'id':1,'name':'JAVAEE-1703','stus':[&#123;'id':101,'name':'刘一','age':16&#125;]&#125;"</span>;</span><br><span class="line">        <span class="comment">// 数组</span></span><br><span class="line">        String json2 = <span class="string">"['北京','天津','杭州']"</span>;</span><br><span class="line"></span><br><span class="line">        Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">        <span class="comment">//1、</span></span><br><span class="line">        <span class="comment">//解析对象：第一个参数：待解析的字符串 第二个参数结果数据类型的Class对象</span></span><br><span class="line">        Grade grade=gson.fromJson(json1, Grade.class);</span><br><span class="line">        System.out.println(grade);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2、</span></span><br><span class="line">        <span class="comment">//解析数组要求使用Type</span></span><br><span class="line">        ArrayList&lt;String&gt; list=gson.fromJson(json2, </span><br><span class="line">                <span class="keyword">new</span> TypeToken&lt;ArrayList&lt;String&gt;&gt;()&#123;&#125;.getType());</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ArrayList&lt;Student&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> Student(<span class="number">101</span>+i, <span class="string">"码子"</span>, <span class="number">20</span>+i));</span><br><span class="line">        &#125;</span><br><span class="line">        Grade grade=<span class="keyword">new</span> Grade(<span class="number">100001</span>,<span class="string">"张三"</span>, list);</span><br><span class="line">        Gson gson=<span class="keyword">new</span> Gson();</span><br><span class="line">        <span class="comment">//将对象转换为诶JSON格式字符串</span></span><br><span class="line">        String json=gson.toJson(grade);</span><br><span class="line">        System.out.println(json);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">FastJSON是阿里巴巴的产品，效率最高</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FASTJson</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 对象嵌套数组嵌套对象</span></span><br><span class="line">        String json1 = <span class="string">"&#123;'id':1,'name':'JAVAEE-1703','stus':[&#123;'id':101,'name':'刘铭','age':16&#125;]&#125;"</span>;</span><br><span class="line">        <span class="comment">// 数组</span></span><br><span class="line">        String json2 = <span class="string">"['北京','天津','杭州']"</span>;</span><br><span class="line">        <span class="comment">//1、</span></span><br><span class="line">        <span class="comment">//静态方法</span></span><br><span class="line">        Grade grade=JSON.parseObject(json1, Grade.class);</span><br><span class="line">        System.out.println(grade);</span><br><span class="line">        <span class="comment">//2、</span></span><br><span class="line">        List&lt;String&gt; list=JSON.parseArray(json2, String.class);</span><br><span class="line">        System.out.println(list);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ArrayList&lt;Student&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> Student(<span class="number">101</span>+i, <span class="string">"码子"</span>, <span class="number">20</span>+i));</span><br><span class="line">        &#125;</span><br><span class="line">        Grade grade=<span class="keyword">new</span> Grade(<span class="number">100001</span>,<span class="string">"张三"</span>, list);</span><br><span class="line">        String json=JSON.toJSONString(grade);</span><br><span class="line">        System.out.println(json);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">jackSon解析JSON，SpringMVC内置的解析器就是这个</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JackSonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//解析</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 对象嵌套数组嵌套对象</span></span><br><span class="line">        String json1 = <span class="string">"&#123;\"id\":1,\"name\":\"JAVAEE-1703\",\"stus\":[&#123;\"id\":101,\"name\":\"刘一\",\"age\":16&#125;]&#125;"</span>;</span><br><span class="line">        <span class="comment">// 数组</span></span><br><span class="line">        String json2 = <span class="string">"[\"北京\",\"天津\",\"杭州\"]"</span>;</span><br><span class="line">        <span class="comment">//1、</span></span><br><span class="line">        ObjectMapper mapper=<span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        Grade grade=mapper.readValue(json1, Grade.class);</span><br><span class="line">        System.out.println(grade);</span><br><span class="line">        <span class="comment">//2、</span></span><br><span class="line">        ArrayList&lt;String&gt; list=mapper.readValue(json2, </span><br><span class="line">                <span class="keyword">new</span> TypeReference&lt;ArrayList&lt;String&gt;&gt;() &#123;</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(list);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//生成</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException</span>&#123;</span><br><span class="line">        ArrayList&lt;Student&gt; list=<span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">3</span>;i++)&#123;</span><br><span class="line">            list.add(<span class="keyword">new</span> Student(<span class="number">101</span>+i, <span class="string">"码子"</span>, <span class="number">20</span>+i));</span><br><span class="line">        &#125;</span><br><span class="line">        Grade grade=<span class="keyword">new</span> Grade(<span class="number">100001</span>,<span class="string">"张三"</span>, list);</span><br><span class="line">        ObjectMapper mapper=<span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        <span class="comment">//将对象转换为JSON格式字符串</span></span><br><span class="line">        String json=mapper.writeValueAsString(grade);</span><br><span class="line">        System.out.println(json);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">除了JSON官方的对类没有要求，剩下的都要求是标准的类，否则无法解析，因为都用到了反射。</font>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/06/Java中的四种JSON解析方式详解/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-checkpoint" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -290,7 +631,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -835,7 +1176,7 @@
 </blockquote>
 <h3 id="一、NEW"><a href="#一、NEW" class="headerlink" title="一、NEW"></a>一、NEW</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">	Thread thread = <span class="keyword">new</span> Thread();</span><br><span class="line">	System. out.println(thread.getState());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二、RUNNABLE"><a href="#二、RUNNABLE" class="headerlink" title="二、RUNNABLE"></a>二、RUNNABLE</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RUNNABLE</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">			System.out.println(<span class="string">"Running..."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、BLOCKED"><a href="#三、BLOCKED" class="headerlink" title="三、BLOCKED"></a>三、BLOCKED</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockedTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        BLOCKED thd = <span class="keyword">new</span> BLOCKED();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        t1.setName(<span class="string">"MyThread #1"</span>);</span><br><span class="line">        t2.setName(<span class="string">"MyThread #2"</span>);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BLOCKED</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + i);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、BLOCKED"><a href="#三、BLOCKED" class="headerlink" title="三、BLOCKED"></a>三、BLOCKED</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlockedTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        BLOCKED thd = <span class="keyword">new</span> BLOCKED();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        Thread t2 = <span class="keyword">new</span> Thread(thd);</span><br><span class="line">        t1.setName(<span class="string">"MyThread #1"</span>);</span><br><span class="line">        t2.setName(<span class="string">"MyThread #2"</span>);</span><br><span class="line"></span><br><span class="line">        t1.start();</span><br><span class="line">        t2.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BLOCKED</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)&#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">":"</span> + i);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <font color="gray" size="4">运行的结果如下：</font><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5"><font color="gray" size="4">MyThread #1:0<br>MyThread #1:1<br>MyThread #1:2<br>MyThread #2:0<br>MyThread #2:1<br>MyThread #2:2<br></font></td></tr></table></font><font color="gray" size="4">当两个并发线程(t1和t2)访问同一个对象(thd)中的synchronized代码块时，在同一时刻只能有一个线程得到执行，另一个线程受阻塞，必须等待当前线程执行完这个代码块以后才能执行该代码块。t1和t2是互斥的，因为在执行synchronized代码块时会锁定当前的对象，只有执行完该代码块才能释放该对象锁，下一个线程才能执行并锁定该对象</font>
 
 <h3 id="四、WAITING"><a href="#四、WAITING" class="headerlink" title="四、WAITING"></a>四、WAITING</h3><font color="gray" size="4">这个需要用到生产者消费者模型, 当生产者生产过慢的时候, 消费者就会等待生产者的下一次notify</font><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerConsumerTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        CubbyHole c = <span class="keyword">new</span> CubbyHole();</span><br><span class="line">        Producer p1 = <span class="keyword">new</span> Producer(c, <span class="number">1</span>);</span><br><span class="line">        Consumer c1 = <span class="keyword">new</span> Consumer(c, <span class="number">1</span>);</span><br><span class="line">        p1.start();</span><br><span class="line">        c1.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CubbyHole</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> contents;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> available = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (available == <span class="keyword">false</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        available = <span class="keyword">false</span>;</span><br><span class="line">        notifyAll();</span><br><span class="line">        <span class="keyword">return</span> contents;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (available == <span class="keyword">true</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        contents = value;</span><br><span class="line">        available = <span class="keyword">true</span>;</span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CubbyHole cubbyHole;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(CubbyHole c, <span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cubbyHole = c;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> value;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            value = cubbyHole.get();</span><br><span class="line">            System.out.println(<span class="string">"消费者 #"</span> + <span class="keyword">this</span>.number + <span class="string">" got: "</span> + value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> CubbyHole cubbyHole;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> number;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(CubbyHole c, <span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.cubbyHole = c;</span><br><span class="line">        <span class="keyword">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)&#123;</span><br><span class="line">            cubbyHole.put(i);</span><br><span class="line">            System.out.println(<span class="string">"生产者 #"</span> + <span class="keyword">this</span>.number + <span class="string">" put: "</span> + i );</span><br><span class="line"><span class="comment">//            try &#123;</span></span><br><span class="line"><span class="comment">//                Thread.sleep((long) (Math.random() *  1000));</span></span><br><span class="line"><span class="comment">//            &#125; catch (InterruptedException e) &#123;</span></span><br><span class="line"><span class="comment">//                e.printStackTrace();</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br><font color="gray" size="4">运行结果如下：</font><table><tr><td bgcolor="#F5F5F5"><font color="gray" size="4">生产者 #1 put: 0<br>消费者 #1 got: 0<br>消费者 #1 got: 1<br>生产者 #1 put: 1<br>消费者 #1 got: 2<br>生产者 #1 put: 2<br>消费者 #1 got: 3<br>生产者 #1 put: 3<br>生产者 #1 put: 4<br>消费者 #1 got: 4<br></font></td></tr></table>
@@ -993,521 +1334,6 @@
 
 
   
-    <article id="post-java-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/06/java-1/">Java中的自动装箱与拆箱</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/06/java-1/" class="archive-article-date">
-  	<time datetime="2018-08-06T06:59:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@author</span> Aayers-ghw</span></span><br><span class="line"><span class="comment">* Java中的自动装箱与拆箱</span></span><br><span class="line"><span class="comment">* 简单一点说，装箱就是自动将基本数据类型转换为包装器类型；拆箱就是自动将包装器类型转换为基本数据类型。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Number</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        Integer i1 = <span class="number">128</span>;  <span class="comment">// 装箱，相当于 Integer.valueOf(128);</span></span><br><span class="line">        <span class="keyword">int</span> t = i1; <span class="comment">//相当于 i1.intValue() 拆箱</span></span><br><span class="line">        System.out.println(t);</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        对于–128到127（默认是127）之间的值,被装箱后，会被放在内存里进行重用</span></span><br><span class="line"><span class="comment">        但是如果超出了这个值,系统会重新new 一个对象</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        Integer i1 = <span class="number">200</span>;</span><br><span class="line">        Integer i2 = <span class="number">200</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        注意 == 与 equals的区别</span></span><br><span class="line"><span class="comment">        == 它比较的是对象的地址</span></span><br><span class="line"><span class="comment">        equals 比较的是对象的内容</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">if</span>(i1==i2) &#123;</span><br><span class="line">            System.out.println(<span class="string">"true"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"false"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/06/java-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux-note-2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/04/Linux-note-2/">Linux 学习笔记(二)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/04/Linux-note-2/" class="archive-article-date">
-  	<time datetime="2018-08-04T04:55:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><font size="4.5"><strong> Linux中通配符 </strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">* 匹配任意内容</font></li>
-<li><font color="gray" size="4">? 匹配任意一个字符</font></li>
-<li><font color="gray" size="4">[] 匹配任意一个中括号内的字符</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a><font size="4.5"><strong>find 命令</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">find [搜索范围] [搜素条件]</font><br><font color="gray" size="4">#搜索文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find / -name install.log</font><br>  <font color="gray" size="4">#避免大范围搜索，会非常耗费系统资源</font><br>  <font color="gray" size="4">#find试在系统当中搜索符合条件的文件名。如果要匹配，使用通配符匹配，通配符是完全匹配</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -iname install.log</font><br>  <font color="gray" size="4">#不区别大小写</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -user root</font><br> <font color="gray" size="4">#按照所有者搜索</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /root -nouser</font><br>  <font color="gray" size="4">#查找没有所有者的文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /var/log/ -mtime +10</font><br>  <font color="gray" size="4">#查找10天前修改的文件</font><br> <font color="gray" size="4">选项：</font><br>  <font color="gray" size="4"><strong>-10  10天内修改的文件</strong></font><br>  <font color="gray" size="4"><strong>10    10天当天修改的文件</strong></font><br> <font color="gray" size="4"><strong>+10 10天前修改的文件</strong></font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>atime 文件访问时间</strong></font><br> <font color="gray" size="4"><strong>ctime 改变文件属性</strong></font><br> <font color="gray" size="4"><strong>mtime 修改文件内容</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find . -size 25K (.表示当前目录)</font><br> <font color="gray" size="4">#查找文件大小是25KB的文件</font><br> <font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-25k 小于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>25k 等于25KB的文件</strong></font><br> <font color="gray" size="4"><strong>+25k 大于25KB的文件</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find . -inum 262422</font><br> <font color="gray" size="4">#查找i节点是262422的文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /etc -size +20k -a -size -50k</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件</font><br> <font color="gray" size="4"><strong>-a and 逻辑与</strong></font><br> <font color="gray" size="4"><strong>-o or 逻辑或</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">find /etc/ -size +20k -a size -50k -exec ls -lh {} \;</font><br> <font color="gray" size="4">#查找/etc/目录下大于20KB并且小于50KB的文件，并且显示详细信息</font><br> <font color="gray" size="4">#-exec/ -ok 命令 {} \;对搜素命令执行操作</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="搜素字符串命令-grep"><a href="#搜素字符串命令-grep" class="headerlink" title="搜素字符串命令 grep"></a><font size="4.5"><strong>搜素字符串命令 grep</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">grep [选项] 字符串 文件名</font><br> <font color="gray" size="4">#在文件当中匹配符合条件的字符串</font><br><font color="gray" size="4">选项：</font><br> <font color="gray" size="4"><strong>-i 忽略大小写 #使用正则表达式匹配</strong></font><br> <font color="gray" size="4"><strong>-v 排除指定字符串 #包含匹配</strong></font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="帮主命令-man"><a href="#帮主命令-man" class="headerlink" title="帮主命令 man"></a><font size="4.5"><strong>帮主命令 man</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">man 命令</font><br> <font color="gray" size="4">#获取指定命令的帮主</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man ls</font><br> <font color="gray" size="4">#查看ls的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man -f 命令</font><br> <font color="gray" size="4">#查看命令拥有哪个级别的帮助，相当于 whatis 命令</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">man -k 命令</font><br> <font color="gray" size="4">#查看和命陵相关的所有帮助，相当于 apropos 命令</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="选项帮助"><a href="#选项帮助" class="headerlink" title="选项帮助"></a><font size="4.5"><strong>选项帮助</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">命令 –help</font><br> <font color="gray" size="4">#获取命令选项的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="shell内部命令帮助"><a href="#shell内部命令帮助" class="headerlink" title="shell内部命令帮助"></a><font size="4.5"><strong>shell内部命令帮助</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">help shell内部命令</font><br> <font color="gray" size="4">#获取shell内部命令的帮助</font><br> <font color="gray" size="4">例如：</font><br>         <font color="gray" size="4">whereis cd #确定是否是shell内部命令</font><br>         <font color="gray" size="4">help cd #获取内部命令的帮助</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<h2 id="详细命令帮助-info-命令"><a href="#详细命令帮助-info-命令" class="headerlink" title="详细命令帮助 info 命令"></a><font size="4.5"><strong>详细命令帮助 info 命令</strong></font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">回车 ： 进入子帮助页面(带有*标记)</font></li>
-<li><font color="gray" size="4">u : 进入上层页面</font></li>
-<li><font color="gray" size="4">n : 进入下一个帮助小节</font></li>
-<li><font color="gray" size="4">p : 进入上一个帮助小节</font></li>
-<li><font color="gray" size="4">q : 退出</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/04/Linux-note-2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux-note-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/04/Linux-note-1/">Linux 学习笔记（一）</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/04/Linux-note-1/" class="archive-article-date">
-  	<time datetime="2018-08-04T01:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p><font size="4.5"><strong> ls [选项] [文件或目录]</strong></font></p>
-<p><font color="gray" size="4">选项：</font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">-a     显示所有文件，包括隐藏文件</font></li>
-<li><font color="gray" size="4">-l     详细信息</font></li>
-<li><font color="gray" size="4">-d     查看目录属性</font></li>
-<li><font color="gray" size="4">-h     人性化显示文件大小</font></li>
-<li><font color="gray" size="4">-i     显示inode</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="5"><strong>_rw_r__r__</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">文件类型(_文件 d目录 l软链接文件)</font></li>
-<li><font color="gray" size="4">rw_ u     所有者</font></li>
-<li><font color="gray" size="4">r__ g     所属组</font></li>
-<li><font color="gray" size="4">r__ o     其他人</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>建立目录：mkdir</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">mkdir -p [目录名]</font></li>
-<li><font color="gray" size="4">-p 递归创建</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>切换所在目录 : cd</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">cd [目录]</font></li>
-<li><font color="gray" size="4">cd ~ 进入当前用户的家目录</font></li>
-<li><font color="gray" size="4">cd - 进入上一次目录</font></li>
-<li><font color="gray" size="4">cd .. 进入上一级目录</font></li>
-<li><font color="gray" size="4">cd . 进入当前目录</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>查询当前所在位置</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">pwd</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>删除空目录</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">rmdir [目录]</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>删除文件或目录 rm -rf [目录或文件]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">r 删除目录</font></li>
-<li><font color="gray" size="4">-f     强制</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>复制命令 cp [选项] [原文件或目录] [目标目录]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">-r 复制目录</font></li>
-<li><font color="gray" size="4">-p 连带文件属性复制</font></li>
-<li><font color="gray" size="4">-d 若源文件是链接文件，则复制链接属性</font></li>
-<li><font color="gray" size="4">-a 相当于-pdr</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>剪切或改名命令：mv [源文件或目录] [目标目录]</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">在同一个文件时改名</font></li>
-<li><font color="gray" size="4">不在同一个文件时剪切</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>一些常用的目录文件</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4"> /boot 启动目录</font></li>
-<li><font color="gray" size="4">/dev 设备文件保存目录</font></li>
-<li><font color="gray" size="4">/etc 配置文件保存目录</font></li>
-<li><font color="gray" size="4">/home 普通用户的家目录</font></li>
-<li><font color="gray" size="4">/lib 系统库保存目录</font></li>
-<li><font color="gray" size="4">/mnt 系统挂载目录</font></li>
-<li><font color="gray" size="4">/root 超级用户的家目录</font></li>
-<li><font color="gray" size="4">/tmp 临时目录</font></li>
-<li><font color="gray" size="4">/proc 写入内存目录</font></li>
-<li><font color="gray" size="4">/sys 系统文件目录</font></li>
-<li><font color="gray" size="4">/usr 系统软件资源目录</font></li>
-<li><font color="gray" size="4">/usr/bin/ 系统命令(普通用户)</font></li>
-<li><font color="gray" size="4">/usr/sbin/ 系统命令(超级用户)</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>链接命令 ： ln -s [原文件] [目标文件]</strong></font></p>
-<p><font color="gray" size="4">功能描述：生成链接文件</font></p>
-<h2 id="选项：-s-创建软链接"><a href="#选项：-s-创建软链接" class="headerlink" title="选项： -s 创建软链接"></a><font color="gray" size="4">选项： -s 创建软链接</font></h2><blockquote>
-<ul>
-<li><font color="gray" size="4">硬链接特征：</font><br><font color="gray" size="4">1.拥有相同的i节点和存储block块，可以看作是同一文件</font><br><font color="gray" size="4">2.可以通过i节点识别</font><br><font color="gray" size="4">3.不能跨分区</font><br><font color="gray" size="4">4.不能针对目录使用</font></li>
-<li><font color="gray" size="4">软链接的特征：</font><br><font color="gray" size="4">1.类似于windows快捷键</font><br><font color="gray" size="4">2.软链接有自己的i节点和block块，但数据块中只保存原文件名和i节点号，并没有实际的文件数据</font><br><font color="gray" size="4">3.lrwxrwxrwx l==&gt;软链接</font><br><font color="gray" size="4">4.修改任意文件，另一个都改变</font><br><font color="gray" size="4">5.删除原文件，软链接不能使用</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>locate 命令格式</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">locate 文件名</font><br>      <font color="gray" size="4">在后台数据库中按文件名搜索，搜索速度更快</font></li>
-<li><font color="gray" size="4">/var/lib/mlocate</font><br> <font color="gray" size="4">#locate命令所搜索的后台数据库</font></li>
-<li><font color="gray" size="4">updatedb</font></li>
-<li><font color="gray" size="4">#更新数据库</font><br>  <font color="gray" size="4">/etc/updatedb.conf     配置文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>搜索命令的命令 whereis</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">whereis 命令名</font><br><font color="gray" size="4">#搜锁命令所在路径即帮主文档所在位置</font><br><font color="gray" size="4">选项：</font><br>      <font color="gray" size="4">-b : 只查找可执行文档所在位置</font><br>     <font color="gray" size="4">-m : 只查找帮主文件</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>搜索命令的的命令 which</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">which 文件名<br>  <font color="gray" size="4">#搜索命令所在路径别名</font></font></li>
-</ul>
-</blockquote>
-<hr>
-<p><font size="4.5"><strong>PATH环境变量</strong></font></p>
-<blockquote>
-<ul>
-<li><font color="gray" size="4">PATH环境变量 ： 定义的是系统搜索命令的路径</font><br> <font color="gray" size="4">[root@localhost ~] echo $PATH</font>
-</li>
-</ul>
-</blockquote>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/04/Linux-note-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1522,7 +1348,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Aayers-ghw
+    		&copy; 2019 Aayers-ghw
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1609,6 +1435,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -1621,15 +1455,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
             
             <div class="clearfix"></div>

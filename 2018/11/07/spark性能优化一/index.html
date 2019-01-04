@@ -6,15 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: Java | Aayers-ghw&#39;s bolg</title>
+  <title>spark性能优化 | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aayers-ghw&#39;s bolg">
-<meta property="og:url" content="http://yoursite.com/tags/Java/index.html">
+  <meta name="description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
+<meta name="keywords" content="spark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spark性能优化">
+<meta property="og:url" content="http://yoursite.com/2018/11/07/spark性能优化一/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
+<meta property="og:description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/GC%E5%AF%B9Spark%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D%E7%9A%84%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E8%B0%83%E8%8A%82executor%E5%86%85%E5%AD%98%E6%AF%94%E4%BE%8B.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/JVM%20minor%20gc%E4%B8%8Efull%20gc%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%8F%90%E9%AB%98%E5%B9%B6%E8%A1%8C%E5%BA%A6%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%B9%BF%E6%92%AD%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png">
+<meta property="og:updated_time" content="2018-11-08T03:16:59.684Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aayers-ghw&#39;s bolg">
+<meta name="twitter:title" content="spark性能优化">
+<meta name="twitter:description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
+<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -150,212 +166,261 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-spark性能优化一" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spark性能优化
+    </h1>
+  
+
+        
+        <a href="/2018/11/07/spark性能优化一/" class="archive-article-date">
+  	<time datetime="2018-11-07T13:52:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h3 id="Spark性能优化概览"><a href="#Spark性能优化概览" class="headerlink" title="Spark性能优化概览"></a>Spark性能优化概览</h3><font color="gray" size="4">由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。<br><br>Spark性能优化，其实主要就是在于对内存的使用进行调优。因为通常情况下来说，如果你的Spark应用程序计算的数据量比较小，并且你的内存足够使用，那么只要运维可以保障网络通常，一般是不会有大的性能问题的。但是Spark应用程序的性能问题往往出现在针对大数据量（比如10亿级别）进行计算时出现，因此通常来说，Spark性能优化，主要是对内存进行性能优化。当然，除了内存调优之外，还有很多手段可以优化Spark应用程序的性能。</font>
+
+<hr>
+<h3 id="Spark的性能优化，主要手段包括："><a href="#Spark的性能优化，主要手段包括：" class="headerlink" title="Spark的性能优化，主要手段包括："></a>Spark的性能优化，主要手段包括：</h3><blockquote>
+<ul>
+<li>1、使用高性能序列化类库</li>
+<li>2、优化数据结构</li>
+<li>3、对多次使用的RDD进行持久化 / Checkpoint</li>
+<li>4、使用序列化的持久化级别</li>
+<li>5、Java虚拟机垃圾回收调优</li>
+<li>6、提高并行度</li>
+<li>7、广播共享数据</li>
+<li>8、数据本地化</li>
+<li>9、reduceByKey和groupByKey的合理使用</li>
+<li>10、Shuffle调优</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="诊断内存的消耗"><a href="#诊断内存的消耗" class="headerlink" title="诊断内存的消耗"></a>诊断内存的消耗</h3><p><strong>内存都花费在哪里了？</strong></p>
+<font color="gray" size="4">1. 每个Java对象，都有一个对象头，会占用16个字节，主要是包括了一些对象的元信息，比如指向它的类的指针。如果一个对象本身很小，比如就包括了一个int类型的field，那么它的对象头实际上比对象自己还要大。<br><br>2. Java的String对象，会比它内部的原始数据，要多出40个字节。因为它内部使用char数组来保存内部的字符序列的，并且还得保存诸如数组长度之类的信息。而且因为String使用的是UTF-16编码，所以每个字符会占用2个字节。比如，包含10个字符的String，会占用60个字节。<br><br>3. Java中的集合类型，比如HashMap和LinkedList，内部使用的是链表数据结构，所以对链表中的每一个数据，都使用了Entry对象来包装。Entry对象不光有对象头，还有指向下一个Entry的指针，通常占用8个字节。<br><br>4. 元素类型为原始数据类型（比如int）的集合，内部通常会使用原始数据类型的包装类型，比如Integer，来存储元素。</font>  
+
+<p><strong>如何判断你的程序消耗了多少内存？</strong></p>
+<font color="gray" size="4">1. 首先，自己设置RDD的并行度，有两种方式：要不然，在parallelize()、textFile()等方法中，传入第二个参数，设置RDD的task / partition的数量；要不然，用SparkConf.set()方法，设置一个参数，spark.default.parallelism，可以统一设置这个application所有RDD的partition数量。<br><br>2. 其次，在程序中将RDD cache到内存中，调用RDD.cache()方法即可。<br><br>3. 最后，观察Driver的log，你会发现类似于：“INFO BlockManagerMasterActor: Added rdd_0_1 in memory on mbk.local:50311 (size: 717.5 KB, free: 332.3 MB)”的日志信息。这就显示了每个partition占用了多少内存。<br><br>4. 将这个内存信息乘以partition数量，即可得出RDD的内存占用量。</font>
+
+<hr>
+<h2 id="一：高性能序列化类库"><a href="#一：高性能序列化类库" class="headerlink" title="一：高性能序列化类库"></a>一：高性能序列化类库</h2><h3 id="数据序列化概述"><a href="#数据序列化概述" class="headerlink" title="数据序列化概述"></a>数据序列化概述</h3><font color="gray" size="4">在任何分布式系统中，序列化都是扮演着一个重要的角色的。如果使用的序列化技术，在执行序列化操作的时候很慢，或者是序列化后的数据还是很大，那么会让分布式应用程序的性能下降很多。所以，进行Spark性能优化的第一步，就是进行序列化的性能优化。<br><br>Spark自身默认就会在一些地方对数据进行序列化，比如Shuffle。还有就是，如果我们的算子函数使用到了外部的数据（比如Java内置类型，或者自定义类型），那么也需要让其可序列化。<br><br>而Spark自身对于序列化的便捷性和性能进行了一个取舍和权衡。默认，Spark倾向于序列化的便捷性，使用了Java自身提供的序列化机制——基于ObjectInputStream和ObjectOutputStream的序列化机制。因为这种方式是Java原生提供的，很方便使用。<br><br>但是问题是，Java序列化机制的性能并不高。序列化的速度相对较慢，而且序列化以后的数据，还是相对来说比较大，还是比较占用内存空间。因此，如果你的Spark应用程序对内存很敏感，那么，实际上默认的Java序列化机制并不是最好的选择。</font>
+
+<h3 id="Spark提供的两种序列化机制"><a href="#Spark提供的两种序列化机制" class="headerlink" title="Spark提供的两种序列化机制"></a>Spark提供的两种序列化机制</h3><font color="gray" size="4">Spark实际上提供了两种序列化机制，它只是默认使用了第一种：<br><br>1. Java序列化机制：默认情况下，Spark使用Java自身的ObjectInputStream和ObjectOutputStream机制进行对象的序列化。只要你的类实现了Serializable接口，那么都是可以序列化的。而且Java序列化机制是提供了自定义序列化支持的，只要你实现Externalizable接口即可实现自己的更高性能的序列化算法。Java序列化机制的速度比较慢，而且序列化后的数据占用的内存空间比较大。<br><br>2. Kryo序列化机制：Spark也支持使用Kryo类库来进行序列化。Kryo序列化机制比Java序列化机制更快，而且序列化后的数据占用的空间更小，通常比Java序列化的数据占用的空间要小10倍。Kryo序列化机制之所以不是默认序列化机制的原因是，有些类型虽然实现了Seriralizable接口，但是它也不一定能够进行序列化；此外，如果你要得到最佳的性能，Kryo还要求你在Spark应用程序中，对所有你需要序列化的类型都进行注册。</font>
+
+<h3 id="如何使用Kryo序列化机制（一）"><a href="#如何使用Kryo序列化机制（一）" class="headerlink" title="如何使用Kryo序列化机制（一）"></a>如何使用Kryo序列化机制（一）</h3><font color="gray" size="4">如果要使用Kryo序列化机制，首先要用SparkConf设置一个参数，使用new SparkConf().set(“spark.serializer”, “org.apache.spark.serializer.KryoSerializer”)即可，即将Spark的序列化器设置为KryoSerializer。这样，Spark在内部的一些操作，比如Shuffle，进行序列化时，就会使用Kryo类库进行高性能、快速、更低内存占用量的序列化了。<br><br>使用Kryo时，它要求是需要序列化的类，是要预先进行注册的，以获得最佳性能——如果不注册的话，那么Kryo必须时刻保存类型的全限定名，反而占用不少内存。Spark默认是对Scala中常用的类型自动注册了Kryo的，都在AllScalaRegistry类中。<br><br>但是，比如自己的算子中，使用了外部的自定义类型的对象，那么还是需要将其进行注册。</font>
+
+<h3 id="如何使用Kryo序列化机制（二）"><a href="#如何使用Kryo序列化机制（二）" class="headerlink" title="如何使用Kryo序列化机制（二）"></a>如何使用Kryo序列化机制（二）</h3><font color="gray" size="4">如果要注册自定义的类型，那么就使用如下的代码，即可：</font>
+
+<ul>
+<li><p>Scala版本：</p>
+<font color="gray" size="4">val conf = new SparkConf().setMaster(…).setAppName(…)<br>conf.registerKryoClasses(Array(classOf[Counter] ))<br>val sc = new SparkContext(conf)</font>
+</li>
+<li><p>Java版本：</p>
+<font color="gray" size="4">SparkConf conf = new SparkConf().setMaster(…).setAppName(…)<br>conf.registerKryoClasses(Counter.class)<br>JavaSparkContext sc = new JavaSparkContext(conf)</font>
+
+</li>
+</ul>
+<h3 id="优化Kryo类库的使用"><a href="#优化Kryo类库的使用" class="headerlink" title="优化Kryo类库的使用"></a>优化Kryo类库的使用</h3><font color="gray" size="4">1. 优化缓存大小<br>如果注册的要序列化的自定义的类型，本身特别大，比如包含了超过100个field。那么就会导致要序列化的对象过大。此时就需要对Kryo本身进行优化。因为Kryo内部的缓存可能不够存放那么大的class对象。此时就需要调用SparkConf.set()方法，设置spark.kryoserializer.buffer.mb参数的值，将其调大。<br><br>默认情况下它的值是2，就是说最大能缓存2M的对象，然后进行序列化。可以在必要时将其调大。比如设置为10。<br><br>2. 预先注册自定义类型<br>虽然不注册自定义类型，Kryo类库也能正常工作，但是那样的话，对于它要序列化的每个对象，都会保存一份它的全限定类名。此时反而会耗费大量内存。因此通常都建议预先注册号要序列化的自定义的类。</font>
+
+<h3 id="使用Kryo序列化类库的场景"><a href="#使用Kryo序列化类库的场景" class="headerlink" title="使用Kryo序列化类库的场景"></a>使用Kryo序列化类库的场景</h3><font color="gray" size="4">如果算子函数使用到了外部的大数据的情况。比如说吧，我们在外部定义了一个封装了应用所有配置的对象，比如自定义了一个MyConfiguration对象，里面包含了100m的数据。然后，在算子函数里面，使用到了这个外部的大对象。<br><br>此时呢，如果默认情况下，让Spark用java序列化机制来序列化这种外部的大对象，那么就会导致，序列化速度缓慢，并且序列化以后的数据还是比较大，比较占用内存空间。<br><br>因此，在这种情况下，比较适合，切换到Kryo序列化类库，来对外部的大对象进行序列化操作。一是，序列化速度会变快；二是，会减少序列化后的数据占用的内存空间。</font>
+
+<hr>
+<h2 id="二：-优化数据结构"><a href="#二：-优化数据结构" class="headerlink" title="二： 优化数据结构"></a>二： 优化数据结构</h2><h3 id="如何优化数据结构"><a href="#如何优化数据结构" class="headerlink" title="如何优化数据结构"></a>如何优化数据结构</h3><font color="gray" size="4">1. 优先使用数组以及字符串，而不是集合类。<br>    也就是说，优先用array，而不是ArrayList、LinkedList、HashMap等集合。<br><br>比如，有个List<integer> list = new ArrayList<integer>()，将其替换为int[] arr = new int[]。这样的话，array既比List少了额外信息的存储开销，还能使用原始数据类型（int）来存储数据，比List中用Integer这种包装类型存储数据，要节省内存的多。<br><br>对于HashMap、List这种数据，统一用String拼接成特殊格式的字符串，比如Map&lt;Integer, Person&gt; persons = new HashMap&lt;Integer, Person&gt;()。可以优化为，特殊的字符串格式：id:name,address|id:name,address…。<br><br>2. 避免使用多层嵌套的对象结构。<br><br>比如说，public class Teacher { private List<student> students = new ArrayList<student>() }。就是非常不好的例子。因为Teacher类的内部又嵌套了大量的小Student对象。<br><br>对于上述例子，也完全可以使用特殊的字符串来进行数据的存储。比如，用json字符串来存储数据，就是一个很好的选择。{“teacherId”: 1, “teacherName”: “leo”, students:[{“studentId”: 1, “studentName”: “tom”},{“studentId”:2, “studentName”:”marry”}]}<br><br>3. 对于有些能够避免的场景，尽量使用int替代String。<br><br>因为String虽然比ArrayList、HashMap等数据结构高效多了，占用内存量少多了，但也会有额外信息的消耗。比如之前用String表示id，那么现在完全可以用数字类型的int，来进行替代。<br><br>这里提醒，在spark应用中，id就不要用常用的uuid了，因为无法转成int，就用自增的int类型的id即可。（sdfsdfdf-234242342-sdfsfsfdfd）</student></student></integer></integer></font>
+
+<hr>
+<h2 id="三：对多次使用的RDD进行持久化或Checkpoint"><a href="#三：对多次使用的RDD进行持久化或Checkpoint" class="headerlink" title="三：对多次使用的RDD进行持久化或Checkpoint"></a>三：对多次使用的RDD进行持久化或Checkpoint</h2><font color="gray" size="4">如果程序中，对某一个RDD，基于它进行了多次transformation或者action操作。那么就非常有必要对其进行持久化操作，以避免对一个RDD反复进行计算。<br><br>此外，如果要保证在RDD的持久化数据可能丢失的情况下，还要保证高性能，那么可以对RDD进行Checkpoint操作。<br>原理图如下：</font>  
+
+<p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png" alt="Alt text"></p>
+<hr>
+<h2 id="四：使用序列化的持久化级别"><a href="#四：使用序列化的持久化级别" class="headerlink" title="四：使用序列化的持久化级别"></a>四：使用序列化的持久化级别</h2><font color="gray" size="4">除了对多次使用的RDD进行持久化操作之外，还可以进一步优化其性能。因为很有可能，RDD的数据是持久化到内存，或者磁盘中的。那么，此时，如果内存大小不是特别充足，完全可以使用序列化的持久化级别，比如MEMORY_ONLY_SER、MEMORY_AND_DISK_SER等。使用RDD.persist(StorageLevel.MEMORY_ONLY_SER)这样的语法即可。<br><br>这样的话，将数据序列化之后，再持久化，可以大大减小对内存的消耗。此外，数据量小了之后，如果要写入磁盘，那么磁盘io性能消耗也比较小。<br><br>对RDD持久化序列化后，RDD的每个partition的数据，都是序列化为一个巨大的字节数组。这样，对于内存的消耗就小的多了。但是唯一的缺点就是，获取RDD数据时，需要对其进行反序列化，会增大其性能开销。<br><br>因此，对于序列化的持久化级别，还可以进一步优化，也就是说，使用Kryo序列化类库，这样，可以获得更快的序列化速度，并且占用更小的内存空间。但是要记住，如果RDD的元素（RDD<t>的泛型类型），是自定义类型的话，在Kryo中提前注册自定义类型。</t></font>
+
+<hr>
+<h2 id="五：Java虚拟机垃圾回收调优"><a href="#五：Java虚拟机垃圾回收调优" class="headerlink" title="五：Java虚拟机垃圾回收调优"></a>五：Java虚拟机垃圾回收调优</h2><h3 id="Java虚拟机垃圾回收调优的背景"><a href="#Java虚拟机垃圾回收调优的背景" class="headerlink" title="Java虚拟机垃圾回收调优的背景"></a>Java虚拟机垃圾回收调优的背景</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/GC%E5%AF%B9Spark%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text"></p>
+<font color="gray" size="4">如果在持久化RDD的时候，持久化了大量的数据，那么Java虚拟机的垃圾回收就可能成为一个性能瓶颈。因为Java虚拟机会定期进行垃圾回收，此时就会追踪所有的java对象，并且在垃圾回收时，找到那些已经不在使用的对象，然后清理旧的对象，来给新的对象腾出内存空间。<br><br>垃圾回收的性能开销，是跟内存中的对象的数量，成正比的。所以，对于垃圾回收的性能问题，首先要做的就是，使用更高效的数据结构，比如array和string；其次就是在持久化rdd时，使用序列化的持久化级别，而且用Kryo序列化类库，这样，每个partition就只是一个对象——一个字节数组。</font>
+
+<h3 id="监测垃圾回收"><a href="#监测垃圾回收" class="headerlink" title="监测垃圾回收"></a>监测垃圾回收</h3><font color="gray" size="4">我们可以对垃圾回收进行监测，包括多久进行一次垃圾回收，以及每次垃圾回收耗费的时间。只要在spark-submit脚本中，增加一个配置即可，–conf “spark.executor.extraJavaOptions=-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps”。<br><br>但是要记住，这里虽然会打印出Java虚拟机的垃圾回收的相关信息，但是是输出到了worker上的日志中，而不是driver的日志中。<br><br>但是这种方式也只是一种，其实也完全可以通过SparkUI（4040端口）来观察每个stage的垃圾回收的情况。</font>
+
+<h3 id="优化executor内存比例"><a href="#优化executor内存比例" class="headerlink" title="优化executor内存比例"></a>优化executor内存比例</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/%E8%B0%83%E8%8A%82executor%E5%86%85%E5%AD%98%E6%AF%94%E4%BE%8B.png" alt="Alt text"></p>
+<font color="gray" size="4">对于垃圾回收来说，最重要的就是调节RDD缓存占用的内存空间，与算子执行时创建的对象占用的内存空间的比例。默认情况下，Spark使用每个executor 60%的内存空间来缓存RDD，那么在task执行期间创建的对象，只有40%的内存空间来存放。<br><br>在这种情况下，很有可能因为你的内存空间的不足，task创建的对象过大，那么一旦发现40%的内存空间不够用了，就会触发Java虚拟机的垃圾回收操作。因此在极端情况下，垃圾回收操作可能会被频繁触发。<br><br>在上述情况下，如果发现垃圾回收频繁发生。那么就需要对那个比例进行调优，使用new SparkConf().set(“spark.storage.memoryFraction”, “0.5”)即可，可以将RDD缓存占用空间的比例降低，从而给更多的空间让task创建的对象进行使用。<br><br>因此，对于RDD持久化，完全可以使用Kryo序列化，加上降低其executor内存占比的方式，来减少其内存消耗。给task提供更多的内存，从而避免task的执行频繁触发垃圾回收。</font>
+
+<h3 id="高级垃圾回收调优"><a href="#高级垃圾回收调优" class="headerlink" title="高级垃圾回收调优"></a>高级垃圾回收调优</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/JVM%20minor%20gc%E4%B8%8Efull%20gc%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">Java堆空间被划分成了两块空间，一个是年轻代，一个是老年代。年轻代放的是短时间存活的对象，老年代放的是长时间存活的对象。年轻代又被划分了三块空间，Eden、Survivor1、Survivor2。<br><br>首先，Eden区域和Survivor1区域用于存放对象，Survivor2区域备用。创建的对象，首先放入Eden区域和Survivor1区域，如果Eden区域满了，那么就会触发一次Minor GC，进行年轻代的垃圾回收。Eden和Survivor1区域中存活的对象，会被移动到Survivor2区域中。然后Survivor1和Survivor2的角色调换，Survivor1变成了备用。<br><br>如果一个对象，在年轻代中，撑过了多次垃圾回收，都没有被回收掉，那么会被认为是长时间存活的，此时就会被移入老年代。此外，如果在将Eden和Survivor1中的存活对象，尝试放入Survivor2中时，发现Survivor2放满了，那么会直接放入老年代。此时就出现了，短时间存活的对象，进入老年代的问题。<br><br>如果老年代的空间满了，那么就会触发Full GC，进行老年代的垃圾回收操作。<br><br>Spark中，垃圾回收调优的目标就是，只有真正长时间存活的对象，才能进入老年代，短时间存活的对象，只能呆在年轻代。不能因为某个Survivor区域空间不够，在Minor GC时，就进入了老年代。从而造成短时间存活的对象，长期呆在老年代中占据了空间，而且Full GC时要回收大量的短时间存活的对象，导致Full GC速度缓慢。<br><br>如果发现，在task执行期间，大量full gc发生了，那么说明，年轻代的Eden区域，给的空间不够大。此时可以执行一些操作来优化垃圾回收行为：<br>&ensp; 1. 包括降低spark.storage.memoryFraction的比例，给年轻代更多的空间，来存放短时间存活的对象；<br>&ensp; 2. 给Eden区域分配更大的空间，使用-Xmn即可，通常建议给Eden区域，预计大小的4/3；<br>&ensp; 3. 如果使用的是HDFS文件，那么很好估计Eden区域大小，如果每个executor有4个task，然后每个hdfs压缩块解压缩后大小是3倍，此外每个hdfs块的大小是64M，那么Eden区域的预计大小就是：4 <em> 3 </em> 64MB，然后呢，再通过-Xmn参数，将Eden区域大小设置为4 * 3 * 64 * 4/3。</font>
+
+<hr>
+<h2 id="六：提高并行度"><a href="#六：提高并行度" class="headerlink" title="六：提高并行度"></a>六：提高并行度</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%8F%90%E9%AB%98%E5%B9%B6%E8%A1%8C%E5%BA%A6%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">实际上Spark集群的资源并不一定会被充分利用到，所以要尽量设置合理的并行度，来充分地利用集群的资源。才能充分提高Spark应用程序的性能。<br><br>Spark会自动设置以文件作为输入源的RDD的并行度，依据其大小，比如HDFS，就会给每一个block创建一个partition，也依据这个设置并行度。对于reduceByKey等会发生shuffle的操作，就使用并行度最大的父RDD的并行度即可。<br><br>可以手动使用textFile()、parallelize()等方法的第二个参数来设置并行度；也可以使用spark.default.parallelism参数，来设置统一的并行度。Spark官方的推荐是，给集群中的每个cpu core设置2~3个task。<br><br>比如说，spark-submit设置了executor数量是10个，每个executor要求分配2个core，那么application总共会有20个core。此时可以设置new SparkConf().set(“spark.default.parallelism”, “60”)来设置合理的并行度，从而充分利用资源。</font>
+
+<hr>
+<h2 id="七：广播共享数据"><a href="#七：广播共享数据" class="headerlink" title="七：广播共享数据"></a>七：广播共享数据</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%B9%BF%E6%92%AD%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">如果你的算子函数中，使用到了特别大的数据，那么，这个时候，推荐将该数据进行广播。这样的话，就不至于将一个大数据拷贝到每一个task上去。而是给每个节点拷贝一份，然后节点上的task共享该数据。<br><br>这样的话，就可以减少大数据在节点上的内存消耗。并且可以减少数据到节点的网络传输消耗。</font>
+
+<hr>
+<h2 id="八：数据本地化"><a href="#八：数据本地化" class="headerlink" title="八：数据本地化"></a>八：数据本地化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">数据本地化对于Spark Job性能有着巨大的影响。如果数据以及要计算它的代码是在一起的，那么性能当然会非常高。但是，如果数据和计算它的代码是分开的，那么其中之一必须到另外一方的机器上。通常来说，移动代码到其他节点，会比移动数据到代码所在的节点上去，速度要快得多，因为代码比较小。Spark也正是基于这个数据本地化的原则来构建task调度算法的。<br><br>数据本地化，指的是，数据离计算它的代码有多近。基于数据距离代码的距离，有几种数据本地化级别：<br>&ensp;1. PROCESS_LOCAL：数据和计算它的代码在同一个JVM进程中。<br>&ensp;2. NODE_LOCAL：数据和计算它的代码在一个节点上，但是不在一个进程中，比如在不同的executo&ensp;r进程中，或者是数据在HDFS文件的block中。<br>&ensp;3. NO_PREF：数据从哪里过来，性能都是一样的。<br>&ensp;4. RACK_LOCAL：数据和计算它的代码在一个机架上。<br>&ensp;5. ANY：数据可能在任意地方，比如其他网络环境内，或者其他机架上。<br><br>Spark倾向于使用最好的本地化级别来调度task，但是这是不可能的。如果没有任何未处理的数据在空闲的executor上，那么Spark就会放低本地化级别。这时有两个选择：第一，等待，直到executor上的cpu释放出来，那么就分配task过去；第二，立即在任意一个executor上启动一个task。<br><br>Spark默认会等待一会儿，来期望task要处理的数据所在的节点上的executor空闲出一个cpu，从而将task分配过去。只要超过了时间，那么Spark就会将task分配到其他任意一个空闲的executor上。<br><br>可以设置参数，spark.locality系列参数，来调节Spark等待task可以进行数据本地化的时间。spark.locality.wait（3000毫秒）、spark.locality.wait.node、spark.locality.wait.process、spark.locality.wait.rack。</font>
+
+<hr>
+<h2 id="九：reduceByKey和groupByKey"><a href="#九：reduceByKey和groupByKey" class="headerlink" title="九：reduceByKey和groupByKey"></a>九：reduceByKey和groupByKey</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png" alt="Alt text"><br><img src="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">如果能用reduceByKey，那就用reduceByKey，因为它会在map端，先进行本地combine，可以大大减少要传输到reduce端的数据量，减小网络传输的开销。<br><br>只有在reduceByKey处理不了时，才用groupByKey().map()来替代。</font>
+
+<h2 id="十：shuffle性能优化"><a href="#十：shuffle性能优化" class="headerlink" title="十：shuffle性能优化"></a>十：shuffle性能优化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<font color="gray" size="4">new SparkConf().set(“spark.shuffle.consolidateFiles”, “true”)<br><br>spark.shuffle.consolidateFiles：是否开启shuffle block file的合并，默认为false<br>spark.reducer.maxSizeInFlight：reduce task的拉取缓存，默认48m<br>spark.shuffle.file.buffer：map task的写磁盘缓存，默认32k<br>spark.shuffle.io.maxRetries：拉取失败的最大重试次数，默认3次<br>spark.shuffle.io.retryWait：拉取失败的重试间隔，默认5s<br>spark.shuffle.memoryFraction：用于reduce端聚合的内存比例，默认0.2，超过比例就会溢出到磁盘上<br></font>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/06/Java中的四种JSON解析方式详解/" class="archive-article-date">
-  	<time datetime="2018-11-06T11:04:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/06/Java中的四种JSON解析方式详解/">Java中的四种JSON解析方式详解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">spark</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/07/spark性能优化一/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/03/java-job1/" class="archive-article-date">
-  	<time datetime="2018-11-03T12:46:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/12/19/telnet-Connection-refused/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          解决telnet:Connection refused的错误信息
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/06/Java中的四种JSON解析方式详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java中的四种JSON解析方式详解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/03/java-job1/">java小应用程序</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/10/java-3/" class="archive-article-date">
-  	<time datetime="2018-08-10T08:08:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/10/java-3/">Java线程的几种状态</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/06/java-2/" class="archive-article-date">
-  	<time datetime="2018-08-06T07:16:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/java-2/">Java发送邮件</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/06/java-1/" class="archive-article-date">
-  	<time datetime="2018-08-06T06:59:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/java-1/">Java中的自动装箱与拆箱</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -378,9 +443,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
