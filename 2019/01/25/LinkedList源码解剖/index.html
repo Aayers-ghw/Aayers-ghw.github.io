@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Aayers-ghw&#39;s bolg</title>
+  <title>LinkedList源码解剖 | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Aayers-ghw&#39;s bolg">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="转至：https://github.com/francistao/LearningNotes LinkedHashMap简介LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。 LinkedHas">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinkedList源码解剖">
+<meta property="og:url" content="http://yoursite.com/2019/01/25/LinkedList源码解剖/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
+<meta property="og:description" content="转至：https://github.com/francistao/LearningNotes LinkedHashMap简介LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。 LinkedHas">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-25T06:38:09.891Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aayers-ghw&#39;s bolg">
+<meta name="twitter:title" content="LinkedList源码解剖">
+<meta name="twitter:description" content="转至：https://github.com/francistao/LearningNotes LinkedHashMap简介LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。 LinkedHas">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -160,36 +165,80 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-LinkedList源码解剖" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/06/java-2/" class="archive-article-date">
-  	<time datetime="2018-08-06T07:16:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/java-2/">Java发送邮件</a>
+    <h1 class="article-title" itemprop="name">
+      LinkedList源码解剖
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/01/25/LinkedList源码解剖/" class="archive-article-date">
+  	<time datetime="2019-01-25T06:25:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>转至：<a href="https://github.com/francistao/LearningNotes" target="_blank" rel="noopener">https://github.com/francistao/LearningNotes</a></p>
+<h2 id="LinkedHashMap简介"><a href="#LinkedHashMap简介" class="headerlink" title="LinkedHashMap简介"></a>LinkedHashMap简介</h2><p>LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。</p>
+<p>LinkedHashMap可以用来实现LRU算法（这会在下面的源码中进行分析）。</p>
+<p>LinkedHashMap同样是非线程安全的，只在单线程环境下使用。</p>
+<h2 id="LinkedHashMap源码剖析"><a href="#LinkedHashMap源码剖析" class="headerlink" title="LinkedHashMap源码剖析"></a>LinkedHashMap源码剖析</h2><p>LinkedHashMap源码如下（加入了详细的注释）：</p>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;  </span><br><span class="line"><span class="keyword">import</span> java.io.*;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;  </span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;  </span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">3801124242820219131L</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//双向循环链表的头结点，整个LinkedHashMap中只有一个header，  </span></span><br><span class="line">    <span class="comment">//它将哈希表中所有的Entry贯穿起来，header中不保存key-value对，只保存前后节点的引用  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;K,V&gt; header;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//双向链表中元素排序规则的标志位。  </span></span><br><span class="line">    <span class="comment">//accessOrder为false，表示按插入顺序排序  </span></span><br><span class="line">    <span class="comment">//accessOrder为true，表示按访问顺序排序  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">boolean</span> accessOrder;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//调用HashMap的构造方法来构造底层的数组  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(initialCapacity, loadFactor);  </span><br><span class="line">        accessOrder = <span class="keyword">false</span>;    <span class="comment">//链表中的元素默认按照插入顺序排序  </span></span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//加载因子取默认的0.75f  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(initialCapacity);  </span><br><span class="line">        accessOrder = <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//加载因子取默认的0.75f，容量取默认的16  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        accessOrder = <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//含有子Map的构造方法，同样调用HashMap的对应的构造方法  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(m);  </span><br><span class="line">        accessOrder = <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//该构造方法可以指定链表中的元素排序的规则  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity,<span class="keyword">float</span> loadFactor,<span class="keyword">boolean</span> accessOrder)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(initialCapacity, loadFactor);  </span><br><span class="line">        <span class="keyword">this</span>.accessOrder = accessOrder;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//覆写父类的init()方法（HashMap中的init方法为空），  </span></span><br><span class="line">    <span class="comment">//该方法在父类的构造方法和Clone、readObject中在插入元素前被调用，  </span></span><br><span class="line">    <span class="comment">//初始化一个空的双向循环链表，头结点中不保存数据，头结点的下一个节点才开始保存数据。  </span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        header = <span class="keyword">new</span> Entry&lt;K,V&gt;(-<span class="number">1</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);  </span><br><span class="line">        header.before = header.after = header;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//覆写HashMap中的transfer方法，它在父类的resize方法中被调用，  </span></span><br><span class="line">    <span class="comment">//扩容后，将key-value对重新映射到新的newTable中  </span></span><br><span class="line">    <span class="comment">//覆写该方法的目的是为了提高复制的效率，  </span></span><br><span class="line">    <span class="comment">//这里充分利用双向循环链表的特点进行迭代，不用对底层的数组进行for循环。  </span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">(HashMap.Entry[] newTable)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">int</span> newCapacity = newTable.length;  </span><br><span class="line">        <span class="keyword">for</span> (Entry&lt;K,V&gt; e = header.after; e != header; e = e.after) &#123;  </span><br><span class="line">            <span class="keyword">int</span> index = indexFor(e.hash, newCapacity);  </span><br><span class="line">            e.next = newTable[index];  </span><br><span class="line">            newTable[index] = e;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//覆写HashMap中的containsValue方法，  </span></span><br><span class="line">    <span class="comment">//覆写该方法的目的同样是为了提高查询的效率，  </span></span><br><span class="line">    <span class="comment">//利用双向循环链表的特点进行查询，少了对数组的外层for循环  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">containsValue</span><span class="params">(Object value)</span> </span>&#123;  </span><br><span class="line">        <span class="comment">// Overridden to take advantage of faster iterator  </span></span><br><span class="line">        <span class="keyword">if</span> (value==<span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">for</span> (Entry e = header.after; e != header; e = e.after)  </span><br><span class="line">                <span class="keyword">if</span> (e.value==<span class="keyword">null</span>)  </span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            <span class="keyword">for</span> (Entry e = header.after; e != header; e = e.after)  </span><br><span class="line">                <span class="keyword">if</span> (value.equals(e.value))  </span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//覆写HashMap中的get方法，通过getEntry方法获取Entry对象。  </span></span><br><span class="line">    <span class="comment">//注意这里的recordAccess方法，  </span></span><br><span class="line">    <span class="comment">//如果链表中元素的排序规则是按照插入的先后顺序排序的话，该方法什么也不做，  </span></span><br><span class="line">    <span class="comment">//如果链表中元素的排序规则是按照访问的先后顺序排序的话，则将e移到链表的末尾处。  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;  </span><br><span class="line">        Entry&lt;K,V&gt; e = (Entry&lt;K,V&gt;)getEntry(key);  </span><br><span class="line">        <span class="keyword">if</span> (e == <span class="keyword">null</span>)  </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">        e.recordAccess(<span class="keyword">this</span>);  </span><br><span class="line">        <span class="keyword">return</span> e.value;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//清空HashMap，并将双向链表还原为只有头结点的空链表  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>.clear();  </span><br><span class="line">        header.before = header.after = header;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//Enty的数据结构，多了两个指向前后节点的引用  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;  </span><br><span class="line">        <span class="comment">// These fields comprise the doubly linked list used for iteration.  </span></span><br><span class="line">        Entry&lt;K,V&gt; before, after;  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">//调用父类的构造方法  </span></span><br><span class="line">        Entry(<span class="keyword">int</span> hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) &#123;  </span><br><span class="line">            <span class="keyword">super</span>(hash, key, value, next);  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">//双向循环链表中，删除当前的Entry  </span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">            before.after = after;  </span><br><span class="line">            after.before = before;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">//双向循环立链表中，将当前的Entry插入到existingEntry的前面  </span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addBefore</span><span class="params">(Entry&lt;K,V&gt; existingEntry)</span> </span>&#123;  </span><br><span class="line">            after  = existingEntry;  </span><br><span class="line">            before = existingEntry.before;  </span><br><span class="line">            before.after = <span class="keyword">this</span>;  </span><br><span class="line">            after.before = <span class="keyword">this</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">//覆写HashMap中的recordAccess方法（HashMap中该方法为空），  </span></span><br><span class="line">        <span class="comment">//当调用父类的put方法，在发现插入的key已经存在时，会调用该方法，  </span></span><br><span class="line">        <span class="comment">//调用LinkedHashmap覆写的get方法时，也会调用到该方法，  </span></span><br><span class="line">        <span class="comment">//该方法提供了LRU算法的实现，它将最近使用的Entry放到双向循环链表的尾部，  </span></span><br><span class="line">        <span class="comment">//accessOrder为true时，get方法会调用recordAccess方法  </span></span><br><span class="line">        <span class="comment">//put方法在覆盖key-value对时也会调用recordAccess方法  </span></span><br><span class="line">        <span class="comment">//它们导致Entry最近使用，因此将其移到双向链表的末尾  </span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">recordAccess</span><span class="params">(HashMap&lt;K,V&gt; m)</span> </span>&#123;  </span><br><span class="line">            LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;  </span><br><span class="line">            <span class="comment">//如果链表中元素按照访问顺序排序，则将当前访问的Entry移到双向循环链表的尾部，  </span></span><br><span class="line">            <span class="comment">//如果是按照插入的先后顺序排序，则不做任何事情。  </span></span><br><span class="line">            <span class="keyword">if</span> (lm.accessOrder) &#123;  </span><br><span class="line">                lm.modCount++;  </span><br><span class="line">                <span class="comment">//移除当前访问的Entry  </span></span><br><span class="line">                remove();  </span><br><span class="line">                <span class="comment">//将当前访问的Entry插入到链表的尾部  </span></span><br><span class="line">                addBefore(lm.header);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">  </span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">recordRemoval</span><span class="params">(HashMap&lt;K,V&gt; m)</span> </span>&#123;  </span><br><span class="line">            remove();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//迭代器  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashIterator</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">T</span>&gt; </span>&#123;  </span><br><span class="line">    Entry&lt;K,V&gt; nextEntry    = header.after;  </span><br><span class="line">    Entry&lt;K,V&gt; lastReturned = <span class="keyword">null</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">/** </span></span><br><span class="line"><span class="comment">     * The modCount value that the iterator believes that the backing </span></span><br><span class="line"><span class="comment">     * List should have.  If this expectation is violated, the iterator </span></span><br><span class="line"><span class="comment">     * has detected concurrent modification. </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="keyword">int</span> expectedModCount = modCount;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">return</span> nextEntry != header;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (lastReturned == <span class="keyword">null</span>)  </span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException();  </span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)  </span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();  </span><br><span class="line">  </span><br><span class="line">            LinkedHashMap.<span class="keyword">this</span>.remove(lastReturned.key);  </span><br><span class="line">            lastReturned = <span class="keyword">null</span>;  </span><br><span class="line">            expectedModCount = modCount;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//从head的下一个节点开始迭代  </span></span><br><span class="line">    <span class="function">Entry&lt;K,V&gt; <span class="title">nextEntry</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)  </span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();  </span><br><span class="line">            <span class="keyword">if</span> (nextEntry == header)  </span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();  </span><br><span class="line">  </span><br><span class="line">            Entry&lt;K,V&gt; e = lastReturned = nextEntry;  </span><br><span class="line">            nextEntry = e.after;  </span><br><span class="line">            <span class="keyword">return</span> e;  </span><br><span class="line">    &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//key迭代器  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">KeyIterator</span> <span class="keyword">extends</span> <span class="title">LinkedHashIterator</span>&lt;<span class="title">K</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> K <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nextEntry().getKey(); &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//value迭代器  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ValueIterator</span> <span class="keyword">extends</span> <span class="title">LinkedHashIterator</span>&lt;<span class="title">V</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nextEntry().value; &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//Entry迭代器  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">EntryIterator</span> <span class="keyword">extends</span> <span class="title">LinkedHashIterator</span>&lt;<span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;&gt; </span>&#123;  </span><br><span class="line">    <span class="keyword">public</span> Map.<span class="function">Entry&lt;K,V&gt; <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nextEntry(); &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">// These Overrides alter the behavior of superclass view iterator() methods  </span></span><br><span class="line">    <span class="function">Iterator&lt;K&gt; <span class="title">newKeyIterator</span><span class="params">()</span>   </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> KeyIterator();   &#125;  </span><br><span class="line">    <span class="function">Iterator&lt;V&gt; <span class="title">newValueIterator</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ValueIterator(); &#125;  </span><br><span class="line">    Iterator&lt;Map.Entry&lt;K,V&gt;&gt; newEntryIterator() &#123; <span class="keyword">return</span> <span class="keyword">new</span> EntryIterator(); &#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//覆写HashMap中的addEntry方法，LinkedHashmap并没有覆写HashMap中的put方法，  </span></span><br><span class="line">    <span class="comment">//而是覆写了put方法所调用的addEntry方法和recordAccess方法，  </span></span><br><span class="line">    <span class="comment">//put方法在插入的key已存在的情况下，会调用recordAccess方法，  </span></span><br><span class="line">    <span class="comment">//在插入的key不存在的情况下，要调用addEntry插入新的Entry  </span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//创建新的Entry，并插入到LinkedHashMap中  </span></span><br><span class="line">        createEntry(hash, key, value, bucketIndex);  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">//双向链表的第一个有效节点（header后的那个节点）为近期最少使用的节点  </span></span><br><span class="line">        Entry&lt;K,V&gt; eldest = header.after;  </span><br><span class="line">        <span class="comment">//如果有必要，则删除掉该近期最少使用的节点，  </span></span><br><span class="line">        <span class="comment">//这要看对removeEldestEntry的覆写,由于默认为false，因此默认是不做任何处理的。  </span></span><br><span class="line">        <span class="keyword">if</span> (removeEldestEntry(eldest)) &#123;  </span><br><span class="line">            removeEntryForKey(eldest.key);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            <span class="comment">//扩容到原来的2倍  </span></span><br><span class="line">            <span class="keyword">if</span> (size &gt;= threshold)  </span><br><span class="line">                resize(<span class="number">2</span> * table.length);  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">createEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;  </span><br><span class="line">        <span class="comment">//创建新的Entry，并将其插入到数组对应槽的单链表的头结点处，这点与HashMap中相同  </span></span><br><span class="line">        HashMap.Entry&lt;K,V&gt; old = table[bucketIndex];  </span><br><span class="line">        Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;K,V&gt;(hash, key, value, old);  </span><br><span class="line">        table[bucketIndex] = e;  </span><br><span class="line">        <span class="comment">//每次插入Entry时，都将其移到双向链表的尾部，  </span></span><br><span class="line">        <span class="comment">//这便会按照Entry插入LinkedHashMap的先后顺序来迭代元素，  </span></span><br><span class="line">        <span class="comment">//同时，新put进来的Entry是最近访问的Entry，把其放在链表末尾 ，符合LRU算法的实现  </span></span><br><span class="line">        e.addBefore(header);  </span><br><span class="line">        size++;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">//该方法是用来被覆写的，一般如果用LinkedHashmap实现LRU算法，就要覆写该方法，  </span></span><br><span class="line">    <span class="comment">//比如可以将该方法覆写为如果设定的内存已满，则返回true，这样当再次向LinkedHashMap中put  </span></span><br><span class="line">    <span class="comment">//Entry时，在调用的addEntry方法中便会将近期最少使用的节点删除掉（header后的那个节点）。  </span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="几点总结"><a href="#几点总结" class="headerlink" title="几点总结"></a>几点总结</h3><p>关于LinkedHashMap的源码，给出以下几点比较重要的总结：</p>
+<p>1、从源码中可以看出，LinkedHashMap中加入了一个head头结点，将所有插入到该LinkedHashMap中的Entry按照插入的先后顺序依次加入到以head为头结点的双向循环链表的尾部。</p>
+<p>1、实际上就是HashMap和LinkedList两个集合类的存储结构的结合。在LinkedHashMapMap中，所有put进来的Entry都保存在如第一个图所示的哈希表中，但它又额外定义了一个以head为头结点的空的双向循环链表，每次put进来Entry，除了将其保存到对哈希表中对应的位置上外，还要将其插入到双向循环链表的尾部。</p>
+<p>2、LinkedHashMap由于继承自HashMap，因此它具有HashMap的所有特性，同样允许key和value为null。</p>
+<p>3、注意源码中的accessOrder标志位，当它false时，表示双向链表中的元素按照Entry插入LinkedHashMap到中的先后顺序排序，即每次put到LinkedHashMap中的Entry都放在双向链表的尾部，这样遍历双向链表时，Entry的输出顺序便和插入的顺序一致，这也是默认的双向链表的存储顺序；当它为true时，表示双向链表中的元素按照访问的先后顺序排列，可以看到，虽然Entry插入链表的顺序依然是按照其put到LinkedHashMap中的顺序，但put和get方法均有调用recordAccess方法（put方法在key相同，覆盖原有的Entry的情况下调用recordAccess方法），该方法判断accessOrder是否为true，如果是，则将当前访问的Entry（put进来的Entry或get出来的Entry）移到双向链表的尾部（key不相同时，put新Entry时，会调用addEntry，它会调用creatEntry，该方法同样将新插入的元素放入到双向链表的尾部，既符合插入的先后顺序，又符合访问的先后顺序，因为这时该Entry也被访问了），否则，什么也不做。</p>
+<p>4、注意构造方法，前四个构造方法都将accessOrder设为false，说明默认是按照插入顺序排序的，而第五个构造方法可以自定义传入的accessOrder的值，因此可以指定双向循环链表中元素的排序规则，一般要用LinkedHashMap实现LRU算法，就要用该构造方法，将accessOrder置为true。</p>
+<p>5、LinkedHashMap并没有覆写HashMap中的put方法，而是覆写了put方法中调用的addEntry方法和recordAccess方法，我们回过头来再看下HashMap的put方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将“key-value”添加到HashMap中      </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;      </span><br><span class="line">    <span class="comment">// 若“key为null”，则将该键值对添加到table[0]中。      </span></span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span>)      </span><br><span class="line">        <span class="keyword">return</span> putForNullKey(value);      </span><br><span class="line">    <span class="comment">// 若“key不为null”，则计算该key的哈希值，然后将其添加到该哈希值对应的链表中。      </span></span><br><span class="line">    <span class="keyword">int</span> hash = hash(key.hashCode());      </span><br><span class="line">    <span class="keyword">int</span> i = indexFor(hash, table.length);      </span><br><span class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e = table[i]; e != <span class="keyword">null</span>; e = e.next) &#123;      </span><br><span class="line">        Object k;      </span><br><span class="line">        <span class="comment">// 若“该key”对应的键值对已经存在，则用新的value取代旧的value。然后退出！      </span></span><br><span class="line">        <span class="keyword">if</span> (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) &#123;      </span><br><span class="line">            V oldValue = e.value;      </span><br><span class="line">            e.value = value;      </span><br><span class="line">            e.recordAccess(<span class="keyword">this</span>);      </span><br><span class="line">            <span class="keyword">return</span> oldValue;      </span><br><span class="line">        &#125;      </span><br><span class="line">    &#125;      </span><br><span class="line">  </span><br><span class="line">    <span class="comment">// 若“该key”对应的键值对不存在，则将“key-value”添加到table中      </span></span><br><span class="line">    modCount++;    </span><br><span class="line">    <span class="comment">//将key-value添加到table[i]处    </span></span><br><span class="line">    addEntry(hash, key, value, i);      </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></p>
+<p>当要put进来的Entry的key在哈希表中已经在存在时，会调用recordAccess方法，当该key不存在时，则会调用addEntry方法将新的Entry插入到对应槽的单链表的头部。</p>
+<p>我们先来看recordAccess方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//覆写HashMap中的recordAccess方法（HashMap中该方法为空），  </span></span><br><span class="line"><span class="comment">//当调用父类的put方法，在发现插入的key已经存在时，会调用该方法，  </span></span><br><span class="line"><span class="comment">//调用LinkedHashmap覆写的get方法时，也会调用到该方法，  </span></span><br><span class="line"><span class="comment">//该方法提供了LRU算法的实现，它将最近使用的Entry放到双向循环链表的尾部，  </span></span><br><span class="line"><span class="comment">//accessOrder为true时，get方法会调用recordAccess方法  </span></span><br><span class="line"><span class="comment">//put方法在覆盖key-value对时也会调用recordAccess方法  </span></span><br><span class="line"><span class="comment">//它们导致Entry最近使用，因此将其移到双向链表的末尾  </span></span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">recordAccess</span><span class="params">(HashMap&lt;K,V&gt; m)</span> </span>&#123;  </span><br><span class="line">          LinkedHashMap&lt;K,V&gt; lm = (LinkedHashMap&lt;K,V&gt;)m;  </span><br><span class="line">    <span class="comment">//如果链表中元素按照访问顺序排序，则将当前访问的Entry移到双向循环链表的尾部，  </span></span><br><span class="line">    <span class="comment">//如果是按照插入的先后顺序排序，则不做任何事情。  </span></span><br><span class="line">          <span class="keyword">if</span> (lm.accessOrder) &#123;  </span><br><span class="line">              lm.modCount++;  </span><br><span class="line">        <span class="comment">//移除当前访问的Entry  </span></span><br><span class="line">              remove();  </span><br><span class="line">        <span class="comment">//将当前访问的Entry插入到链表的尾部  </span></span><br><span class="line">              addBefore(lm.header);  </span><br><span class="line">          &#125;  </span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure></p>
+<p>该方法会判断accessOrder是否为true，如果为true，它会将当前访问的Entry（在这里指put进来的Entry）移动到双向循环链表的尾部，从而实现双向链表中的元素按照访问顺序来排序（最近访问的Entry放到链表的最后，这样多次下来，前面就是最近没有被访问的元素，在实现、LRU算法时，当双向链表中的节点数达到最大值时，将前面的元素删去即可，因为前面的元素是最近最少使用的），否则什么也不做。</p>
+<p>再来看addEntry方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//覆写HashMap中的addEntry方法，LinkedHashmap并没有覆写HashMap中的put方法，  </span></span><br><span class="line"><span class="comment">//而是覆写了put方法所调用的addEntry方法和recordAccess方法，  </span></span><br><span class="line"><span class="comment">//put方法在插入的key已存在的情况下，会调用recordAccess方法，  </span></span><br><span class="line"><span class="comment">//在插入的key不存在的情况下，要调用addEntry插入新的Entry  </span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">addEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//创建新的Entry，并插入到LinkedHashMap中  </span></span><br><span class="line">       createEntry(hash, key, value, bucketIndex);  </span><br><span class="line">  </span><br><span class="line">       <span class="comment">//双向链表的第一个有效节点（header后的那个节点）为近期最少使用的节点  </span></span><br><span class="line">       Entry&lt;K,V&gt; eldest = header.after;  </span><br><span class="line">    <span class="comment">//如果有必要，则删除掉该近期最少使用的节点，  </span></span><br><span class="line">    <span class="comment">//这要看对removeEldestEntry的覆写,由于默认为false，因此默认是不做任何处理的。  </span></span><br><span class="line">       <span class="keyword">if</span> (removeEldestEntry(eldest)) &#123;  </span><br><span class="line">           removeEntryForKey(eldest.key);  </span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        <span class="comment">//扩容到原来的2倍  </span></span><br><span class="line">           <span class="keyword">if</span> (size &gt;= threshold)  </span><br><span class="line">               resize(<span class="number">2</span> * table.length);  </span><br><span class="line">       &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">createEntry</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">int</span> bucketIndex)</span> </span>&#123;  </span><br><span class="line">    <span class="comment">//创建新的Entry，并将其插入到数组对应槽的单链表的头结点处，这点与HashMap中相同  </span></span><br><span class="line">       HashMap.Entry&lt;K,V&gt; old = table[bucketIndex];  </span><br><span class="line">    Entry&lt;K,V&gt; e = <span class="keyword">new</span> Entry&lt;K,V&gt;(hash, key, value, old);  </span><br><span class="line">       table[bucketIndex] = e;  </span><br><span class="line">    <span class="comment">//每次插入Entry时，都将其移到双向链表的尾部，  </span></span><br><span class="line">    <span class="comment">//这便会按照Entry插入LinkedHashMap的先后顺序来迭代元素，  </span></span><br><span class="line">    <span class="comment">//同时，新put进来的Entry是最近访问的Entry，把其放在链表末尾 ，符合LRU算法的实现  </span></span><br><span class="line">       e.addBefore(header);  </span><br><span class="line">       size++;  </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样是将新的Entry插入到table中对应槽所对应单链表的头结点中，但可以看出，在createEntry中，同样把新put进来的Entry插入到了双向链表的尾部，从插入顺序的层面来说，新的Entry插入到双向链表的尾部，可以实现按照插入的先后顺序来迭代Entry，而从访问顺序的层面来说，新put进来的Entry又是最近访问的Entry，也应该将其放在双向链表的尾部。</p>
+<p>上面还有个removeEldestEntry方法，该方法如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//该方法是用来被覆写的，一般如果用LinkedHashmap实现LRU算法，就要覆写该方法，  </span></span><br><span class="line">    <span class="comment">//比如可以将该方法覆写为如果设定的内存已满，则返回true，这样当再次向LinkedHashMap中put  </span></span><br><span class="line">    <span class="comment">//Entry时，在调用的addEntry方法中便会将近期最少使用的节点删除掉（header后的那个节点）。  </span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K,V&gt; eldest)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该方法默认返回false，我们一般在用LinkedHashMap实现LRU算法时，要覆写该方法，一般的实现是，当设定的内存（这里指节点个数）达到最大值时，返回true，这样put新的Entry（该Entry的key在哈希表中没有已经存在）时，就会调用removeEntryForKey方法，将最近最少使用的节点删除（head后面的那个节点，实际上是最近没有使用）。</p>
+<p>6、LinkedHashMap覆写了HashMap的get方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//覆写HashMap中的get方法，通过getEntry方法获取Entry对象。  </span></span><br><span class="line"><span class="comment">//注意这里的recordAccess方法，  </span></span><br><span class="line"><span class="comment">//如果链表中元素的排序规则是按照插入的先后顺序排序的话，该方法什么也不做，  </span></span><br><span class="line"><span class="comment">//如果链表中元素的排序规则是按照访问的先后顺序排序的话，则将e移到链表的末尾处。  </span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;  </span><br><span class="line">       Entry&lt;K,V&gt; e = (Entry&lt;K,V&gt;)getEntry(key);  </span><br><span class="line">       <span class="keyword">if</span> (e == <span class="keyword">null</span>)  </span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;  </span><br><span class="line">       e.recordAccess(<span class="keyword">this</span>);  </span><br><span class="line">       <span class="keyword">return</span> e.value;  </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>先取得Entry，如果不为null，一样调用recordAccess方法，上面已经说得很清楚，这里不在多解释了。</p>
+<p>7、最后说说LinkedHashMap是如何实现LRU的。首先，当accessOrder为true时，才会开启按访问顺序排序的模式，才能用来实现LRU算法。我们可以看到，无论是put方法还是get方法，都会导致目标Entry成为最近访问的Entry，因此便把该Entry加入到了双向链表的末尾（get方法通过调用recordAccess方法来实现，put方法在覆盖已有key的情况下，也是通过调用recordAccess方法来实现，在插入新的Entry时，则是通过createEntry中的addBefore方法来实现），这样便把最近使用了的Entry放入到了双向链表的后面，多次操作后，双向链表前面的Entry便是最近没有使用的，这样当节点个数满的时候，删除的最前面的Entry(head后面的那个Entry)便是最近最少使用的Entry。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -201,201 +250,121 @@ var _hmt = _hmt || [];
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/25/LinkedList源码解剖/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/06/java-1/" class="archive-article-date">
-  	<time datetime="2018-08-06T06:59:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-06</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/19/telnet-Connection-refused/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">解决telnet:Connection refused的错误信息</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/06/java-1/">Java中的自动装箱与拆箱</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/04/Linux-note-2/" class="archive-article-date">
-  	<time datetime="2018-08-04T04:55:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/04/Linux-note-2/">Linux 学习笔记(二)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/04/Linux-note-1/" class="archive-article-date">
-  	<time datetime="2018-08-04T01:56:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/04/Linux-note-1/">Linux 学习笔记（一）</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hello-world/" class="archive-article-date">
-  	<time datetime="2018-07-11T09:37:23.840Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/11/hexo-github/" class="archive-article-date">
-  	<time datetime="2018-07-11T03:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/11/hexo-github/">Github + Hexo 搭建个人网站详细教程</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2019/01/25/LinkedList源码解剖/",
+  owner: '40926944',
+  repo: 'https://aayers-ghw.github.io',
+  oauth: {
+    client_id: '5e86daa15c882dfed2c2',
+    client_secret: '06ebc3be0a22621ad7fb457041acc514dfd08cb7',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
 
 
@@ -430,8 +399,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
