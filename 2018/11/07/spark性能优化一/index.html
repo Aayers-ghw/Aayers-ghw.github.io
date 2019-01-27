@@ -16,21 +16,21 @@
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
 <meta property="og:description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/GC%E5%AF%B9Spark%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D%E7%9A%84%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E8%B0%83%E8%8A%82executor%E5%86%85%E5%AD%98%E6%AF%94%E4%BE%8B.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/JVM%20minor%20gc%E4%B8%8Efull%20gc%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%8F%90%E9%AB%98%E5%B9%B6%E8%A1%8C%E5%BA%A6%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%B9%BF%E6%92%AD%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png">
-<meta property="og:updated_time" content="2019-01-04T08:14:33.840Z">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dad2b81663.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dadc29b2a6.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dadc3412fb.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dadc3e387a.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dae3155822.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dae525386a.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dae7ab3462.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dae90389c5.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dae8e7df73.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dac3308bcf.png">
+<meta property="og:updated_time" content="2019-01-27T13:16:35.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spark性能优化">
 <meta name="twitter:description" content="Spark性能优化概览由于Spark的计算本质是基于内存的，所以Spark性能程序的性能可能因为集群中的任何因素出现瓶颈：CPU、网络带宽、或者是内存。如果内存能够容纳得下所有的数据，那么网络传输和通信就会导致性能出现瓶颈。但是如果内存比较紧张，不足以放下所有的数据（比如在针对10亿以上的数据量进行计算时），还是需要对内存的使用进行性能优化的，比如说使用一些手段来减少内存的消耗。Spark性能优">
-<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/27/5c4dad2b81663.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -250,39 +250,39 @@ var _hmt = _hmt || [];
 <hr>
 <h2 id="三：对多次使用的RDD进行持久化或Checkpoint"><a href="#三：对多次使用的RDD进行持久化或Checkpoint" class="headerlink" title="三：对多次使用的RDD进行持久化或Checkpoint"></a>三：对多次使用的RDD进行持久化或Checkpoint</h2><font color="gray" size="4">如果程序中，对某一个RDD，基于它进行了多次transformation或者action操作。那么就非常有必要对其进行持久化操作，以避免对一个RDD反复进行计算。<br><br>此外，如果要保证在RDD的持久化数据可能丢失的情况下，还要保证高性能，那么可以对RDD进行Checkpoint操作。<br>原理图如下：</font>  
 
-<p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%AF%B9%E4%BA%8E%E5%A4%9A%E6%AC%A1%E6%93%8D%E4%BD%9C%E7%9A%84RDD%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96%E5%92%8CCheckpoint%E6%93%8D%E4%BD%9C.png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4dad2b81663.png" alt="Alt text"></p>
 <hr>
 <h2 id="四：使用序列化的持久化级别"><a href="#四：使用序列化的持久化级别" class="headerlink" title="四：使用序列化的持久化级别"></a>四：使用序列化的持久化级别</h2><font color="gray" size="4">除了对多次使用的RDD进行持久化操作之外，还可以进一步优化其性能。因为很有可能，RDD的数据是持久化到内存，或者磁盘中的。那么，此时，如果内存大小不是特别充足，完全可以使用序列化的持久化级别，比如MEMORY_ONLY_SER、MEMORY_AND_DISK_SER等。使用RDD.persist(StorageLevel.MEMORY_ONLY_SER)这样的语法即可。<br><br>这样的话，将数据序列化之后，再持久化，可以大大减小对内存的消耗。此外，数据量小了之后，如果要写入磁盘，那么磁盘io性能消耗也比较小。<br><br>对RDD持久化序列化后，RDD的每个partition的数据，都是序列化为一个巨大的字节数组。这样，对于内存的消耗就小的多了。但是唯一的缺点就是，获取RDD数据时，需要对其进行反序列化，会增大其性能开销。<br><br>因此，对于序列化的持久化级别，还可以进一步优化，也就是说，使用Kryo序列化类库，这样，可以获得更快的序列化速度，并且占用更小的内存空间。但是要记住，如果RDD的元素（RDD<t>的泛型类型），是自定义类型的话，在Kryo中提前注册自定义类型。</t></font>
 
 <hr>
-<h2 id="五：Java虚拟机垃圾回收调优"><a href="#五：Java虚拟机垃圾回收调优" class="headerlink" title="五：Java虚拟机垃圾回收调优"></a>五：Java虚拟机垃圾回收调优</h2><h3 id="Java虚拟机垃圾回收调优的背景"><a href="#Java虚拟机垃圾回收调优的背景" class="headerlink" title="Java虚拟机垃圾回收调优的背景"></a>Java虚拟机垃圾回收调优的背景</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/GC%E5%AF%B9Spark%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text"></p>
+<h2 id="五：Java虚拟机垃圾回收调优"><a href="#五：Java虚拟机垃圾回收调优" class="headerlink" title="五：Java虚拟机垃圾回收调优"></a>五：Java虚拟机垃圾回收调优</h2><h3 id="Java虚拟机垃圾回收调优的背景"><a href="#Java虚拟机垃圾回收调优的背景" class="headerlink" title="Java虚拟机垃圾回收调优的背景"></a>Java虚拟机垃圾回收调优的背景</h3><p><img src="https://i.loli.net/2019/01/27/5c4dadc29b2a6.png" alt="Alt text"></p>
 <font color="gray" size="4">如果在持久化RDD的时候，持久化了大量的数据，那么Java虚拟机的垃圾回收就可能成为一个性能瓶颈。因为Java虚拟机会定期进行垃圾回收，此时就会追踪所有的java对象，并且在垃圾回收时，找到那些已经不在使用的对象，然后清理旧的对象，来给新的对象腾出内存空间。<br><br>垃圾回收的性能开销，是跟内存中的对象的数量，成正比的。所以，对于垃圾回收的性能问题，首先要做的就是，使用更高效的数据结构，比如array和string；其次就是在持久化rdd时，使用序列化的持久化级别，而且用Kryo序列化类库，这样，每个partition就只是一个对象——一个字节数组。</font>
 
 <h3 id="监测垃圾回收"><a href="#监测垃圾回收" class="headerlink" title="监测垃圾回收"></a>监测垃圾回收</h3><font color="gray" size="4">我们可以对垃圾回收进行监测，包括多久进行一次垃圾回收，以及每次垃圾回收耗费的时间。只要在spark-submit脚本中，增加一个配置即可，–conf “spark.executor.extraJavaOptions=-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps”。<br><br>但是要记住，这里虽然会打印出Java虚拟机的垃圾回收的相关信息，但是是输出到了worker上的日志中，而不是driver的日志中。<br><br>但是这种方式也只是一种，其实也完全可以通过SparkUI（4040端口）来观察每个stage的垃圾回收的情况。</font>
 
-<h3 id="优化executor内存比例"><a href="#优化executor内存比例" class="headerlink" title="优化executor内存比例"></a>优化executor内存比例</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/%E8%B0%83%E8%8A%82executor%E5%86%85%E5%AD%98%E6%AF%94%E4%BE%8B.png" alt="Alt text"></p>
+<h3 id="优化executor内存比例"><a href="#优化executor内存比例" class="headerlink" title="优化executor内存比例"></a>优化executor内存比例</h3><p><img src="https://i.loli.net/2019/01/27/5c4dadc3412fb.png" alt="Alt text"></p>
 <font color="gray" size="4">对于垃圾回收来说，最重要的就是调节RDD缓存占用的内存空间，与算子执行时创建的对象占用的内存空间的比例。默认情况下，Spark使用每个executor 60%的内存空间来缓存RDD，那么在task执行期间创建的对象，只有40%的内存空间来存放。<br><br>在这种情况下，很有可能因为你的内存空间的不足，task创建的对象过大，那么一旦发现40%的内存空间不够用了，就会触发Java虚拟机的垃圾回收操作。因此在极端情况下，垃圾回收操作可能会被频繁触发。<br><br>在上述情况下，如果发现垃圾回收频繁发生。那么就需要对那个比例进行调优，使用new SparkConf().set(“spark.storage.memoryFraction”, “0.5”)即可，可以将RDD缓存占用空间的比例降低，从而给更多的空间让task创建的对象进行使用。<br><br>因此，对于RDD持久化，完全可以使用Kryo序列化，加上降低其executor内存占比的方式，来减少其内存消耗。给task提供更多的内存，从而避免task的执行频繁触发垃圾回收。</font>
 
-<h3 id="高级垃圾回收调优"><a href="#高级垃圾回收调优" class="headerlink" title="高级垃圾回收调优"></a>高级垃圾回收调优</h3><p><img src="http://pbqf89lam.bkt.clouddn.com/JVM%20minor%20gc%E4%B8%8Efull%20gc%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h3 id="高级垃圾回收调优"><a href="#高级垃圾回收调优" class="headerlink" title="高级垃圾回收调优"></a>高级垃圾回收调优</h3><p><img src="https://i.loli.net/2019/01/27/5c4dadc3e387a.png" alt="Alt text">  </p>
 <font color="gray" size="4">Java堆空间被划分成了两块空间，一个是年轻代，一个是老年代。年轻代放的是短时间存活的对象，老年代放的是长时间存活的对象。年轻代又被划分了三块空间，Eden、Survivor1、Survivor2。<br><br>首先，Eden区域和Survivor1区域用于存放对象，Survivor2区域备用。创建的对象，首先放入Eden区域和Survivor1区域，如果Eden区域满了，那么就会触发一次Minor GC，进行年轻代的垃圾回收。Eden和Survivor1区域中存活的对象，会被移动到Survivor2区域中。然后Survivor1和Survivor2的角色调换，Survivor1变成了备用。<br><br>如果一个对象，在年轻代中，撑过了多次垃圾回收，都没有被回收掉，那么会被认为是长时间存活的，此时就会被移入老年代。此外，如果在将Eden和Survivor1中的存活对象，尝试放入Survivor2中时，发现Survivor2放满了，那么会直接放入老年代。此时就出现了，短时间存活的对象，进入老年代的问题。<br><br>如果老年代的空间满了，那么就会触发Full GC，进行老年代的垃圾回收操作。<br><br>Spark中，垃圾回收调优的目标就是，只有真正长时间存活的对象，才能进入老年代，短时间存活的对象，只能呆在年轻代。不能因为某个Survivor区域空间不够，在Minor GC时，就进入了老年代。从而造成短时间存活的对象，长期呆在老年代中占据了空间，而且Full GC时要回收大量的短时间存活的对象，导致Full GC速度缓慢。<br><br>如果发现，在task执行期间，大量full gc发生了，那么说明，年轻代的Eden区域，给的空间不够大。此时可以执行一些操作来优化垃圾回收行为：<br>&ensp; 1. 包括降低spark.storage.memoryFraction的比例，给年轻代更多的空间，来存放短时间存活的对象；<br>&ensp; 2. 给Eden区域分配更大的空间，使用-Xmn即可，通常建议给Eden区域，预计大小的4/3；<br>&ensp; 3. 如果使用的是HDFS文件，那么很好估计Eden区域大小，如果每个executor有4个task，然后每个hdfs压缩块解压缩后大小是3倍，此外每个hdfs块的大小是64M，那么Eden区域的预计大小就是：4 <em> 3 </em> 64MB，然后呢，再通过-Xmn参数，将Eden区域大小设置为4 * 3 * 64 * 4/3。</font>
 
 <hr>
-<h2 id="六：提高并行度"><a href="#六：提高并行度" class="headerlink" title="六：提高并行度"></a>六：提高并行度</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%8F%90%E9%AB%98%E5%B9%B6%E8%A1%8C%E5%BA%A6%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h2 id="六：提高并行度"><a href="#六：提高并行度" class="headerlink" title="六：提高并行度"></a>六：提高并行度</h2><p><img src="https://i.loli.net/2019/01/27/5c4dae3155822.png" alt="Alt text">  </p>
 <font color="gray" size="4">实际上Spark集群的资源并不一定会被充分利用到，所以要尽量设置合理的并行度，来充分地利用集群的资源。才能充分提高Spark应用程序的性能。<br><br>Spark会自动设置以文件作为输入源的RDD的并行度，依据其大小，比如HDFS，就会给每一个block创建一个partition，也依据这个设置并行度。对于reduceByKey等会发生shuffle的操作，就使用并行度最大的父RDD的并行度即可。<br><br>可以手动使用textFile()、parallelize()等方法的第二个参数来设置并行度；也可以使用spark.default.parallelism参数，来设置统一的并行度。Spark官方的推荐是，给集群中的每个cpu core设置2~3个task。<br><br>比如说，spark-submit设置了executor数量是10个，每个executor要求分配2个core，那么application总共会有20个core。此时可以设置new SparkConf().set(“spark.default.parallelism”, “60”)来设置合理的并行度，从而充分利用资源。</font>
 
 <hr>
-<h2 id="七：广播共享数据"><a href="#七：广播共享数据" class="headerlink" title="七：广播共享数据"></a>七：广播共享数据</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%B9%BF%E6%92%AD%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h2 id="七：广播共享数据"><a href="#七：广播共享数据" class="headerlink" title="七：广播共享数据"></a>七：广播共享数据</h2><p><img src="https://i.loli.net/2019/01/27/5c4dae525386a.png" alt="Alt text">  </p>
 <font color="gray" size="4">如果你的算子函数中，使用到了特别大的数据，那么，这个时候，推荐将该数据进行广播。这样的话，就不至于将一个大数据拷贝到每一个task上去。而是给每个节点拷贝一份，然后节点上的task共享该数据。<br><br>这样的话，就可以减少大数据在节点上的内存消耗。并且可以减少数据到节点的网络传输消耗。</font>
 
 <hr>
-<h2 id="八：数据本地化"><a href="#八：数据本地化" class="headerlink" title="八：数据本地化"></a>八：数据本地化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%95%B0%E6%8D%AE%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h2 id="八：数据本地化"><a href="#八：数据本地化" class="headerlink" title="八：数据本地化"></a>八：数据本地化</h2><p><img src="https://i.loli.net/2019/01/27/5c4dae7ab3462.png" alt="Alt text">  </p>
 <font color="gray" size="4">数据本地化对于Spark Job性能有着巨大的影响。如果数据以及要计算它的代码是在一起的，那么性能当然会非常高。但是，如果数据和计算它的代码是分开的，那么其中之一必须到另外一方的机器上。通常来说，移动代码到其他节点，会比移动数据到代码所在的节点上去，速度要快得多，因为代码比较小。Spark也正是基于这个数据本地化的原则来构建task调度算法的。<br><br>数据本地化，指的是，数据离计算它的代码有多近。基于数据距离代码的距离，有几种数据本地化级别：<br>&ensp;1. PROCESS_LOCAL：数据和计算它的代码在同一个JVM进程中。<br>&ensp;2. NODE_LOCAL：数据和计算它的代码在一个节点上，但是不在一个进程中，比如在不同的executo&ensp;r进程中，或者是数据在HDFS文件的block中。<br>&ensp;3. NO_PREF：数据从哪里过来，性能都是一样的。<br>&ensp;4. RACK_LOCAL：数据和计算它的代码在一个机架上。<br>&ensp;5. ANY：数据可能在任意地方，比如其他网络环境内，或者其他机架上。<br><br>Spark倾向于使用最好的本地化级别来调度task，但是这是不可能的。如果没有任何未处理的数据在空闲的executor上，那么Spark就会放低本地化级别。这时有两个选择：第一，等待，直到executor上的cpu释放出来，那么就分配task过去；第二，立即在任意一个executor上启动一个task。<br><br>Spark默认会等待一会儿，来期望task要处理的数据所在的节点上的executor空闲出一个cpu，从而将task分配过去。只要超过了时间，那么Spark就会将task分配到其他任意一个空闲的executor上。<br><br>可以设置参数，spark.locality系列参数，来调节Spark等待task可以进行数据本地化的时间。spark.locality.wait（3000毫秒）、spark.locality.wait.node、spark.locality.wait.process、spark.locality.wait.rack。</font>
 
 <hr>
-<h2 id="九：reduceByKey和groupByKey"><a href="#九：reduceByKey和groupByKey" class="headerlink" title="九：reduceByKey和groupByKey"></a>九：reduceByKey和groupByKey</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/groupByKey%E5%8E%9F%E7%90%86.png" alt="Alt text"><br><img src="http://pbqf89lam.bkt.clouddn.com/reduceByKey%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h2 id="九：reduceByKey和groupByKey"><a href="#九：reduceByKey和groupByKey" class="headerlink" title="九：reduceByKey和groupByKey"></a>九：reduceByKey和groupByKey</h2><p><img src="https://i.loli.net/2019/01/27/5c4dae90389c5.png" alt="Alt text"><br><img src="https://i.loli.net/2019/01/27/5c4dae8e7df73.png" alt="Alt text">  </p>
 <font color="gray" size="4">如果能用reduceByKey，那就用reduceByKey，因为它会在map端，先进行本地combine，可以大大减少要传输到reduce端的数据量，减小网络传输的开销。<br><br>只有在reduceByKey处理不了时，才用groupByKey().map()来替代。</font>
 
-<h2 id="十：shuffle性能优化"><a href="#十：shuffle性能优化" class="headerlink" title="十：shuffle性能优化"></a>十：shuffle性能优化</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/%E5%BC%80%E5%90%AFconsolidation%E6%9C%BA%E5%88%B6%E4%B9%8B%E5%90%8E%E5%AF%B9%E7%A3%81%E7%9B%98io%E6%80%A7%E8%83%BD%E7%9A%84%E6%8F%90%E5%8D%87%E7%9A%84%E5%8E%9F%E7%90%86.png" alt="Alt text">  </p>
+<h2 id="十：shuffle性能优化"><a href="#十：shuffle性能优化" class="headerlink" title="十：shuffle性能优化"></a>十：shuffle性能优化</h2><p><img src="https://i.loli.net/2019/01/27/5c4dac3308bcf.png" alt="Alt text">  </p>
 <font color="gray" size="4">new SparkConf().set(“spark.shuffle.consolidateFiles”, “true”)<br><br>spark.shuffle.consolidateFiles：是否开启shuffle block file的合并，默认为false<br>spark.reducer.maxSizeInFlight：reduce task的拉取缓存，默认48m<br>spark.shuffle.file.buffer：map task的写磁盘缓存，默认32k<br>spark.shuffle.io.maxRetries：拉取失败的最大重试次数，默认3次<br>spark.shuffle.io.retryWait：拉取失败的重试间隔，默认5s<br>spark.shuffle.memoryFraction：用于reduce端聚合的内存比例，默认0.2，超过比例就会溢出到磁盘上<br></font>
       
 
@@ -555,11 +555,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -568,10 +572,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
             
             <div class="clearfix"></div>

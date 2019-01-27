@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
 <meta property="og:description" content="Checkpoint是什么？Checkpoint，是Spark提供的一个比较高级的功能。有的时候啊，比如说，我们的Spark应用程序，特别的复杂，然后呢，从初始的RDD开始，到最后整个应用程序完成，有非常多的步骤，比如超过20个transformation操作。而且呢，整个应用运行的时间也特别长，比如通常要运行1~5个小时。在上述情况下，就比较适合使用checkpoint功能。因为，对于特别复杂">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/Checkpoint%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png">
-<meta property="og:updated_time" content="2019-01-04T08:14:36.781Z">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4dacc3befca.png">
+<meta property="og:updated_time" content="2019-01-27T13:06:21.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="checkpoint原理解剖">
 <meta name="twitter:description" content="Checkpoint是什么？Checkpoint，是Spark提供的一个比较高级的功能。有的时候啊，比如说，我们的Spark应用程序，特别的复杂，然后呢，从初始的RDD开始，到最后整个应用程序完成，有非常多的步骤，比如超过20个transformation操作。而且呢，整个应用运行的时间也特别长，比如通常要运行1~5个小时。在上述情况下，就比较适合使用checkpoint功能。因为，对于特别复杂">
-<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/Checkpoint%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/27/5c4dacc3befca.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -194,7 +194,7 @@ var _hmt = _hmt || [];
 <h2 id="Checkpoint的功能"><a href="#Checkpoint的功能" class="headerlink" title="Checkpoint的功能"></a>Checkpoint的功能</h2><font color="gray" size="4">所以，针对上述的复杂Spark应用的问题（没有容错机制的问题）。就可以使用checkponit功能。<br><br>checkpoint功能是什么意思？checkpoint就是说，对于一个复杂的RDD chain，我们如果担心中间某些关键的，在后面会反复几次使用的RDD，可能会因为节点的故障，导致持久化数据的丢失，那么就可以针对该RDD格外启动checkpoint机制，实现容错和高可用。<br><br>checkpoint，就是说，首先呢，要调用SparkContext的setCheckpointDir()方法，设置一个容错的文件系统的目录，比如说HDFS；然后，对RDD调用checkpoint()方法。之后，在RDD所处的job运行结束之后，会启动一个单独的job，来将checkpoint过的RDD的数据写入之前设置的文件系统，进行高可用、容错的类持久化操作。<br><br>那么此时，即使在后面使用RDD时，它的持久化的数据，不小心丢失了，但是还是可以从它的checkpoint文件中直接读取其数据，而不需要重新计算。（CacheManager）</font>  
 
 <hr>
-<h2 id="Checkpoint原理剖析"><a href="#Checkpoint原理剖析" class="headerlink" title="Checkpoint原理剖析"></a>Checkpoint原理剖析</h2><p><img src="http://pbqf89lam.bkt.clouddn.com/Checkpoint%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png" alt="Alt text">  </p>
+<h2 id="Checkpoint原理剖析"><a href="#Checkpoint原理剖析" class="headerlink" title="Checkpoint原理剖析"></a>Checkpoint原理剖析</h2><p><img src="https://i.loli.net/2019/01/27/5c4dacc3befca.png" alt="Alt text">  </p>
 <h3 id="1、如何进行checkpoint？"><a href="#1、如何进行checkpoint？" class="headerlink" title="1、如何进行checkpoint？"></a>1、如何进行checkpoint？</h3><font color="gray" size="4">SparkContext.setCheckpointDir()<br>    RDD.checkpoint()</font>   
 
 <h3 id="2、Checkpoint与持久化的不同：lineage的改变"><a href="#2、Checkpoint与持久化的不同：lineage的改变" class="headerlink" title="2、Checkpoint与持久化的不同：lineage的改变"></a>2、Checkpoint与持久化的不同：lineage的改变</h3><font color="gray" size="4">最主要的区别就在于，持久化，只是将数据保存在Block Manager中，但是rdd的lineage（血缘关系，依赖关系）是不变的。但是checkpoint执行完之后，rdd已经没有之前所谓的依赖rdd了，而只是一个强行为其设置的checkpointRDD。那么也就是说，checkpoint之后，rdd的lineage就改变了。<br></font><br><font color="gray" size="4">其次，持久化的数据丢失的可能性更大，磁盘，或者是内存，可能丢失；但是checkpoint的数据，通常是保存在容错、高可用的文件系统中的，比如说HDFS，依赖于这中高容错的文件系统，所以checkpoint的数据丢失可能性非常低。</font>  
@@ -474,11 +474,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -487,10 +491,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
             
             <div class="clearfix"></div>

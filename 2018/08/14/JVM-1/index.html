@@ -16,20 +16,20 @@
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
 <meta property="og:description" content="JVM启动流程">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/021.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/022.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/023..png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/024..png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/025.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/026.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/027.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/028.png">
-<meta property="og:image" content="http://pbqf89lam.bkt.clouddn.com/029...png">
-<meta property="og:updated_time" content="2019-01-04T08:15:16.026Z">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da4f92f033.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da4fd52753.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da5026009e.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da504d1488.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da50676406.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da5087e34c.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da509ef93c.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da50b11c5d.png">
+<meta property="og:image" content="https://i.loli.net/2019/01/27/5c4da50c4a3ad.png">
+<meta property="og:updated_time" content="2019-01-27T12:54:44.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机知识点整理(一)">
 <meta name="twitter:description" content="JVM启动流程">
-<meta name="twitter:image" content="http://pbqf89lam.bkt.clouddn.com/021.png">
+<meta name="twitter:image" content="https://i.loli.net/2019/01/27/5c4da4f92f033.png">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
   
@@ -196,11 +196,11 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h1 id="JVM启动流程"><a href="#JVM启动流程" class="headerlink" title="JVM启动流程"></a>JVM启动流程</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/021.png" alt="Alt text"></p>
+<h1 id="JVM启动流程"><a href="#JVM启动流程" class="headerlink" title="JVM启动流程"></a>JVM启动流程</h1><p><img src="https://i.loli.net/2019/01/27/5c4da4f92f033.png" alt="Alt text"></p>
 <a id="more"></a>
 <hr>
 <hr>
-<h1 id="JVM基本结构"><a href="#JVM基本结构" class="headerlink" title="JVM基本结构"></a>JVM基本结构</h1><p><img src="http://pbqf89lam.bkt.clouddn.com/022.png" alt="Alt text"></p>
+<h1 id="JVM基本结构"><a href="#JVM基本结构" class="headerlink" title="JVM基本结构"></a>JVM基本结构</h1><p><img src="https://i.loli.net/2019/01/27/5c4da4fd52753.png" alt="Alt text"></p>
 <hr>
 <h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><p>&ensp; <font size="4">-每个线程拥有一个PC寄存器</font><br>&ensp; <font size="4">-在线程创建时创建</font><br>&ensp; <font size="4">-指向下一条指令的地址</font><br>&ensp; <font size="4">-执行本地方法时，PC的值为underfined</font></p>
 <h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>&ensp; <font size="4">保存装载的类信息</font></p>
@@ -218,22 +218,22 @@ var _hmt = _hmt || [];
 <hr>
 <font size="4.5"><strong>Java栈 - 局部变量表包含参数和局部变量</strong></font>  
 
-<p><img src="http://pbqf89lam.bkt.clouddn.com/023..png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/024..png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4da5026009e.png" alt="Alt text"><img src="https://i.loli.net/2019/01/27/5c4da504d1488.png" alt="Alt text"></p>
 <font size="4.5"><strong>Java栈 - 函数调用组成帧栈</strong></font>  
 
-<p><img src="http://pbqf89lam.bkt.clouddn.com/025.png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4da50676406.png" alt="Alt text"></p>
 <font size="4.5"><strong>Java栈 - 操作数栈</strong></font>  
 
 <p>&ensp; <font size="4">Java没有寄存器，所有所有参数传递使用操作数栈</font>  </p>
-<p><img src="http://pbqf89lam.bkt.clouddn.com/026.png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4da5087e34c.png" alt="Alt text"></p>
 <font size="4.5"><strong>Java栈 - 栈上分配</strong></font>  
 
 <p>&ensp; <font size="4">小对象(一般几十个bytes)，在没有逃逸的情况下，可以直接分配在栈上</font><br>    &ensp; <font size="4">直接分配在栈上，可以自动回收，减轻GC压力</font><br>    &ensp; <font size="4">大对象或者逃逸对象无法栈上分配</font>  </p>
-<p><img src="http://pbqf89lam.bkt.clouddn.com/027.png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4da509ef93c.png" alt="Alt text"></p>
 <hr>
 <h1 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h1><hr>
 <p>&ensp; <font size="4"><strong>每一个线程有一个工作内存和主存独立</strong></font><br>&ensp; <font size="4"><strong>工作内存存放主存中变量的值的拷贝</strong></font>  </p>
-<p><img src="http://pbqf89lam.bkt.clouddn.com/028.png" alt="Alt text"><img src="http://pbqf89lam.bkt.clouddn.com/029...png" alt="Alt text"></p>
+<p><img src="https://i.loli.net/2019/01/27/5c4da50b11c5d.png" alt="Alt text"><img src="https://i.loli.net/2019/01/27/5c4da50c4a3ad.png" alt="Alt text"></p>
 <h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><blockquote>
 <ul>
 <li><font size="4">volatile不能代替锁，一般认为volatile比锁性能好(不绝对)</font></li>
@@ -576,11 +576,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,10 +593,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
             
             <div class="clearfix"></div>

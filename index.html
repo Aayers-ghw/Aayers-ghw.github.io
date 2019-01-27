@@ -183,14 +183,8 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="上传本地项目到GitHub，git提交步骤"><a href="#上传本地项目到GitHub，git提交步骤" class="headerlink" title="上传本地项目到GitHub，git提交步骤"></a>上传本地项目到GitHub，git提交步骤</h3><ol>
-<li>git init     //初始化仓库</li>
-<li>git add .(文件name)    //添加文件到本地仓库</li>
-<li>git commit -m “first commit”        //添加文件描述信息</li>
-<li>git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支</li>
-<li>git push -u origin master    //把本地仓库的文件推送到远程仓库</li>
-</ol>
-<p>提交之后出现错误  </p>
+<h3 id="上传本地项目到GitHub，git提交步骤"><a href="#上传本地项目到GitHub，git提交步骤" class="headerlink" title="上传本地项目到GitHub，git提交步骤"></a>上传本地项目到GitHub，git提交步骤</h3><font size="4">1. git init     //初始化仓库<br>2. git add .(文件name)    //添加文件到本地仓库<br>3. git commit -m “first commit”        //添加文件描述信息<br>4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支<br>5. git push -u origin master    //把本地仓库的文件推送到远程仓库<br><br>提交之后出现错误</font>  
+
 <p><img src="https://i.loli.net/2019/01/27/5c4d4e6d99a18.jpg" alt="Alt text"></p>
         
           <a class="article-more-a" href="/2019/01/27/git推送更新出现错误/#more">more >></a>
@@ -342,10 +336,9 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>转至：<a href="https://github.com/francistao/LearningNotes" target="_blank" rel="noopener">https://github.com/francistao/LearningNotes</a></p>
-<h2 id="LinkedHashMap简介"><a href="#LinkedHashMap简介" class="headerlink" title="LinkedHashMap简介"></a>LinkedHashMap简介</h2><p>LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。</p>
-<p>LinkedHashMap可以用来实现LRU算法（这会在下面的源码中进行分析）。</p>
-<p>LinkedHashMap同样是非线程安全的，只在单线程环境下使用。</p>
-<h2 id="LinkedHashMap源码剖析"><a href="#LinkedHashMap源码剖析" class="headerlink" title="LinkedHashMap源码剖析"></a>LinkedHashMap源码剖析</h2><p>LinkedHashMap源码如下（加入了详细的注释）：</p>
+<h2 id="LinkedHashMap简介"><a href="#LinkedHashMap简介" class="headerlink" title="LinkedHashMap简介"></a>LinkedHashMap简介</h2><font size="4">LinkedHashMap是HashMap的子类，与HashMap有着同样的存储结构，但它加入了一个双向链表的头结点，将所有put到LinkedHashmap的节点一一串成了一个双向循环链表，因此它保留了节点插入的顺序，可以使节点的输出顺序与输入顺序相同。<br><br>LinkedHashMap可以用来实现LRU算法（这会在下面的源码中进行分析）。<br><br>LinkedHashMap同样是非线程安全的，只在单线程环境下使用。</font>
+
+<h2 id="LinkedHashMap源码剖析"><a href="#LinkedHashMap源码剖析" class="headerlink" title="LinkedHashMap源码剖析"></a>LinkedHashMap源码剖析</h2><font size="4">LinkedHashMap源码如下（加入了详细的注释）：</font>
         
           <a class="article-more-a" href="/2019/01/25/LinkedList源码解剖/#more">more >></a>
         
@@ -736,7 +729,7 @@ var _hmt = _hmt || [];
       
         <font size="4">这几个Java小程序是自己课堂老师布置的作业，想把自己完成的和大家分享一下</font>   
 
-<h3 id="题目一："><a href="#题目一：" class="headerlink" title="题目一："></a>题目一：</h3><font color="gray" size="4">要求实现这样一个带功能的界面的</font><br><img src="http://pbqf89lam.bkt.clouddn.com/030.png" alt="Alt text"><br>
+<h3 id="题目一："><a href="#题目一：" class="headerlink" title="题目一："></a>题目一：</h3><font color="gray" size="4">要求实现这样一个带功能的界面的</font><br><img src="https://i.loli.net/2019/01/27/5c4da50d882f0.png" alt="Alt text"><br>
         
           <a class="article-more-a" href="/2018/11/03/java-job1/#more">more >></a>
         
@@ -816,7 +809,7 @@ var _hmt = _hmt || [];
 <h2 id="默认的Shuffle操作的原理剖析"><a href="#默认的Shuffle操作的原理剖析" class="headerlink" title="默认的Shuffle操作的原理剖析"></a>默认的Shuffle操作的原理剖析</h2><font color="gray" size="4">在Spark中，什么情况下，会发生shuffle？reduceByKey、groupByKey、sortByKey、countByKey、join、cogroup等操作。</font>  
 
 
-<p><img src="http://pbqf89lam.bkt.clouddn.com/%E6%99%AE%E9%80%9A%E7%9A%84Shuffle%E6%93%8D%E4%BD%9C%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.png" alt="Alt text"><br>
+<p><img src="https://i.loli.net/2019/01/27/5c4daf803a677.png" alt="Alt text"><br>
         
           <a class="article-more-a" href="/2018/11/03/spark-shuffle/#more">more >></a>
         
@@ -1073,11 +1066,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1086,10 +1083,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
             
             <div class="clearfix"></div>

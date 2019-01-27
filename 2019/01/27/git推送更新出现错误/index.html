@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>git推送更新出现错误 | Aayers-ghw&#39;s bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上传本地项目到GitHub，git提交步骤 git init     //初始化仓库 git add .(文件name)    //添加文件到本地仓库 git commit -m “first commit”        //添加文件描述信息 git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支 git push -u origin master">
+  <meta name="description" content="上传本地项目到GitHub，git提交步骤1. git init     //初始化仓库2. git add .(文件name)    //添加文件到本地仓库3. git commit -m “first commit”        //添加文件描述信息4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支5. git push -u origi">
 <meta name="keywords" content="GitHub">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git推送更新出现错误">
 <meta property="og:url" content="http://yoursite.com/2019/01/27/git推送更新出现错误/index.html">
 <meta property="og:site_name" content="Aayers-ghw&#39;s bolg">
-<meta property="og:description" content="上传本地项目到GitHub，git提交步骤 git init     //初始化仓库 git add .(文件name)    //添加文件到本地仓库 git commit -m “first commit”        //添加文件描述信息 git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支 git push -u origin master">
+<meta property="og:description" content="上传本地项目到GitHub，git提交步骤1. git init     //初始化仓库2. git add .(文件name)    //添加文件到本地仓库3. git commit -m “first commit”        //添加文件描述信息4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支5. git push -u origi">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://i.loli.net/2019/01/27/5c4d4e6d99a18.jpg">
 <meta property="og:image" content="https://i.loli.net/2019/01/27/5c4d4edec8cc3.jpg">
-<meta property="og:updated_time" content="2019-01-27T06:27:26.175Z">
+<meta property="og:updated_time" content="2019-01-27T13:29:48.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git推送更新出现错误">
-<meta name="twitter:description" content="上传本地项目到GitHub，git提交步骤 git init     //初始化仓库 git add .(文件name)    //添加文件到本地仓库 git commit -m “first commit”        //添加文件描述信息 git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支 git push -u origin master">
+<meta name="twitter:description" content="上传本地项目到GitHub，git提交步骤1. git init     //初始化仓库2. git add .(文件name)    //添加文件到本地仓库3. git commit -m “first commit”        //添加文件描述信息4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支5. git push -u origi">
 <meta name="twitter:image" content="https://i.loli.net/2019/01/27/5c4d4e6d99a18.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Aayers-ghw&#39;s bolg" type="application/atom+xml">
@@ -189,35 +189,17 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<h3 id="上传本地项目到GitHub，git提交步骤"><a href="#上传本地项目到GitHub，git提交步骤" class="headerlink" title="上传本地项目到GitHub，git提交步骤"></a>上传本地项目到GitHub，git提交步骤</h3><ol>
-<li>git init     //初始化仓库</li>
-<li>git add .(文件name)    //添加文件到本地仓库</li>
-<li>git commit -m “first commit”        //添加文件描述信息</li>
-<li>git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支</li>
-<li>git push -u origin master    //把本地仓库的文件推送到远程仓库</li>
-</ol>
-<p>提交之后出现错误  </p>
+<h3 id="上传本地项目到GitHub，git提交步骤"><a href="#上传本地项目到GitHub，git提交步骤" class="headerlink" title="上传本地项目到GitHub，git提交步骤"></a>上传本地项目到GitHub，git提交步骤</h3><font size="4">1. git init     //初始化仓库<br>2. git add .(文件name)    //添加文件到本地仓库<br>3. git commit -m “first commit”        //添加文件描述信息<br>4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支<br>5. git push -u origin master    //把本地仓库的文件推送到远程仓库<br><br>提交之后出现错误</font>  
+
 <p><img src="https://i.loli.net/2019/01/27/5c4d4e6d99a18.jpg" alt="Alt text"></p>
 <a id="more"></a>
-<p>出现此报错，因该先执行 <code>git pull origin master</code> 把本地仓库的变化连接到远程仓库主分支<br>所以正确的步骤应该是：</p>
-<ol>
-<li>git init     //初始化仓库</li>
-<li>git add .(文件name)    //添加文件到本地仓库</li>
-<li>git commit -m “first commit”        //添加文件描述信息</li>
-<li>git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支</li>
-<li>git pull origin master    //把本地仓库的变化连接到远程仓库主分支</li>
-<li>git push -u origin master    //把本地仓库的文件推送到远程仓库</li>
-</ol>
-<p>但是到这里可能还会报错  </p>
+<font size="4">出现此报错，因该先执行 <code>git pull origin master</code> 把本地仓库的变化连接到远程仓库主分支<br>所以正确的步骤应该是：<br>1. git init     //初始化仓库<br>2. git add .(文件name)    //添加文件到本地仓库<br>3. git commit -m “first commit”        //添加文件描述信息<br>4. git remote add origin + 远程仓库地址    //链接远程仓库，创建主分支<br>5. git pull origin master    //把本地仓库的变化连接到远程仓库主分支<br>6. git push -u origin master    //把本地仓库的文件推送到远程仓库<br><br>但是到这里可能还会报错</font>  
+
 <p><img src="https://i.loli.net/2019/01/27/5c4d4edec8cc3.jpg" alt="Alt text"></p>
-<p>这是因为如果合并了两个不同的开始提交的仓库，在新的git会发现这两个仓库可能不是同一个，为了防止开发者上传错误，于是就给下面的提示<br><code>fatal: refusing to merge unrelated histories</code></p>
-<p>如我在Github新建一个仓库，写了License然后把本地一个写了很久仓库上传。这时会发现github的仓库和本地的没有一个共同的commit所以git不让提交,认为是写错了<code>origin</code>，如果开发者确定是这个<code>origin</code>就可以使用<code>--allow-unrelated-histories</code>告诉git自己确定</p>
-<p>遇到无法提交的问题，一般先pull也就是使用<code>git pull origin master</code>这里的<code>origin</code>就是仓库，而<code>master</code>就是需要上传的分支，因为两个仓库不同，发现 git 输出<code>refusing to merge unrelated histories</code>无法pull内容</p>
-<p>因为他们是两个不同的项目，要把两个不同的项目合并，git需要添加一句代码，在<code>git pull</code>之后，这句代码是在git 2.9.2版本发生的，最新的版本需要添加<code>--allow-unrelated-histories</code>告诉git 允许不相关历史合并</p>
-<p>假如我们的源是origin，分支是master，那么我们需要这样写<code>git pull origin master --allow-unrelated-histories</code>如果有设置了默认上传分支就可以用下面代码<font size="4" face="黑体"></font></p>
-<p><table><tr><td bgcolor="#F5F5F5">git pull –allow-unrelated-histories</td></tr></table></p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><table><tr><td bgcolor="#F5F5F5">git push -f</td></tr></table>这个要慎用，如果没有更新服务器的代码到本地仓库，直接使用 <code>git push -f</code>会强制将本地的修改覆盖了远程仓库的版本，将之前的commit都给冲掉了，而且无法使用通常的<code>git reset</code>方式回滚，因为使用<code>git log</code>查看远程仓库的提交历史已经没有在这之前提交的commit记录了。</p>
-<p>如果想找回记录可以参考    <a href="http://blog.sina.com.cn/s/blog_66cd08930102x0ln.html" target="_blank" rel="noopener">记一次git push -f 后的回滚操作</a></p>
+<font size="4">这是因为如果合并了两个不同的开始提交的仓库，在新的git会发现这两个仓库可能不是同一个，为了防止开发者上传错误，于是就给下面的提示<br><code>fatal: refusing to merge unrelated histories</code><br><br>如我在Github新建一个仓库，写了License然后把本地一个写了很久仓库上传。这时会发现github的仓库和本地的没有一个共同的commit所以git不让提交,认为是写错了<code>origin</code>，如果开发者确定是这个<code>origin</code>就可以使用<code>--allow-unrelated-histories</code>告诉git自己确定<br><br>遇到无法提交的问题，一般先pull也就是使用<code>git pull origin master</code>这里的<code>origin</code>就是仓库，而<code>master</code>就是需要上传的分支，因为两个仓库不同，发现 git 输出<code>refusing to merge unrelated histories</code>无法pull内容<br><br>因为他们是两个不同的项目，要把两个不同的项目合并，git需要添加一句代码，在<code>git pull</code>之后，这句代码是在git 2.9.2版本发生的，最新的版本需要添加<code>--allow-unrelated-histories</code>告诉git 允许不相关历史合并<br><br>假如我们的源是origin，分支是master，那么我们需要这样写<code>git pull origin master --allow-unrelated-histories</code>如果有设置了默认上传分支就可以用下面代码</font><font size="4" face="黑体"><br><table><tr><td bgcolor="#F5F5F5">git pull –allow-unrelated-histories</td></tr></table></font>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><table><tr><td bgcolor="#F5F5F5">git push -f</td></tr></table><font size="4">这个要慎用，如果没有更新服务器的代码到本地仓库，直接使用 <code>git push -f</code>会强制将本地的修改覆盖了远程仓库的版本，将之前的commit都给冲掉了，而且无法使用通常的<code>git reset</code>方式回滚，因为使用<code>git log</code>查看远程仓库的提交历史已经没有在这之前提交的commit记录了。</font></p>
+<p><font size="4">如果想找回记录可以参考</font>    <a href="http://blog.sina.com.cn/s/blog_66cd08930102x0ln.html" target="_blank" rel="noopener">记一次git push -f 后的回滚操作</a></p>
 
       
 
@@ -481,11 +463,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,10 +480,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Github</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">spark</a>
               </li>
             
             <div class="clearfix"></div>
